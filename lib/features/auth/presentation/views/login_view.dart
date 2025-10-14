@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
@@ -74,6 +75,9 @@ class LoginView extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                    ],
                     onChanged:
                         (v) => ref.read(_nicknameProvider.notifier).state = v,
                   ),
@@ -86,6 +90,9 @@ class LoginView extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                    ],
                     onChanged:
                         (v) => ref.read(_passwordProvider.notifier).state = v,
                   ),
