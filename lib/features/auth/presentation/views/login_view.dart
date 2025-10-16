@@ -1,10 +1,13 @@
+import 'dart:ui';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:motion_toast/motion_toast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
-import 'package:pami_app/routing/routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/features/auth/presentation/viewmodels/auth_viewmodel.dart';
+import 'package:pami_app/routing/routes.dart';
 
 class LoginView extends ConsumerWidget {
   const LoginView({super.key});
@@ -14,20 +17,10 @@ class LoginView extends ConsumerWidget {
     final authState = ref.watch(authViewModelProvider);
     final authViewModel = ref.watch(authViewModelProvider.notifier);
 
+    // Listen for auth state changes
     ref.listen(authViewModelProvider, (previous, next) {
       if (previous?.isLoading == true && next.isLoading == false) {
-        if (next.error != null) {
-          MotionToast.error(
-            title: const Text("Error"),
-            description: Text(authState.error!),
-            animationType: AnimationType.slideInFromBottom,
-          ).show(context);
-        } else if (next.user?.accessToken != null) {
-          MotionToast.success(
-            title: const Text("Éxito"),
-            description: const Text("Inicio de sesión exitoso 🎉"),
-          ).show(context);
-
+        if (next.user?.accessToken != null && next.error == null) {
           Future.delayed(const Duration(milliseconds: 500), () {
             if (context.mounted) {
               context.go(Routes.home);
@@ -37,77 +30,220 @@ class LoginView extends ConsumerWidget {
       }
     });
 
+    // Set status bar to transparent with appropriate icon brightness
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness:
+            Theme.of(context).brightness == Brightness.dark
+                ? Brightness.light
+                : Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+
+    // Ensure edge-to-edge rendering
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Theme.of(context).colorScheme.primary, // Vivid Purple
+              Theme.of(context).colorScheme.secondary, // Bright Blue
+            ],
+          ),
+        ),
+        child: SafeArea(
+          bottom: false,
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 16.0,
+              ),
+              child: FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: _buildLoginCard(context, authState, authViewModel, ref),
+              ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.lock_outline,
-                    size: 64,
-                    color: Colors.blueAccent,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Inicia Sesión",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person_outline),
-                      label: Text("Nombre de Usuario"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginCard(
+    BuildContext context,
+    AuthState authState,
+    AuthViewModel authViewModel,
+    WidgetRef ref,
+  ) {
+    // Access the default shadow color from elevatedButtonTheme.style
+    final defaultShadowColor =
+        Theme.of(context).elevatedButtonTheme.style?.shadowColor
+            ?.resolve(<MaterialState>{}) // Resolve with an empty set of states
+            ?.withOpacity(0.1) ??
+        Colors.black.withOpacity(0.1);
+
+    // Get border color from card theme shape
+    final borderColor =
+        (Theme.of(context).cardTheme.shape as RoundedRectangleBorder?)
+            ?.side
+            .color ??
+        Theme.of(context).colorScheme.onSurface.withOpacity(0.3);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardTheme.color, // Translucent card color
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: defaultShadowColor,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        border: Border.all(color: borderColor),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            padding: const EdgeInsets.all(32.0),
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/logo.png',
+                  height: 80,
+                  errorBuilder:
+                      (context, error, stackTrace) => Text(
+                        'PAMI App',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                       ),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  "Inicia Sesión",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 16),
+                FadeIn(
+                  duration: const Duration(milliseconds: 300),
+                  child:
+                      authState.error == null
+                          ? const SizedBox.shrink()
+                          : ShakeX(
+                            duration: const Duration(milliseconds: 600),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              margin: const EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.error.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.error_outline,
+                                    color: Colors.redAccent,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      authState.error ?? "Error Inesperado",
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium?.copyWith(
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person_outline,
+                      color:
+                          Theme.of(
+                            context,
+                          ).inputDecorationTheme.labelStyle?.color,
                     ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                    ],
-                    onChanged:
-                        (v) => ref.read(_nicknameProvider.notifier).state = v,
+                    labelText: "Nombre de Usuario",
+                    border: Theme.of(context).inputDecorationTheme.border,
+                    focusedBorder:
+                        Theme.of(context).inputDecorationTheme.focusedBorder,
+                    filled: true,
+                    fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+                    labelStyle:
+                        Theme.of(context).inputDecorationTheme.labelStyle,
                   ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock_outline),
-                      label: Text("Contraseña"),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                  ],
+                  onChanged:
+                      (v) => ref.read(_nicknameProvider.notifier).state = v,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color:
+                          Theme.of(
+                            context,
+                          ).inputDecorationTheme.labelStyle?.color,
                     ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                    ],
-                    onChanged:
-                        (v) => ref.read(_passwordProvider.notifier).state = v,
+                    labelText: "Contraseña",
+                    border: Theme.of(context).inputDecorationTheme.border,
+                    focusedBorder:
+                        Theme.of(context).inputDecorationTheme.focusedBorder,
+                    filled: true,
+                    fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+                    labelStyle:
+                        Theme.of(context).inputDecorationTheme.labelStyle,
                   ),
-                  const SizedBox(height: 30),
-                  SizedBox(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  obscureText: true,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                  ],
+                  onChanged:
+                      (v) => ref.read(_passwordProvider.notifier).state = v,
+                ),
+                const SizedBox(height: 24),
+                ZoomIn(
+                  duration: const Duration(milliseconds: 400),
+                  child: SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 3,
-                      ),
+                      style: Theme.of(context).elevatedButtonTheme.style,
                       onPressed:
                           authState.isLoading
                               ? null
@@ -126,29 +262,20 @@ class LoginView extends ConsumerWidget {
                                   strokeWidth: 2,
                                 ),
                               )
-                              : const Text(
+                              : Text(
                                 'Iniciar sesión',
-                                style: TextStyle(fontSize: 16),
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
                               ),
                     ),
                   ),
-                  // if (authState.error != null)
-                  //   Padding(
-                  //     padding: const EdgeInsets.only(top: 12),
-                  //     child: Text(
-                  //       authState.error!,
-                  //       style: const TextStyle(color: Colors.red),
-                  //     ),
-                  //   ),
-                  // if (authState.user?.accessToken != null)
-                  //   MotionToast.success(
-                  //     title: const Text("Éxito"),
-                  //     description: const Text("Inicio de sesión exitoso 🎉"),
-                  //     animationType: AnimationType.slideInFromBottom,
-                  //     position: MotionToastPosition.bottom,
-                  //   ).show(context);
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

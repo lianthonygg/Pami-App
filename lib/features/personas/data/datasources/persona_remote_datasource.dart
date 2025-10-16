@@ -1,21 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:pami_app/core/error/server_exception.dart';
-import 'package:pami_app/features/auth/data/model/user_model.dart';
+import 'package:pami_app/features/personas/data/model/persona_model.dart';
 
-class AuthRemoteDatasource {
+class PersonaRemoteDatasource {
   final Dio dio;
 
-  AuthRemoteDatasource(this.dio);
+  PersonaRemoteDatasource(this.dio);
 
-  Future<UserModel> login(String nickname, String password) async {
+  Future<PersonaModel> getByCI(String ci) async {
     try {
-      final response = await dio.post(
-        '/auth/login',
-        data: {'username': nickname, 'password': password},
+      final response = await dio.get(
+        '/persona/$ci',
         options: Options(headers: {'X-Mobile-App': true}),
       );
 
-      return UserModel.fromJson(response.data);
+      return PersonaModel.fromJson(response.data);
     } on DioException catch (e) {
       if (e.response != null && e.response?.data is Map<String, dynamic>) {
         final data = e.response!.data as Map<String, dynamic>;

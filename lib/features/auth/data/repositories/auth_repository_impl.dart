@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final UserModel user = await remoteDatasource.login(nickname, password);
       return user;
     } catch (e) {
-      throw Exception('Error al iniciar sesión: $e');
+      rethrow;
     }
   }
 }

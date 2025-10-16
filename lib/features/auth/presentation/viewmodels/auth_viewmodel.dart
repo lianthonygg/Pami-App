@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/auth/domain/entities/user.dart';
 import 'package:pami_app/features/auth/domain/usecases/login_usecase.dart';
 
@@ -13,6 +14,8 @@ class AuthViewModel extends StateNotifier<AuthState> {
     try {
       final user = await loginUseCase(nickname, password);
       state = state.copyWith(isLoading: false, user: user);
+    } on ServerException catch (e) {
+      state = state.copyWith(isLoading: false, error: e.detail);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
     }
