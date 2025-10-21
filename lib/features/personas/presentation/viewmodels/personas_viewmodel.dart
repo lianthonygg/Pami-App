@@ -32,7 +32,7 @@ class PersonasState {
   PersonasState copyWith({bool? isLoading, Persona? persona, String? error}) {
     return PersonasState(
       isLoading: isLoading ?? this.isLoading,
-      persona: persona ?? this.persona,
+      persona: persona,
       error: error,
     );
   }

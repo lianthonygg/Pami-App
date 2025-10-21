@@ -3,7 +3,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pami_app/core/theme/theme.dart';
+import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_viewmodel.dart';
@@ -17,13 +18,13 @@ class LoginView extends ConsumerWidget {
     final authState = ref.watch(authViewModelProvider);
     final authViewModel = ref.watch(authViewModelProvider.notifier);
 
-    // Listen for auth state changes
     ref.listen(authViewModelProvider, (previous, next) {
       if (previous?.isLoading == true && next.isLoading == false) {
         if (next.user?.accessToken != null && next.error == null) {
           Future.delayed(const Duration(milliseconds: 500), () {
             if (context.mounted) {
-              context.go(Routes.home);
+              final isLoggedIn = ref.read(authNotifierProvider).isLoggedIn;
+              if (isLoggedIn) context.go(Routes.home);
             }
           });
         }
@@ -51,15 +52,12 @@ class LoginView extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Theme.of(context).colorScheme.primary, // Vivid Purple
-              Theme.of(context).colorScheme.secondary, // Bright Blue
-            ],
-          ),
+          gradient:
+              Theme.of(context).brightness == Brightness.dark
+                  ? AppTheme.darkBackgroundGradient
+                  : AppTheme.lightBackgroundGradient,
         ),
+
         child: SafeArea(
           bottom: false,
           child: Center(
@@ -85,23 +83,21 @@ class LoginView extends ConsumerWidget {
     AuthViewModel authViewModel,
     WidgetRef ref,
   ) {
-    // Access the default shadow color from elevatedButtonTheme.style
     final defaultShadowColor =
         Theme.of(context).elevatedButtonTheme.style?.shadowColor
-            ?.resolve(<MaterialState>{}) // Resolve with an empty set of states
-            ?.withOpacity(0.1) ??
-        Colors.black.withOpacity(0.1);
+            ?.resolve(<WidgetState>{})
+            ?.withValues(alpha: 0.1) ??
+        Colors.black.withValues(alpha: 0.1);
 
-    // Get border color from card theme shape
     final borderColor =
         (Theme.of(context).cardTheme.shape as RoundedRectangleBorder?)
             ?.side
             .color ??
-        Theme.of(context).colorScheme.onSurface.withOpacity(0.3);
+        Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3);
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color, // Translucent card color
+        color: Theme.of(context).cardTheme.color,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -122,18 +118,21 @@ class LoginView extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(
-                  'assets/logo.png',
-                  height: 80,
-                  errorBuilder:
-                      (context, error, stackTrace) => Text(
-                        'PAMI App',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.headlineMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset(
+                    'assets/logo.png',
+                    height: 100,
+                    errorBuilder:
+                        (context, error, stackTrace) => Text(
+                          'PAMI App',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
-                      ),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Text(
@@ -154,7 +153,7 @@ class LoginView extends ConsumerWidget {
                               decoration: BoxDecoration(
                                 color: Theme.of(
                                   context,
-                                ).colorScheme.error.withOpacity(0.2),
+                                ).colorScheme.error.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
                                   color: Theme.of(context).colorScheme.error,

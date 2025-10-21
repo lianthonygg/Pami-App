@@ -14,24 +14,37 @@ class PersonasView extends ConsumerStatefulWidget {
 }
 
 class _PersonasViewState extends ConsumerState<PersonasView> {
+  late final TextEditingController ciController;
+
+  @override
+  void initState() {
+    super.initState();
+    ciController = TextEditingController(text: ref.read(_ciProvider));
+  }
+
+  @override
+  void dispose() {
+    ciController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final personasState = ref.watch(personasViewModelProvider);
     final personasViewModel = ref.watch(personasViewModelProvider.notifier);
 
-    final ciController = TextEditingController(text: ref.read(_ciProvider));
-
-    const primaryRed = Color(0xFFE53935);
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       extendBody: true,
       drawer: const DynamicDrawer(),
-      backgroundColor: const Color(0xFFF8FAFB),
+      backgroundColor: colorScheme.surfaceContainerHighest,
       appBar: AppBar(
         title: const Text("MINSAP App"),
         centerTitle: true,
-        backgroundColor: primaryRed,
-        foregroundColor: Colors.white,
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: SafeArea(
@@ -40,34 +53,33 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // 🧭 Encabezado
               Text(
                 "Buscar Persona por CI",
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                style: textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: colorScheme.onSurface,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
               Text(
                 "Introduce el número del carnet de identidad para consultar los datos de la persona.",
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
 
-              // 🧾 Tarjeta de búsqueda
+              // Tarjeta de búsqueda
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.06 * 255),
+                      color: colorScheme.shadow.withValues(alpha: 0.06),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -79,19 +91,22 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
                       controller: ciController,
                       decoration: InputDecoration(
                         labelText: "Carnet de Identidad",
-                        prefixIcon: const Icon(
+                        prefixIcon: Icon(
                           Icons.badge_outlined,
-                          color: Colors.grey,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                         filled: true,
-                        fillColor: const Color(0xFFF9FBFC),
+                        fillColor: colorScheme.surfaceContainerHighest,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
                           borderSide: BorderSide.none,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: primaryRed),
+                          borderSide: BorderSide(
+                            color: colorScheme.primary,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                       keyboardType: TextInputType.number,
@@ -114,21 +129,19 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
                                   height: 18,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    color: Colors.white,
                                   ),
                                 )
-                                : const Icon(Icons.search, color: Colors.white),
+                                : const Icon(Icons.search),
                         label: Text(
                           personasState.isLoading ? "Buscando..." : "Buscar",
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: textTheme.labelLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: colorScheme.onPrimary,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryRed,
-                          foregroundColor: Colors.white,
+                          backgroundColor: colorScheme.primary,
+                          foregroundColor: colorScheme.onPrimary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -146,10 +159,9 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
 
-              // 💬 Resultado
+              // Resultado
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child:
@@ -161,12 +173,14 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
                           grupo: personasState.persona!.grupoDispensarial,
                         )
                         : !personasState.isLoading
-                        ? const Padding(
-                          padding: EdgeInsets.all(16.0),
+                        ? Padding(
+                          padding: const EdgeInsets.all(16.0),
                           child: Center(
                             child: Text(
                               "No hay resultados",
-                              style: TextStyle(color: Colors.grey),
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
                             ),
                           ),
                         )
@@ -196,11 +210,12 @@ class _PersonaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryRed = Color(0xFFE53935);
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Card(
       elevation: 4,
-      color: Colors.white,
+      color: colorScheme.surface,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
@@ -208,32 +223,44 @@ class _PersonaCard extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 24,
-            backgroundColor: primaryRed,
-            child: const Icon(Icons.person, color: Colors.white),
+            backgroundColor: colorScheme.primary,
+            child: Icon(Icons.person, color: colorScheme.onPrimary),
           ),
           title: Text(
             name,
-            style: const TextStyle(
+            style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.black87,
+              color: colorScheme.onSurface,
             ),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("CI: $ci", style: const TextStyle(color: Colors.black54)),
+              Text(
+                "CI: $ci",
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
               Text(
                 "Teléfono: $telefono",
-                style: const TextStyle(color: Colors.black54),
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
               Text(
                 "Grupo: $grupo",
-                style: const TextStyle(color: Colors.black54),
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 18,
+            color: colorScheme.primary,
+          ),
           onTap: () {},
         ),
       ),
