@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
 import 'package:pami_app/routing/routes.dart';
 //import 'package:pami_app/routing/routes.dart';
 
@@ -67,6 +68,17 @@ class DynamicDrawer extends ConsumerWidget {
               ),
           ],
           const Divider(thickness: 1, height: 32),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Cerrar sesión'),
+            onTap: () async {
+              await ref.read(authNotifierProvider.notifier).logout();
+              if (context.mounted) {
+                Navigator.pop(context);
+                context.go(Routes.login);
+              }
+            },
+          ),
         ],
       ),
     );

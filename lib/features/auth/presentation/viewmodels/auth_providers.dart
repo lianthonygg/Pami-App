@@ -12,5 +12,5 @@ final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>((
   ref,
 ) {
   final useCase = ref.watch(loginUseCaseProvider);
-  return AuthViewModel(useCase);
+  return AuthViewModel(useCase, ref);
 });
