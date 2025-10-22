@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
-import 'package:pami_app/features/personas/presentation/viewmodels/personas_provider.dart';
+import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
+import 'package:pami_app/routing/routes.dart';
 
 final _ciProvider = StateProvider<String>((ref) => '');
 
@@ -189,6 +191,14 @@ class _PersonasViewState extends ConsumerState<PersonasView> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (context.mounted) {
+            context.push(Routes.createPersona);
+          }
+        },
+        child: Icon(Icons.person_add_alt),
       ),
     );
   }
