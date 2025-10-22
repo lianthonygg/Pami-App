@@ -10,7 +10,7 @@ import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.da
 import 'package:pami_app/features/personas/data/datasources/persona_remote_datasource.dart';
 import 'package:pami_app/features/personas/data/repositories/persona_repository_impl.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
-import 'package:pami_app/features/personas/presentation/viewmodels/personas_provider.dart';
+import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 import 'package:pami_app/routing/router.dart';
 
 void main() {
