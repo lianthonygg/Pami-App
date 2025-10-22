@@ -4,6 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 abstract final class Routes {
   static const home = "/";
   static const personas = "/personas";
+  static const createPersona = "/personas/create";
   static const pregestograma = "/pregestograma";
   static const gestograma = "/gestograma";
   static const posgestograma = "/posgestograma";
@@ -38,5 +39,5 @@ final List<Map<String, dynamic>> accesibleRoutes = [
     'path': Routes.posgestograma,
     'section': "PAMI",
   },
-  {'title': 'Personas', 'icon': Icons.person, 'path': Routes.personas},
+  {'title': 'Pacientes', 'icon': Icons.person, 'path': Routes.personas},
 ];

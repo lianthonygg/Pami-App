@@ -73,8 +73,10 @@ class DynamicDrawer extends ConsumerWidget {
             title: const Text('Cerrar sesión'),
             onTap: () async {
               await ref.read(authNotifierProvider.notifier).logout();
-              Navigator.pop(context);
-              context.go(Routes.login);
+              if (context.mounted) {
+                Navigator.pop(context);
+                context.go(Routes.login);
+              }
             },
           ),
         ],
