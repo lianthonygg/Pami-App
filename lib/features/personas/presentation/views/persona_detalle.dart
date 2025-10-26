@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/features/personas/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 
@@ -12,38 +13,58 @@ class PersonaDetalle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final personaAsync = ref.watch(personaByCiProvider(ci));
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
-        title: Text("Detalle Paciente"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+    return Container(
+      decoration: BoxDecoration(
+        gradient:
+            isDark
+                ? AppTheme.darkBackgroundGradient
+                : AppTheme.lightBackgroundGradient,
       ),
-      body: SafeArea(
-        child: personaAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(child: Text(err.toString())),
-          data: (persona) => _buildPersonaDetalle(persona),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => context.pop(),
+            icon: const Icon(Icons.arrow_back),
+          ),
+          title: const Text("Detalle del Paciente"),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: personaAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error:
+                (err, _) => Center(
+                  child: Text(
+                    err.toString(),
+                    style: TextStyle(color: colorScheme.error),
+                  ),
+                ),
+            data: (persona) => _buildPersonaDetalle(context, persona),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildPersonaDetalle(Persona persona) {
+  Widget _buildPersonaDetalle(BuildContext context, Persona persona) {
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
-        _buildSection("Datos Generales", [
-          _item("Nombre y Apellidos", persona.fullName),
-          _item("CI", persona.ci),
-          _item("Sexo", persona.sexo == "M" ? "Masculino" : "Femenino"),
+        _buildSection(context, "Datos Generales", [
+          _item(context, "Nombre y Apellidos", persona.fullName),
+          _item(context, "CI", persona.ci),
           _item(
+            context,
+            "Sexo",
+            persona.sexo == "M" ? "Masculino" : "Femenino",
+          ),
+          _item(
+            context,
             "Raza",
             persona.raza == "B"
                 ? "Blanca"
@@ -52,37 +73,54 @@ class PersonaDetalle extends ConsumerWidget {
                 : "Negra",
           ),
         ]),
-        _buildSection("Dirección", [
-          _item("Dirección del CI", persona.direccionDelCI),
-          _item("Dirección donde vive", persona.direccionEnQueVive),
-          _item("CDR", persona.cdr.numero),
+        _buildSection(context, "Dirección", [
+          _item(context, "Dirección del CI", persona.direccionDelCI),
+          _item(context, "Dirección donde vive", persona.direccionEnQueVive),
+          _item(context, "Circunscripción", persona.circunscripcion.numero),
+          _item(context, "CDR", persona.cdr.numero),
         ]),
-        _buildSection("Contacto", [_item("Teléfono", persona.telefono)]),
-        _buildSection("Otros", [
-          _item("Nivel Escolar", persona.nivelEscolar),
-          _item("Profesión", persona.profesion),
-          _item("Antecedentes Patológicos", persona.antPP),
-          _item("Grupo Dispensarial", persona.grupoDispensarial),
-          _item("Observaciones", persona.observaciones),
+        _buildSection(context, "Contacto", [
+          _item(context, "Teléfono", persona.telefono),
+        ]),
+        _buildSection(context, "Otros", [
+          _item(context, "Nivel Escolar", persona.nivelEscolar),
+          _item(context, "Profesión", persona.profesion),
+          _item(context, "Antecedentes Patológicos", persona.antPP),
+          _item(context, "Grupo Dispensarial", persona.grupoDispensarial),
+          _item(context, "Observaciones", persona.observaciones),
         ]),
       ],
     );
   }
 
-  Widget _buildSection(String title, List<Widget> children) {
+  Widget _buildSection(
+    BuildContext context,
+    String title,
+    List<Widget> children,
+  ) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 16),
+      elevation: theme.cardTheme.elevation,
+      color: theme.cardTheme.color, // usa el translúcido del tema
+      shadowColor: theme.cardTheme.shadowColor,
+      shape: theme.cardTheme.shape,
       child: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(14.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: colorScheme.primary,
+              ),
             ),
-            const Divider(),
+            const Divider(thickness: 1.1),
+            const SizedBox(height: 6),
             ...children,
           ],
         ),
@@ -90,7 +128,10 @@ class PersonaDetalle extends ConsumerWidget {
     );
   }
 
-  Widget _item(String label, String value) {
+  Widget _item(BuildContext context, String label, String value) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Column(
@@ -98,12 +139,17 @@ class PersonaDetalle extends ConsumerWidget {
         children: [
           Text(
             "$label:",
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+            style: theme.textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: colorScheme.onSurface.withValues(alpha: 0.8),
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             value.isEmpty ? "-" : value,
-            style: const TextStyle(fontSize: 15),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurface,
+            ),
           ),
         ],
       ),

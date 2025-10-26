@@ -8,7 +8,7 @@ class DioClient {
   DioClient()
     : dio = Dio(
         BaseOptions(
-          baseUrl: "https://pami-backend-production-fde3.up.railway.app",
+          baseUrl: "https://pami-backend-production-19b7.up.railway.app",
           connectTimeout: const Duration(seconds: 60),
           receiveTimeout: const Duration(seconds: 60),
           headers: {'Content-Type': 'application/json'},

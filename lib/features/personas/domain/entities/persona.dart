@@ -12,6 +12,7 @@ class Persona {
   final String profesion;
   final String grupoDispensarial;
   final String observaciones;
+  final CircunscripcionResponse circunscripcion;
   final CDR cdr;
 
   Persona({
@@ -28,6 +29,7 @@ class Persona {
     required this.profesion,
     required this.grupoDispensarial,
     required this.observaciones,
+    required this.circunscripcion,
     required this.cdr,
   });
 }
@@ -74,6 +76,13 @@ class CreatePersonaResponse {
     required this.fullName,
     required this.ci,
   });
+}
+
+class CircunscripcionResponse {
+  final String id;
+  final String numero;
+
+  CircunscripcionResponse({required this.id, required this.numero});
 }
 
 class CDR {

@@ -15,6 +15,7 @@ class PersonaModel extends Persona {
     required super.profesion,
     required super.grupoDispensarial,
     required super.observaciones,
+    required super.circunscripcion,
     required super.cdr,
   });
 
@@ -32,8 +33,22 @@ class PersonaModel extends Persona {
     profesion: json['profesion'],
     grupoDispensarial: json['grupoDispensarial'],
     observaciones: json['observaciones'],
+    circunscripcion: CircunscripcionModelResponse.fromJson(
+      json["circunscripcion"] ?? {},
+    ),
     cdr: CdrModel.fromJson(json['cdr'] ?? {}),
   );
+}
+
+class CircunscripcionModelResponse extends CircunscripcionResponse {
+  CircunscripcionModelResponse({required super.id, required super.numero});
+
+  factory CircunscripcionModelResponse.fromJson(Map<String, dynamic> json) {
+    return CircunscripcionModelResponse(
+      id: json['id'] ?? '',
+      numero: json['numero']?.toString() ?? '',
+    );
+  }
 }
 
 class CdrModel extends CDR {

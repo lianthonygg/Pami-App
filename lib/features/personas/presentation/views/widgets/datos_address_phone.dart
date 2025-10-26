@@ -14,7 +14,6 @@ class DatosAddressPhone extends ConsumerWidget {
           label: "Dirección del Carnet de Identidad",
           icon: Icons.location_pin,
           initialValue: ref.read(direccionCIProvider),
-          validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
           onChanged:
               (v) => ref.read(direccionCIProvider.notifier).state = v.trim(),
         ),
@@ -23,7 +22,6 @@ class DatosAddressPhone extends ConsumerWidget {
           label: "Dirección en que Vive",
           icon: Icons.home,
           initialValue: ref.read(direccionViveProvider),
-          validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
           onChanged:
               (v) => ref.read(direccionViveProvider.notifier).state = v.trim(),
         ),
