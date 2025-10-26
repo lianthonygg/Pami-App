@@ -8,43 +8,25 @@ class PersonaRemoteDatasource {
 
   PersonaRemoteDatasource(this.dio);
 
+  Future<List<PersonaModel>> getPacientes() async {
+    try {
+      final response = await dio.get("/persona/mobile/get-by-consultorio");
+
+      return (response.data as List)
+          .map((item) => PersonaModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
   Future<PersonaModel> getByCI(String ci) async {
     try {
-      final response = await dio.get(
-        '/persona/$ci',
-        options: Options(headers: {'X-Mobile-App': true}),
-      );
+      final response = await dio.get('/persona/$ci');
 
       return PersonaModel.fromJson(response.data);
     } on DioException catch (e) {
-      if (e.response != null && e.response?.data is Map<String, dynamic>) {
-        final data = e.response!.data as Map<String, dynamic>;
-        final title = data['title'] ?? 'Error';
-        final detail = data['detail'] ?? 'Ocurrió un error inesperado';
-        final status = data['status'] ?? e.response!.statusCode;
-        final code = data['errorCode'] ?? '';
-
-        throw ServerException(
-          title: title.toString(),
-          detail: detail.toString(),
-          status: status is int ? status : int.tryParse(status.toString()) ?? 0,
-          errorCode: code.toString(),
-        );
-      }
-
-      throw ServerException(
-        title: 'Error de red',
-        detail: e.message ?? 'Error desconocido en la conexión',
-        status: e.response?.statusCode ?? 0,
-        errorCode: 'Network.Error',
-      );
-    } catch (e) {
-      throw ServerException(
-        title: 'Excepción',
-        detail: e.toString(),
-        status: 500,
-        errorCode: 'App.Error',
-      );
+      throw e.error as ServerException;
     }
   }
 
@@ -60,34 +42,7 @@ class PersonaRemoteDatasource {
 
       return ResponseCreatePersonaModel.fromJson(response.data);
     } on DioException catch (e) {
-      if (e.response != null && e.response?.data is Map<String, dynamic>) {
-        final data = e.response!.data as Map<String, dynamic>;
-        final title = data['title'] ?? 'Error';
-        final detail = data['detail'] ?? 'Ocurrió un error inesperado';
-        final status = data['status'] ?? e.response!.statusCode;
-        final code = data['errorCode'] ?? '';
-
-        throw ServerException(
-          title: title.toString(),
-          detail: detail.toString(),
-          status: status is int ? status : int.tryParse(status.toString()) ?? 0,
-          errorCode: code.toString(),
-        );
-      }
-
-      throw ServerException(
-        title: 'Error de red',
-        detail: e.message ?? 'Error desconocido en la conexión',
-        status: e.response?.statusCode ?? 0,
-        errorCode: 'Network.Error',
-      );
-    } catch (e) {
-      throw ServerException(
-        title: 'Excepción',
-        detail: e.toString(),
-        status: 500,
-        errorCode: 'App.Error',
-      );
+      throw e.error as ServerException;
     }
   }
 }

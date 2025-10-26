@@ -4,6 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 abstract final class Routes {
   static const home = "/";
   static const personas = "/personas";
+  static const detallePersona = "/personas/detalle/:ci";
   static const createPersona = "/personas/create";
   static const pregestograma = "/pregestograma";
   static const gestograma = "/gestograma";

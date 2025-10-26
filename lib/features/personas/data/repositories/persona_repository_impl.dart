@@ -6,7 +6,9 @@ import 'package:pami_app/features/personas/domain/repositories/persona_repositor
 
 class PersonaRepositoryImpl implements PersonaRepository {
   final PersonaRemoteDatasource remoteDatasource;
+
   PersonaRepositoryImpl(this.remoteDatasource);
+
   @override
   Future<Persona> getByCI(String ci) async {
     try {
@@ -25,6 +27,16 @@ class PersonaRepositoryImpl implements PersonaRepository {
       final ResponseCreatePersonaModel persona = await remoteDatasource
           .createPerson(request);
       return persona;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Persona>> getAll() async {
+    try {
+      final List<PersonaModel> personas = await remoteDatasource.getPacientes();
+      return personas;
     } catch (e) {
       rethrow;
     }

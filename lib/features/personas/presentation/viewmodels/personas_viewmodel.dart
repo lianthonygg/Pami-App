@@ -4,17 +4,30 @@ import 'package:pami_app/features/personas/data/model/create_persona_model.dart'
 import 'package:pami_app/features/personas/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
 
-class PersonasViewModel extends StateNotifier<PersonasState> {
+class PersonasViewModel extends StateNotifier<PersonasState<dynamic>> {
   final PersonaUseCase personaUseCase;
 
   PersonasViewModel(this.personaUseCase) : super(PersonasState());
+
+  Future<void> getAll() async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    try {
+      final personas = await personaUseCase.all();
+      state = state.copyWith(isLoading: false, items: personas);
+    } on ServerException catch (e) {
+      state = state.copyWith(isLoading: false, error: e.detail);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
 
   Future<void> getByCi(String ci) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final persona = await personaUseCase(ci);
-      state = state.copyWith(isLoading: false, persona: persona);
+      state = state.copyWith(isLoading: false, data: persona);
     } on ServerException catch (e) {
       state = state.copyWith(isLoading: false, error: e.detail);
     } catch (e) {
@@ -36,28 +49,32 @@ class PersonasViewModel extends StateNotifier<PersonasState> {
   }
 }
 
-class PersonasState {
+class PersonasState<T> {
   final bool isLoading;
-  final Persona? persona;
+  final List<Persona>? items;
   final CreatePersonaResponse? response;
+  final Persona? data;
   final String? error;
 
   PersonasState({
     this.isLoading = false,
-    this.persona,
+    this.data,
     this.error,
+    this.items,
     this.response,
   });
 
   PersonasState copyWith({
     bool? isLoading,
-    Persona? persona,
-    String? error,
+    Persona? data,
     CreatePersonaResponse? response,
+    String? error,
+    List<Persona>? items,
   }) {
     return PersonasState(
       isLoading: isLoading ?? this.isLoading,
-      persona: persona,
+      data: data,
+      items: items,
       error: error,
       response: response,
     );

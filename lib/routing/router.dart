@@ -7,6 +7,7 @@ import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dar
 import 'package:pami_app/features/auth/presentation/views/login_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/gestograma_view.dart';
 import 'package:pami_app/features/home/presentation/views/home_view.dart';
+import 'package:pami_app/features/personas/presentation/views/persona_detalle.dart';
 import 'package:pami_app/features/personas/presentation/views/persona_form.dart';
 import 'package:pami_app/features/personas/presentation/views/personas_view.dart';
 import 'package:pami_app/features/posgestograma/presentation/views/posgestograma_view.dart';
@@ -48,6 +49,13 @@ GoRouter router() => GoRouter(
       path: Routes.personas,
       builder: (context, state) {
         return PersonasView();
+      },
+    ),
+    GoRoute(
+      path: Routes.detallePersona,
+      builder: (context, state) {
+        final ci = state.pathParameters['ci']!;
+        return PersonaDetalle(ci: ci);
       },
     ),
     GoRoute(

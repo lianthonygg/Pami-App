@@ -1,0 +1,39 @@
+import 'package:dio/dio.dart';
+import 'package:pami_app/core/error/server_exception.dart';
+import 'package:pami_app/features/common/data/model/cdr_model.dart';
+import 'package:pami_app/features/common/data/model/circunscripcion_model.dart';
+
+class CommonRemoteDatasource {
+  final Dio dio;
+
+  CommonRemoteDatasource(this.dio);
+
+  Future<List<CircunscripcionModel>> getCircunscripciones() async {
+    try {
+      final response = await dio.get(
+        "/circunscripcion/mobile/get-circunscripciones",
+      );
+
+      return (response.data as List)
+          .map((item) => CircunscripcionModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
+  Future<List<CdrModel>> getCdrs(String circunscripcion) async {
+    try {
+      final response = await dio.get(
+        "/cdr/mobile/get-by-circunscripcion",
+        queryParameters: {"circunscripcionId": circunscripcion},
+      );
+
+      return (response.data as List)
+          .map((item) => CdrModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+}

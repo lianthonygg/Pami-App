@@ -7,6 +7,10 @@ class PersonaUseCase {
 
   PersonaUseCase(this.repository);
 
+  Future<List<Persona>> all() {
+    return repository.getAll();
+  }
+
   Future<Persona> call(String ci) {
     return repository.getByCI(ci);
   }

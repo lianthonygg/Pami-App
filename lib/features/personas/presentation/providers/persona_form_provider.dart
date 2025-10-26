@@ -1,21 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pami_app/features/common/domain/entities/cdr.dart';
+import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
+import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
+import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 
-class Circunscripcion {
-  final String id;
-  final String nombre;
-  Circunscripcion({required this.id, required this.nombre});
-}
-
-class Cdr {
-  final String id;
-  final String nombre;
-  final String circunscripcionId;
-  Cdr({
-    required this.id,
-    required this.nombre,
-    required this.circunscripcionId,
-  });
-}
+final fullNameProvider = StateProvider<String>((ref) => '');
+final ciProvider = StateProvider<String>((ref) => '');
+final sexoProvider = StateProvider<String>((ref) => '');
+final razaProvider = StateProvider<String>((ref) => '');
+final direccionCIProvider = StateProvider<String>((ref) => '');
+final direccionViveProvider = StateProvider<String>((ref) => '');
+final phoneProvider = StateProvider<String>((ref) => '');
+final antPpProvider = StateProvider<String>((ref) => '');
+final nivelEscolarProvider = StateProvider<String>((ref) => '');
+final profesionProvider = StateProvider<String>((ref) => '');
+final grupoDispensarialProvider = StateProvider<String>((ref) => '');
+final observacionesProvider = StateProvider<String>((ref) => '');
 
 // ==== STATE ====
 class SelectState<T> {
@@ -49,21 +49,22 @@ class SelectState<T> {
 // ==== NOTIFIERS ====
 class CircunscripcionNotifier
     extends StateNotifier<SelectState<Circunscripcion>> {
-  CircunscripcionNotifier() : super(const SelectState());
+  final CircunscripcionUseCase circunscripcionUseCase;
+
+  CircunscripcionNotifier(this.circunscripcionUseCase)
+    : super(const SelectState());
 
   Future<void> load() async {
     state = state.copyWith(isLoading: true);
 
-    await Future.delayed(const Duration(milliseconds: 800));
-    final mock = [
-      Circunscripcion(
-        id: '97eaf158-9040-41fd-acbf-4bacd78bd7d5',
-        nombre: 'Circunscripción 1',
-      ),
-      Circunscripcion(id: '2', nombre: 'Circunscripción 2'),
-    ];
+    try {
+      final circunscripciones =
+          await circunscripcionUseCase.getCircunscripciones();
 
-    state = state.copyWith(isLoading: false, items: mock);
+      state = state.copyWith(isLoading: false, items: circunscripciones);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
   }
 
   void select(Circunscripcion c) {
@@ -72,41 +73,22 @@ class CircunscripcionNotifier
 }
 
 class CdrNotifier extends StateNotifier<SelectState<Cdr>> {
-  CdrNotifier() : super(const SelectState());
+  final CdrUseCase cdrUseCase;
+
+  CdrNotifier(this.cdrUseCase) : super(const SelectState());
 
   Future<void> load(String circunscripcionId) async {
     state = state.copyWith(isLoading: true);
 
-    await Future.delayed(const Duration(milliseconds: 600)); // simula backend
-    final mock =
-        [
-          Cdr(
-            id: 'e1172efa-cf2b-411d-997c-6c69f0aca0a3',
-            nombre: 'CDR 1',
-            circunscripcionId: '97eaf158-9040-41fd-acbf-4bacd78bd7d5',
-          ),
-          Cdr(
-            id: 'b',
-            nombre: 'CDR 2',
-            circunscripcionId: '97eaf158-9040-41fd-acbf-4bacd78bd7d5',
-          ),
-          Cdr(id: 'c', nombre: 'CDR 3', circunscripcionId: '2'),
-        ].where((cdr) => cdr.circunscripcionId == circunscripcionId).toList();
-
-    state = state.copyWith(isLoading: false, items: mock);
+    try {
+      final cdrs = await cdrUseCase.getCdrs(circunscripcionId);
+      state = state.copyWith(isLoading: false, items: cdrs);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
   }
 
-  void select(Cdr c) {
+  void select(Cdr? c) {
     state = state.copyWith(selected: c);
   }
 }
-
-// ==== PROVIDERS ====
-final circunscripcionProvider = StateNotifierProvider<
-  CircunscripcionNotifier,
-  SelectState<Circunscripcion>
->((ref) => CircunscripcionNotifier());
-
-final cdrProvider = StateNotifierProvider<CdrNotifier, SelectState<Cdr>>(
-  (ref) => CdrNotifier(),
-);

@@ -7,6 +7,10 @@ import 'package:pami_app/features/auth/data/datasources/auth_remote_datasource.d
 import 'package:pami_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:pami_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
+import 'package:pami_app/features/common/data/datasources/common_remote_datasource.dart';
+import 'package:pami_app/features/common/data/repositories/common_repository_impl.dart';
+import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
+import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 import 'package:pami_app/features/personas/data/datasources/persona_remote_datasource.dart';
 import 'package:pami_app/features/personas/data/repositories/persona_repository_impl.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
@@ -30,6 +34,18 @@ void main() {
           final dataSource = PersonaRemoteDatasource(dio);
           final repo = PersonaRepositoryImpl(dataSource);
           return PersonaUseCase(repo);
+        }),
+        circunscripcionesUseCaseProvider.overrideWith((ref) {
+          final dio = ref.watch(dioProvider);
+          final dataSource = CommonRemoteDatasource(dio);
+          final repo = CommonRepositoryImpl(dataSource);
+          return CircunscripcionUseCase(repo);
+        }),
+        cdrUseCaseProvider.overrideWith((ref) {
+          final dio = ref.watch(dioProvider);
+          final dataSource = CommonRemoteDatasource(dio);
+          final repo = CommonRepositoryImpl(dataSource);
+          return CdrUseCase(repo);
         }),
       ],
       child: const MyApp(),

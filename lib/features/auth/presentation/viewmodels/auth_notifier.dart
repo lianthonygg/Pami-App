@@ -47,7 +47,6 @@ class AuthNotifier extends Notifier<AuthNotifierState> {
     state = const AuthNotifierState(accessToken: null);
   }
 
-  /// (Listo para usar más adelante)
   Future<void> refreshAccessToken() async {
     final refreshToken = await AuthService.getRefreshToken();
     if (refreshToken == null) {
