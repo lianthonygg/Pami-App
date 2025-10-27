@@ -1,4 +1,4 @@
-import 'package:pami_app/features/personas/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 
 class ResponseCreatePersonaModel extends CreatePersonaResponse {
   ResponseCreatePersonaModel({
@@ -30,6 +30,7 @@ class CreatePersonaRequest extends CreatePersonaPost {
     required super.grupoDispensarial,
     required super.observaciones,
     required super.cdrId,
+    required super.isController,
   });
 
   Map<String, dynamic> toJson() {
@@ -47,6 +48,7 @@ class CreatePersonaRequest extends CreatePersonaPost {
       "grupoDispensarial": grupoDispensarial,
       "observaciones": observaciones.trim(),
       "cdr": cdrId,
+      "isController": isController,
     };
   }
 }

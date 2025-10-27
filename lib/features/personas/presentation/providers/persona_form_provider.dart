@@ -16,6 +16,7 @@ final nivelEscolarProvider = StateProvider<String>((ref) => '');
 final profesionProvider = StateProvider<String>((ref) => '');
 final grupoDispensarialProvider = StateProvider<String>((ref) => '');
 final observacionesProvider = StateProvider<String>((ref) => '');
+final controladaProvider = StateProvider<String>((ref) => 'false');
 
 // ==== STATE ====
 class SelectState<T> {
@@ -67,8 +68,12 @@ class CircunscripcionNotifier
     }
   }
 
-  void select(Circunscripcion c) {
+  void select(Circunscripcion? c) {
     state = state.copyWith(selected: c);
+  }
+
+  void reset() {
+    state = const SelectState();
   }
 }
 
@@ -90,5 +95,9 @@ class CdrNotifier extends StateNotifier<SelectState<Cdr>> {
 
   void select(Cdr? c) {
     state = state.copyWith(selected: c);
+  }
+
+  void reset() {
+    state = const SelectState();
   }
 }

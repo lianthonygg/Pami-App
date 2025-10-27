@@ -1,4 +1,4 @@
-import 'package:pami_app/features/personas/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 
 class PersonaModel extends Persona {
   PersonaModel({
@@ -36,7 +36,7 @@ class PersonaModel extends Persona {
     circunscripcion: CircunscripcionModelResponse.fromJson(
       json["circunscripcion"] ?? {},
     ),
-    cdr: CdrModel.fromJson(json['cdr'] ?? {}),
+    cdr: CdrModelResponse.fromJson(json['cdr'] ?? {}),
   );
 }
 
@@ -51,11 +51,11 @@ class CircunscripcionModelResponse extends CircunscripcionResponse {
   }
 }
 
-class CdrModel extends CDR {
-  CdrModel({required super.id, required super.numero});
+class CdrModelResponse extends CDR {
+  CdrModelResponse({required super.id, required super.numero});
 
-  factory CdrModel.fromJson(Map<String, dynamic> json) {
-    return CdrModel(
+  factory CdrModelResponse.fromJson(Map<String, dynamic> json) {
+    return CdrModelResponse(
       id: json['id'] ?? '',
       numero: json['numero']?.toString() ?? '',
     );

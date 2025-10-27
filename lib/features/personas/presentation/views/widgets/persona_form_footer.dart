@@ -54,6 +54,7 @@ class PersonaFormFooter extends ConsumerWidget {
                     grupoDispensarial: ref.read(grupoDispensarialProvider),
                     observaciones: ref.read(observacionesProvider) ?? "",
                     cdrId: cdrSeleccionado.id,
+                    isController: ref.read(controladaProvider) == "true",
                   );
 
                   personasViewModel.createPerson(data);

@@ -6,8 +6,18 @@ class GestogramaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: Text("MINSAP App")),
+      extendBody: true,
+      appBar: AppBar(
+        title: Text("MINSAP App"),
+        centerTitle: true,
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 0,
+      ),
+      backgroundColor: colorScheme.surfaceContainerHighest,
       drawer: const DynamicDrawer(),
       body: Center(child: Text("GESTOGRAMA VIEW")),
     );

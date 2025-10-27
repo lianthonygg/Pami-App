@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/theme/theme.dart';
+import 'package:pami_app/features/common/presentation/widgets/dropdown_field.dart';
 import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
 import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
@@ -26,14 +27,27 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
     final circState = ref.watch(circunscripcionProvider);
     final cdrState = ref.watch(cdrProvider);
     final personasState = ref.watch(personasViewModelProvider);
+    final sexo = ref.watch(sexoProvider);
+    final ci = ref.watch(ciProvider);
+    final grupoRiesgo = ref.watch(grupoDispensarialProvider);
+    final edad = calcularEdadDesdeCi(ci);
+    final debeMostrarControlada =
+        sexo == "F" &&
+        edad >= 11 &&
+        edad <= 49 &&
+        (grupoRiesgo == "Grupo 2" ||
+            grupoRiesgo == "Grupo 3" ||
+            grupoRiesgo == "Grupo 4");
 
-    ref.listen<PersonasState>(personasViewModelProvider, (previous, next) {
+    ref.listen<PersonasState>(personasViewModelProvider, (
+      previous,
+      next,
+    ) async {
       if (previous?.isLoading == true &&
           next.isLoading == false &&
           next.error == null) {
         formKey.currentState?.reset();
 
-        // Resetear todos los providers
         ref.read(fullNameProvider.notifier).state = '';
         ref.read(ciProvider.notifier).state = '';
         ref.read(sexoProvider.notifier).state = '';
@@ -46,8 +60,16 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
         ref.read(profesionProvider.notifier).state = '';
         ref.read(grupoDispensarialProvider.notifier).state = '';
         ref.read(observacionesProvider.notifier).state = '';
+        ref.read(controladaProvider.notifier).state = 'false';
 
-        context.pop();
+        ref.read(circunscripcionProvider.notifier).reset();
+        ref.read(cdrProvider.notifier).reset();
+
+        await ref.read(circunscripcionProvider.notifier).load();
+
+        if (context.mounted) {
+          context.pop();
+        }
       }
     });
 
@@ -207,6 +229,25 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                         },
                         validator: (v) => v == null ? "Campo requerido" : null,
                       ),
+                      if (debeMostrarControlada) ...[
+                        const SizedBox(height: 16),
+                        DropdownFormFieldCustom<String>(
+                          label: "Controlada",
+                          icon: Icons.transgender,
+                          value:
+                              ref.watch(controladaProvider).isEmpty
+                                  ? null
+                                  : ref.watch(controladaProvider),
+                          items: const [
+                            DropdownMenuItem(value: "true", child: Text("Sí")),
+                            DropdownMenuItem(value: "false", child: Text("No")),
+                          ],
+                          onChanged:
+                              (v) =>
+                                  ref.read(controladaProvider.notifier).state =
+                                      v ?? 'false',
+                        ),
+                      ],
                       const SizedBox(height: 24),
                       PersonaFormFooter(formKey: formKey),
                     ],
@@ -218,5 +259,24 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
         ),
       ),
     );
+  }
+
+  int calcularEdadDesdeCi(String ci) {
+    if (ci.length < 6) return 0;
+
+    final yy = int.parse(ci.substring(0, 2));
+    final mm = int.parse(ci.substring(2, 4));
+    final dd = int.parse(ci.substring(4, 6));
+
+    final now = DateTime.now();
+    int fullYear = (yy + 2000) > now.year ? yy + 1900 : yy + 2000;
+
+    final birthDate = DateTime(fullYear, mm, dd);
+    int age = now.year - birthDate.year;
+    if (now.month < birthDate.month ||
+        (now.month == birthDate.month && now.day < birthDate.day)) {
+      age--;
+    }
+    return age;
   }
 }

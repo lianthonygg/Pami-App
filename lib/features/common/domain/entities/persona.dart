@@ -48,6 +48,7 @@ class CreatePersonaPost {
   final String grupoDispensarial;
   final String observaciones;
   final String cdrId;
+  final bool isController;
 
   CreatePersonaPost({
     required this.fullName,
@@ -63,6 +64,7 @@ class CreatePersonaPost {
     required this.grupoDispensarial,
     required this.observaciones,
     required this.cdrId,
+    required this.isController,
   });
 }
 

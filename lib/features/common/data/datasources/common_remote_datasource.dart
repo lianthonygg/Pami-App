@@ -2,11 +2,22 @@ import 'package:dio/dio.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/common/data/model/cdr_model.dart';
 import 'package:pami_app/features/common/data/model/circunscripcion_model.dart';
+import 'package:pami_app/features/common/data/model/persona_model.dart';
 
 class CommonRemoteDatasource {
   final Dio dio;
 
   CommonRemoteDatasource(this.dio);
+
+  Future<PersonaModel> getByCI(String ci) async {
+    try {
+      final response = await dio.get('/persona/$ci');
+
+      return PersonaModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
 
   Future<List<CircunscripcionModel>> getCircunscripciones() async {
     try {

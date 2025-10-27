@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
-import 'package:pami_app/features/personas/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
 
-class PersonasViewModel extends StateNotifier<PersonasState<dynamic>> {
+class PersonasViewModel extends StateNotifier<PersonasState> {
   final PersonaUseCase personaUseCase;
 
   PersonasViewModel(this.personaUseCase) : super(PersonasState());
@@ -49,7 +49,7 @@ class PersonasViewModel extends StateNotifier<PersonasState<dynamic>> {
   }
 }
 
-class PersonasState<T> {
+class PersonasState {
   final bool isLoading;
   final List<Persona>? items;
   final CreatePersonaResponse? response;

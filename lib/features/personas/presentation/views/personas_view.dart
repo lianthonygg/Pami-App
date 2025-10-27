@@ -76,8 +76,23 @@ class PersonasView extends ConsumerWidget {
                             padding: const EdgeInsets.all(16),
                             itemCount: (personasState.items as List).length,
                             itemBuilder: (context, index) {
-                              final persona =
-                                  (personasState.items as List)[index];
+                              final personas = personasState.items as List;
+
+                              if (index == 0) {
+                                // Encabezado con total
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 12.0),
+                                  child: Text(
+                                    "Total: ${(personas.length + 1)}",
+                                    style: textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: colorScheme.primary,
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              final persona = personas[index];
                               return _PersonaCard(
                                 onTap: () {
                                   context.push(

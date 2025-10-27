@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/theme/theme.dart';
-import 'package:pami_app/features/personas/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 
 class PersonaDetalle extends ConsumerWidget {
@@ -145,10 +145,13 @@ class PersonaDetalle extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            value.isEmpty ? "-" : value,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: colorScheme.onSurface,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              value.isEmpty ? "-" : value,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
         ],

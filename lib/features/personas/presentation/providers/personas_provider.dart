@@ -3,7 +3,7 @@ import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
-import 'package:pami_app/features/personas/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
 import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
 import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
