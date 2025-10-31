@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
-import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 
@@ -54,7 +53,6 @@ class SelectState<T> {
 class CircunscripcionNotifier
     extends StateNotifier<SelectState<CircunscripcionEntity>> {
   final CircunscripcionUseCase circunscripcionUseCase;
-  StreamSubscription<List<CircunscripcionEntity>>? _subscription;
 
   CircunscripcionNotifier(this.circunscripcionUseCase)
       : super(const SelectState()) {
@@ -62,7 +60,7 @@ class CircunscripcionNotifier
   }
 
   void _init() {
-    _subscription = circunscripcionUseCase
+    circunscripcionUseCase
         .watchCircunscripciones()
         .listen((circunscripciones) {
       state = state.copyWith(isLoading: false, items: circunscripciones);

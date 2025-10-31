@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
-import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';

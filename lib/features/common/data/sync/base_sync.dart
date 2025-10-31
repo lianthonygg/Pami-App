@@ -1,5 +1,4 @@
 import 'package:pami_app/core/services/preferences_service.dart';
-import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/data/repositories/local_repository_impl.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 
