@@ -13,10 +13,10 @@ class CommonRepositoryImpl implements CommonRepository {
   CommonRepositoryImpl(this.remoteDatasource);
 
   @override
-  Future<List<Circunscripcion>> getCircunscripciones() async {
+  Future<List<Circunscripcion>> getCircunscripciones(DateTime? lastModified) async {
     try {
       final List<CircunscripcionModel> circunscripciones =
-          await remoteDatasource.getCircunscripciones();
+          await remoteDatasource.getCircunscripciones(lastModified);
       return circunscripciones;
     } catch (e) {
       rethrow;

@@ -55,7 +55,7 @@ class DatosGenerales extends ConsumerWidget {
             labelText: "Grupo Dispensarial",
             prefixIcon: Icon(Icons.group_work),
           ),
-          value:
+          initialValue:
               ref.watch(grupoDispensarialProvider).isEmpty
                   ? null
                   : ref.watch(grupoDispensarialProvider),

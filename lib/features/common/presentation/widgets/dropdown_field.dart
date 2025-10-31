@@ -23,7 +23,7 @@ class DropdownFormFieldCustom<T> extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DropdownButtonFormField<T>(
       decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon)),
-      value: value,
+      initialValue: value,
       items: items,
       onChanged: onChanged,
       validator: validator,

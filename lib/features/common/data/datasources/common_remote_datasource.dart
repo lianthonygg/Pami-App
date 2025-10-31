@@ -19,10 +19,15 @@ class CommonRemoteDatasource {
     }
   }
 
-  Future<List<CircunscripcionModel>> getCircunscripciones() async {
+  Future<List<CircunscripcionModel>> getCircunscripciones(DateTime? lastSync) async {
     try {
+      final queryParams = <String, dynamic>{};
+      if (lastSync != null) {
+        queryParams["lastModified"] = lastSync.toIso8601String();
+      }
       final response = await dio.get(
         "/circunscripcion/mobile/get-circunscripciones",
+        queryParameters: queryParams
       );
 
       return (response.data as List)

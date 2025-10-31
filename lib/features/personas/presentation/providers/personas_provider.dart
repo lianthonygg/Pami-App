@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
@@ -36,7 +37,7 @@ final personasViewModelProvider =
 
 final circunscripcionProvider = StateNotifierProvider<
   CircunscripcionNotifier,
-  SelectState<Circunscripcion>
+  SelectState<CircunscripcionEntity>
 >((ref) {
   final circunscripcionUseCase = ref.watch(circunscripcionesUseCaseProvider);
   return CircunscripcionNotifier(circunscripcionUseCase);

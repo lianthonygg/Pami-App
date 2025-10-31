@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
@@ -49,26 +52,37 @@ class SelectState<T> {
 
 // ==== NOTIFIERS ====
 class CircunscripcionNotifier
-    extends StateNotifier<SelectState<Circunscripcion>> {
+    extends StateNotifier<SelectState<CircunscripcionEntity>> {
   final CircunscripcionUseCase circunscripcionUseCase;
+  StreamSubscription<List<CircunscripcionEntity>>? _subscription;
 
   CircunscripcionNotifier(this.circunscripcionUseCase)
-    : super(const SelectState());
-
-  Future<void> load() async {
-    state = state.copyWith(isLoading: true);
-
-    try {
-      final circunscripciones =
-          await circunscripcionUseCase.getCircunscripciones();
-
-      state = state.copyWith(isLoading: false, items: circunscripciones);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+      : super(const SelectState()) {
+    _init();
   }
 
-  void select(Circunscripcion? c) {
+  void _init() {
+    _subscription = circunscripcionUseCase
+        .watchCircunscripciones()
+        .listen((circunscripciones) {
+      state = state.copyWith(isLoading: false, items: circunscripciones);
+    });
+  }
+
+  // Future<void> load() async {
+  //   state = state.copyWith(isLoading: true);
+  //
+  //   try {
+  //     final circunscripciones =
+  //         await circunscripcionUseCase.getCircunscripciones(DateTime.now());
+  //
+  //     state = state.copyWith(isLoading: false, items: circunscripciones);
+  //   } catch (e) {
+  //     state = state.copyWith(isLoading: false, error: e.toString());
+  //   }
+  // }
+
+  void select(CircunscripcionEntity? c) {
     state = state.copyWith(selected: c);
   }
 

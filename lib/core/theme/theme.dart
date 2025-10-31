@@ -124,7 +124,7 @@ class AppTheme {
       textStyle: const TextStyle(fontSize: 16, color: Color(0xFF1F2937)),
       inputDecorationTheme: const InputDecorationTheme(),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: lightSurfaceTranslucent,
       elevation: 6,
       shadowColor: _brightBlue.withValues(alpha: 0.1),
@@ -222,7 +222,7 @@ class AppTheme {
       textStyle: const TextStyle(fontSize: 16, color: Colors.white),
       inputDecorationTheme: const InputDecorationTheme(),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: darkSurfaceTranslucent,
       elevation: 6,
       shadowColor: _brightBlue.withValues(alpha: 0.1),

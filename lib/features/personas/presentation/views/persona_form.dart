@@ -65,7 +65,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
         ref.read(circunscripcionProvider.notifier).reset();
         ref.read(cdrProvider.notifier).reset();
 
-        await ref.read(circunscripcionProvider.notifier).load();
+        //await ref.read(circunscripcionProvider.notifier).load();
 
         if (context.mounted) {
           context.pop();
@@ -79,11 +79,11 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
       fireImmediately: false,
     );
 
-    if (circState.items.isEmpty && !circState.isLoading) {
-      Future.microtask(() {
-        ref.read(circunscripcionProvider.notifier).load();
-      });
-    }
+    // if (circState.items.isEmpty && !circState.isLoading) {
+    //   Future.microtask(() {
+    //     ref.read(circunscripcionProvider.notifier).load();
+    //   });
+    // }
 
     final currentCdrValue =
         cdrState.items.any((c) => c.id == cdrState.selected?.id)
@@ -177,7 +177,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                           labelText: "Circunscripción",
                           prefixIcon: Icon(Icons.location_city),
                         ),
-                        value: circState.selected?.id,
+                        initialValue: circState.selected?.id,
                         items:
                             circState.items
                                 .map(
@@ -209,7 +209,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                           labelText: "CDR",
                           prefixIcon: Icon(Icons.home_work),
                         ),
-                        value: currentCdrValue, // <-- validado antes
+                        initialValue: currentCdrValue, // <-- validado antes
                         items:
                             cdrState.items
                                 .map(
