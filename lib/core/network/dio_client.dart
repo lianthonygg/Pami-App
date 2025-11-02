@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/core/services/auth_service.dart';
-import 'package:pami_app/routing/router.dart';
-import 'package:pami_app/routing/routes.dart';
 
 class DioClient {
   final Dio dio;
