@@ -19,7 +19,9 @@ class CommonRemoteDatasource {
     }
   }
 
-  Future<List<CircunscripcionModel>> getCircunscripciones(DateTime? lastSync) async {
+  Future<List<CircunscripcionModel>> getCircunscripciones(
+    DateTime? lastSync,
+  ) async {
     try {
       final queryParams = <String, dynamic>{};
       if (lastSync != null) {
@@ -27,7 +29,7 @@ class CommonRemoteDatasource {
       }
       final response = await dio.get(
         "/circunscripcion/mobile/get-circunscripciones",
-        queryParameters: queryParams
+        queryParameters: queryParams,
       );
 
       return (response.data as List)
@@ -38,11 +40,16 @@ class CommonRemoteDatasource {
     }
   }
 
-  Future<List<CdrModel>> getCdrs(String circunscripcion) async {
+  Future<List<CdrModel>> getCdrs(DateTime? lastModified) async {
     try {
+      final queryParams = <String, dynamic>{};
+      if (lastModified != null) {
+        queryParams["lastModified"] = lastModified.toIso8601String();
+      }
+
       final response = await dio.get(
-        "/cdr/mobile/get-by-circunscripcion",
-        queryParameters: {"circunscripcionId": circunscripcion},
+        "/cdr/mobile/get-by-consultorio",
+        queryParameters: queryParams,
       );
 
       return (response.data as List)

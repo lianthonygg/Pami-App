@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/core/services/auth_service.dart';
+import 'package:pami_app/routing/router.dart';
+import 'package:pami_app/routing/routes.dart';
 
 class DioClient {
   final Dio dio;
@@ -25,7 +28,34 @@ class DioClient {
 
           return handler.next(options);
         },
-        onError: (DioException e, handler) {
+        onError: (DioException e, handler) async {
+          if (e.response?.statusCode == 401) {
+            await AuthService.logout();
+
+            final data = e.response!.data as Map<String, dynamic>;
+            final title = data['title'] ?? 'Error';
+            final detail = data['detail'] ?? 'Ocurrió un error inesperado';
+            final status = data['status'] ?? e.response!.statusCode;
+            final code = data['errorCode'] ?? '';
+
+            return handler.reject(
+              DioException(
+                requestOptions: e.requestOptions,
+                response: e.response,
+                error: ServerException(
+                  title: title.toString(),
+                  detail: detail.toString(),
+                  status:
+                      status is int
+                          ? status
+                          : int.tryParse(status.toString()) ?? 0,
+                  errorCode: code.toString(),
+                ),
+                type: DioExceptionType.connectionError,
+              ),
+            );
+          }
+
           if (e.response != null && e.response?.data is Map<String, dynamic>) {
             final data = e.response!.data as Map<String, dynamic>;
             final title = data['title'] ?? 'Error';
@@ -33,7 +63,6 @@ class DioClient {
             final status = data['status'] ?? e.response!.statusCode;
             final code = data['errorCode'] ?? '';
 
-            // Lanzamos directamente la excepción limpia
             return handler.reject(
               DioException(
                 requestOptions: e.requestOptions,
@@ -52,7 +81,6 @@ class DioClient {
             );
           }
 
-          // Error de red genérico
           return handler.reject(
             DioException(
               requestOptions: e.requestOptions,

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pami_app/core/network/dio_client.dart';
 import 'package:pami_app/core/network/dio_provider.dart';
+import 'package:pami_app/core/services/notification_service.dart';
 import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:pami_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:pami_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
 import 'package:pami_app/features/common/data/datasources/common_remote_datasource.dart';
-import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/data/local/db_provider.dart';
 import 'package:pami_app/features/common/data/repositories/common_repository_impl.dart';
 import 'package:pami_app/features/common/data/repositories/local_repository_impl.dart';
-import 'package:pami_app/features/common/data/sync/base_sync.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 import 'package:pami_app/features/personas/data/datasources/persona_remote_datasource.dart';
@@ -29,27 +27,27 @@ import 'package:workmanager/workmanager.dart';
 
 import 'background/sync_tasks.dart';
 
-void main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Workmanager().initialize(
-    callbackDispatcher,
-  );
+  await requestNotificationPermission();
+  await NotificationService.inicialized();
+
+  await Workmanager().initialize(callbackDispatcher);
 
   await Workmanager().registerPeriodicTask(
     "sync_circunscripciones_task",
     "syncBaseTables",
-    frequency: const Duration(hours: 12),
-    initialDelay: const Duration(minutes: 10),
+    frequency: const Duration(minutes: 15),
+    constraints: Constraints(networkType: NetworkType.connected),
   );
 
-  final dioClient = DioClient();
-  final dataSource = CommonRemoteDatasource(dioClient.dio);
-  final remoteRepo = CommonRepositoryImpl(dataSource);
-  final db = AppDatabase();
-  final localRepo = LocalRepositoryImpl(db);
-  final useCase = CircunscripcionUseCase(remoteRepo, localRepo);
-  await syncBasedData(useCase: useCase, repository: localRepo);
+  // await Workmanager().registerOneOffTask(
+  //   "test_sync",
+  //   "syncBaseTables",
+  //   constraints: Constraints(networkType: NetworkType.connected),
+  //   initialDelay: const Duration(seconds: 20),
+  // );
 
   runApp(
     ProviderScope(
@@ -80,7 +78,9 @@ void main() async{
           final dio = ref.watch(dioProvider);
           final dataSource = CommonRemoteDatasource(dio);
           final repo = CommonRepositoryImpl(dataSource);
-          return CdrUseCase(repo);
+          final db = ref.watch(databaseProvider);
+          final localRepo = LocalRepositoryImpl(db);
+          return CdrUseCase(repo, localRepo);
         }),
         pregestantesUseCaseProvider.overrideWith((ref) {
           final dio = ref.watch(dioProvider);

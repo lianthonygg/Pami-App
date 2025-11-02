@@ -7,5 +7,5 @@ abstract class CommonRepository {
 
   Future<Persona> getByCI(String ci);
 
-  Future<List<Cdr>> getCdrs(String circunscripcion);
+  Future<List<Cdr>> getCdrs(DateTime? lastModified);
 }

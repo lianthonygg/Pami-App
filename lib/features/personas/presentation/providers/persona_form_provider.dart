@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
-import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 
@@ -55,14 +52,12 @@ class CircunscripcionNotifier
   final CircunscripcionUseCase circunscripcionUseCase;
 
   CircunscripcionNotifier(this.circunscripcionUseCase)
-      : super(const SelectState()) {
+    : super(const SelectState()) {
     _init();
   }
 
   void _init() {
-    circunscripcionUseCase
-        .watchCircunscripciones()
-        .listen((circunscripciones) {
+    circunscripcionUseCase.watchCircunscripciones().listen((circunscripciones) {
       state = state.copyWith(isLoading: false, items: circunscripciones);
     });
   }
@@ -89,23 +84,29 @@ class CircunscripcionNotifier
   }
 }
 
-class CdrNotifier extends StateNotifier<SelectState<Cdr>> {
+class CdrNotifier extends StateNotifier<SelectState<CdrEntity>> {
   final CdrUseCase cdrUseCase;
 
   CdrNotifier(this.cdrUseCase) : super(const SelectState());
 
-  Future<void> load(String circunscripcionId) async {
-    state = state.copyWith(isLoading: true);
-
-    try {
-      final cdrs = await cdrUseCase.getCdrs(circunscripcionId);
+  void init(String circunscripcionId) {
+    cdrUseCase.watchCdrs(circunscripcionId).listen((cdrs) {
       state = state.copyWith(isLoading: false, items: cdrs);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    });
   }
 
-  void select(Cdr? c) {
+  // Future<void> load(String circunscripcionId) async {
+  //   state = state.copyWith(isLoading: true);
+
+  //   try {
+  //     final cdrs = await cdrUseCase.getCdrs(DateTime.now());
+  //     state = state.copyWith(isLoading: false, items: cdrs);
+  //   } catch (e) {
+  //     state = state.copyWith(isLoading: false, error: e.toString());
+  //   }
+  // }
+
+  void select(CdrEntity? c) {
     state = state.copyWith(selected: c);
   }
 

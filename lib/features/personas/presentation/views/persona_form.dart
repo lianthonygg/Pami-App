@@ -197,7 +197,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                             ref
                                 .read(circunscripcionProvider.notifier)
                                 .select(selected);
-                            ref.read(cdrProvider.notifier).load(id);
+                            ref.read(cdrProvider.notifier).init(id);
                           }
                         },
                         validator: (v) => v == null ? "Campo requerido" : null,

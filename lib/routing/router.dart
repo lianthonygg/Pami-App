@@ -14,8 +14,11 @@ import 'package:pami_app/features/posgestograma/presentation/views/posgestograma
 import 'package:pami_app/features/pregestograma/presentation/views/pregestograma_view.dart';
 import 'package:pami_app/routing/routes.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 GoRouter router() => GoRouter(
   initialLocation: Routes.login,
+  navigatorKey: navigatorKey,
   redirect: (BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
 
