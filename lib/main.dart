@@ -42,13 +42,6 @@ Future<void> main() async {
     constraints: Constraints(networkType: NetworkType.connected),
   );
 
-  // await Workmanager().registerOneOffTask(
-  //   "test_sync",
-  //   "syncBaseTables",
-  //   constraints: Constraints(networkType: NetworkType.connected),
-  //   initialDelay: const Duration(seconds: 20),
-  // );
-
   runApp(
     ProviderScope(
       overrides: [
@@ -64,7 +57,9 @@ Future<void> main() async {
           final commonDataSource = CommonRemoteDatasource(dio);
           final repo = PersonaRepositoryImpl(dataSource);
           final commonRepo = CommonRepositoryImpl(commonDataSource);
-          return PersonaUseCase(repo, commonRepo);
+          final db = ref.watch(databaseProvider);
+          final localRepo = LocalRepositoryImpl(db);
+          return PersonaUseCase(repo, commonRepo, localRepo);
         }),
         circunscripcionesUseCaseProvider.overrideWith((ref) {
           final dio = ref.watch(dioProvider);

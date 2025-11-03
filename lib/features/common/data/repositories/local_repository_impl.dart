@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
+import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
+import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/common/domain/repositories/local_repository.dart';
 
 class LocalRepositoryImpl implements LocalRepository {
@@ -60,5 +62,58 @@ class LocalRepositoryImpl implements LocalRepository {
     return (db.select(
       db.cdrTable,
     )..where((cdr) => cdr.circunscripcionId.equals(circunscripcionId))).watch();
+  }
+
+  @override
+  Future<void> insertOrUpdatePersonas(List<Persona> personas) async {
+    await db.batch((batch) {
+      for (final persona in personas) {
+        batch.insert(
+          db.personasTable,
+          PersonasTableCompanion(
+            id: Value(persona.id),
+            fullName: Value(persona.fullName),
+            ci: Value(persona.ci),
+            sexo: Value(persona.sexo),
+            raza: Value(persona.raza),
+            direccionCi: Value(persona.direccionDelCI),
+            direccionVive: Value(persona.direccionEnQueVive),
+            telefono: Value(persona.telefono),
+            antPP: Value(persona.antPP),
+            nivelEscolar: Value(persona.nivelEscolar),
+            profesion: Value(persona.profesion),
+            grupoDispensarial: Value(persona.grupoDispensarial),
+            observaciones: Value(persona.observaciones),
+            cdrId: Value(persona.cdr.id),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Stream<List<PersonasEntity>> watchPacientes() {
+    return db.select(db.personasTable).watch();
+  }
+
+  @override
+  Future<PersonaConCdrYCircunscripcion?> watchPacienteByCi(String ci) async {
+    final query = db.select(db.personasTable).join([
+      innerJoin(db.cdrTable, db.cdrTable.id.equalsExp(db.personasTable.cdrId)),
+      innerJoin(
+        db.circunscripcionTable,
+        db.circunscripcionTable.id.equalsExp(db.cdrTable.circunscripcionId),
+      ),
+    ])..where(db.personasTable.ci.equals(ci));
+
+    final row = await query.getSingleOrNull();
+
+    if (row == null) return null;
+
+    return PersonaConCdrYCircunscripcion(
+      persona: row.readTable(db.personasTable),
+      cdr: row.readTable(db.cdrTable),
+      circunscripcion: row.readTable(db.circunscripcionTable),
+    );
   }
 }

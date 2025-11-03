@@ -44,4 +44,16 @@ class CommonRepositoryImpl implements CommonRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Persona>> getPacientes(DateTime? lastModified) async {
+    try {
+      final List<PersonaModel> personas = await remoteDatasource.getPacientes(
+        lastModified,
+      );
+      return personas;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'package:pami_app/core/services/preferences_service.dart';
 import 'package:pami_app/features/common/data/repositories/local_repository_impl.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
+import 'package:pami_app/features/common/domain/usecase/personas_sync_usecase.dart';
 
 Future<void> syncBasedData({
   required CircunscripcionUseCase useCase,
@@ -36,5 +37,23 @@ Future<void> syncCdrs({
         .reduce((a, b) => a.isAfter(b) ? a : b);
 
     await saveLastUpdated("cdr_lastUpdated", newest);
+  }
+}
+
+Future<void> syncPacientes({
+  required PersonasSyncUseCase useCase,
+  required LocalRepositoryImpl repository,
+}) async {
+  final lastPaciente = await getLastUpdated("pacientes_lastUpdated");
+  final pacientes = await useCase.getPacientes(lastPaciente);
+
+  await repository.insertOrUpdatePersonas(pacientes);
+
+  if (pacientes.isNotEmpty) {
+    final newest = pacientes
+        .map((e) => e.lastModified)
+        .reduce((a, b) => a.isAfter(b) ? a : b);
+
+    await saveLastUpdated("pacientes_lastUpdated", newest);
   }
 }

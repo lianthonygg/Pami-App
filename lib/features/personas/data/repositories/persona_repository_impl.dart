@@ -1,6 +1,5 @@
 import 'package:pami_app/features/personas/data/datasources/persona_remote_datasource.dart';
 import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
-import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/repositories/persona_repository.dart';
 
@@ -17,16 +16,6 @@ class PersonaRepositoryImpl implements PersonaRepository {
       final ResponseCreatePersonaModel persona = await remoteDatasource
           .createPerson(request);
       return persona;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<Persona>> getAll() async {
-    try {
-      final List<PersonaModel> personas = await remoteDatasource.getPacientes();
-      return personas;
     } catch (e) {
       rethrow;
     }

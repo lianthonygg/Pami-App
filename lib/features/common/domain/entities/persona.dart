@@ -14,6 +14,7 @@ class Persona {
   final String observaciones;
   final CircunscripcionResponse circunscripcion;
   final CDR cdr;
+  final DateTime lastModified;
 
   Persona({
     required this.id,
@@ -31,6 +32,7 @@ class Persona {
     required this.observaciones,
     required this.circunscripcion,
     required this.cdr,
+    required this.lastModified,
   });
 }
 

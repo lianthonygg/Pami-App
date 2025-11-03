@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/error/server_exception.dart';
+import 'package:pami_app/features/common/data/local/app_database.dart';
+import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
@@ -12,21 +14,16 @@ class PersonasViewModel extends StateNotifier<PersonasState> {
   Future<void> getAll() async {
     state = state.copyWith(isLoading: true, error: null);
 
-    try {
-      final personas = await personaUseCase.all();
-      state = state.copyWith(isLoading: false, items: personas);
-    } on ServerException catch (e) {
-      state = state.copyWith(isLoading: false, error: e.detail);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    personaUseCase.watchPacientes().listen((pacientes) {
+      state = state.copyWith(isLoading: false, items: pacientes);
+    });
   }
 
   Future<void> getByCi(String ci) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final persona = await personaUseCase(ci);
+      final persona = await personaUseCase.watchPacienteByCi(ci);
       state = state.copyWith(isLoading: false, data: persona);
     } on ServerException catch (e) {
       state = state.copyWith(isLoading: false, error: e.detail);
@@ -51,9 +48,9 @@ class PersonasViewModel extends StateNotifier<PersonasState> {
 
 class PersonasState {
   final bool isLoading;
-  final List<Persona>? items;
+  final List<PersonasEntity>? items;
   final CreatePersonaResponse? response;
-  final Persona? data;
+  final PersonaConCdrYCircunscripcion? data;
   final String? error;
 
   PersonasState({
@@ -66,10 +63,10 @@ class PersonasState {
 
   PersonasState copyWith({
     bool? isLoading,
-    Persona? data,
+    PersonaConCdrYCircunscripcion? data,
     CreatePersonaResponse? response,
     String? error,
-    List<Persona>? items,
+    List<PersonasEntity>? items,
   }) {
     return PersonasState(
       isLoading: isLoading ?? this.isLoading,

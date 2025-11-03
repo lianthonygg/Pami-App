@@ -19,6 +19,25 @@ class CommonRemoteDatasource {
     }
   }
 
+  Future<List<PersonaModel>> getPacientes(DateTime? lastModified) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (lastModified != null) {
+        queryParams["lastModified"] = lastModified.toIso8601String();
+      }
+      final response = await dio.get(
+        "/persona/mobile/get-by-consultorio",
+        queryParameters: queryParams,
+      );
+
+      return (response.data as List)
+          .map((item) => PersonaModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
   Future<List<CircunscripcionModel>> getCircunscripciones(
     DateTime? lastSync,
   ) async {

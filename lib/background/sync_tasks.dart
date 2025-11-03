@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pami_app/core/services/auth_service.dart';
 import 'package:pami_app/core/services/notification_service.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
+import 'package:pami_app/features/common/domain/usecase/personas_sync_usecase.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:pami_app/core/network/dio_client.dart';
 import 'package:pami_app/features/common/data/datasources/common_remote_datasource.dart';
@@ -37,6 +38,7 @@ void callbackDispatcher() {
       final localRepo = LocalRepositoryImpl(db);
       final useCase = CircunscripcionUseCase(remoteRepo, localRepo);
       final cdrUseCase = CdrUseCase(remoteRepo, localRepo);
+      final pacientesUseCase = PersonasSyncUseCase(remoteRepo, localRepo);
 
       switch (task) {
         case "syncBaseTables":
@@ -48,6 +50,7 @@ void callbackDispatcher() {
           }
           await syncBasedData(useCase: useCase, repository: localRepo);
           await syncCdrs(useCase: cdrUseCase, repository: localRepo);
+          await syncPacientes(useCase: pacientesUseCase, repository: localRepo);
           break;
       }
 

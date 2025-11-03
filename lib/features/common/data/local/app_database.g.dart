@@ -890,37 +890,248 @@ class $PersonasTableTable extends PersonasTable
   $PersonasTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
     'id',
     aliasedName,
     false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    clientDefault: () => Uuid().v4(),
+  );
+  static const VerificationMeta _fullNameMeta = const VerificationMeta(
+    'fullName',
+  );
+  @override
+  late final GeneratedColumn<String> fullName = GeneratedColumn<String>(
+    'full_name',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 100,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ciMeta = const VerificationMeta('ci');
+  @override
+  late final GeneratedColumn<String> ci = GeneratedColumn<String>(
+    'ci',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 11,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sexoMeta = const VerificationMeta('sexo');
+  @override
+  late final GeneratedColumn<String> sexo = GeneratedColumn<String>(
+    'sexo',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _razaMeta = const VerificationMeta('raza');
+  @override
+  late final GeneratedColumn<String> raza = GeneratedColumn<String>(
+    'raza',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _direccionCiMeta = const VerificationMeta(
+    'direccionCi',
+  );
+  @override
+  late final GeneratedColumn<String> direccionCi = GeneratedColumn<String>(
+    'direccion_ci',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 500,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _direccionViveMeta = const VerificationMeta(
+    'direccionVive',
+  );
+  @override
+  late final GeneratedColumn<String> direccionVive = GeneratedColumn<String>(
+    'direccion_vive',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 500,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _telefonoMeta = const VerificationMeta(
+    'telefono',
+  );
+  @override
+  late final GeneratedColumn<String> telefono = GeneratedColumn<String>(
+    'telefono',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _antPPMeta = const VerificationMeta('antPP');
+  @override
+  late final GeneratedColumn<String> antPP = GeneratedColumn<String>(
+    'ant_p_p',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 500,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nivelEscolarMeta = const VerificationMeta(
+    'nivelEscolar',
+  );
+  @override
+  late final GeneratedColumn<String> nivelEscolar = GeneratedColumn<String>(
+    'nivel_escolar',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 100,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _profesionMeta = const VerificationMeta(
+    'profesion',
+  );
+  @override
+  late final GeneratedColumn<String> profesion = GeneratedColumn<String>(
+    'profesion',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 300,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _grupoDispensarialMeta = const VerificationMeta(
+    'grupoDispensarial',
+  );
+  @override
+  late final GeneratedColumn<String> grupoDispensarial =
+      GeneratedColumn<String>(
+        'grupo_dispensarial',
+        aliasedName,
+        false,
+        additionalChecks: GeneratedColumn.checkTextLength(
+          minTextLength: 1,
+          maxTextLength: 50,
+        ),
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _observacionesMeta = const VerificationMeta(
+    'observaciones',
+  );
+  @override
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+    'observaciones',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 0,
+      maxTextLength: 500,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isControllerMeta = const VerificationMeta(
+    'isController',
+  );
+  @override
+  late final GeneratedColumn<bool> isController = GeneratedColumn<bool>(
+    'is_controller',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
+      'CHECK ("is_controller" IN (0, 1))',
     ),
+    defaultValue: const Constant(false),
   );
-  static const VerificationMeta _nombreMeta = const VerificationMeta('nombre');
+  static const VerificationMeta _isAvailableMeta = const VerificationMeta(
+    'isAvailable',
+  );
   @override
-  late final GeneratedColumn<String> nombre = GeneratedColumn<String>(
-    'nombre',
+  late final GeneratedColumn<bool> isAvailable = GeneratedColumn<bool>(
+    'is_available',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_available" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _cdrIdMeta = const VerificationMeta('cdrId');
+  @override
+  late final GeneratedColumn<String> cdrId = GeneratedColumn<String>(
+    'cdr_id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
-  static const VerificationMeta _edadMeta = const VerificationMeta('edad');
-  @override
-  late final GeneratedColumn<int> edad = GeneratedColumn<int>(
-    'edad',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES cdr_table (id)',
+    ),
   );
   @override
-  List<GeneratedColumn> get $columns => [id, nombre, edad];
+  List<GeneratedColumn> get $columns => [
+    id,
+    fullName,
+    ci,
+    sexo,
+    raza,
+    direccionCi,
+    direccionVive,
+    telefono,
+    antPP,
+    nivelEscolar,
+    profesion,
+    grupoDispensarial,
+    observaciones,
+    isController,
+    isAvailable,
+    cdrId,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -936,21 +1147,127 @@ class $PersonasTableTable extends PersonasTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre')) {
+    if (data.containsKey('full_name')) {
       context.handle(
-        _nombreMeta,
-        nombre.isAcceptableOrUnknown(data['nombre']!, _nombreMeta),
+        _fullNameMeta,
+        fullName.isAcceptableOrUnknown(data['full_name']!, _fullNameMeta),
       );
     } else if (isInserting) {
-      context.missing(_nombreMeta);
+      context.missing(_fullNameMeta);
     }
-    if (data.containsKey('edad')) {
+    if (data.containsKey('ci')) {
+      context.handle(_ciMeta, ci.isAcceptableOrUnknown(data['ci']!, _ciMeta));
+    } else if (isInserting) {
+      context.missing(_ciMeta);
+    }
+    if (data.containsKey('sexo')) {
       context.handle(
-        _edadMeta,
-        edad.isAcceptableOrUnknown(data['edad']!, _edadMeta),
+        _sexoMeta,
+        sexo.isAcceptableOrUnknown(data['sexo']!, _sexoMeta),
       );
     } else if (isInserting) {
-      context.missing(_edadMeta);
+      context.missing(_sexoMeta);
+    }
+    if (data.containsKey('raza')) {
+      context.handle(
+        _razaMeta,
+        raza.isAcceptableOrUnknown(data['raza']!, _razaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_razaMeta);
+    }
+    if (data.containsKey('direccion_ci')) {
+      context.handle(
+        _direccionCiMeta,
+        direccionCi.isAcceptableOrUnknown(
+          data['direccion_ci']!,
+          _direccionCiMeta,
+        ),
+      );
+    }
+    if (data.containsKey('direccion_vive')) {
+      context.handle(
+        _direccionViveMeta,
+        direccionVive.isAcceptableOrUnknown(
+          data['direccion_vive']!,
+          _direccionViveMeta,
+        ),
+      );
+    }
+    if (data.containsKey('telefono')) {
+      context.handle(
+        _telefonoMeta,
+        telefono.isAcceptableOrUnknown(data['telefono']!, _telefonoMeta),
+      );
+    }
+    if (data.containsKey('ant_p_p')) {
+      context.handle(
+        _antPPMeta,
+        antPP.isAcceptableOrUnknown(data['ant_p_p']!, _antPPMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_antPPMeta);
+    }
+    if (data.containsKey('nivel_escolar')) {
+      context.handle(
+        _nivelEscolarMeta,
+        nivelEscolar.isAcceptableOrUnknown(
+          data['nivel_escolar']!,
+          _nivelEscolarMeta,
+        ),
+      );
+    }
+    if (data.containsKey('profesion')) {
+      context.handle(
+        _profesionMeta,
+        profesion.isAcceptableOrUnknown(data['profesion']!, _profesionMeta),
+      );
+    }
+    if (data.containsKey('grupo_dispensarial')) {
+      context.handle(
+        _grupoDispensarialMeta,
+        grupoDispensarial.isAcceptableOrUnknown(
+          data['grupo_dispensarial']!,
+          _grupoDispensarialMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_grupoDispensarialMeta);
+    }
+    if (data.containsKey('observaciones')) {
+      context.handle(
+        _observacionesMeta,
+        observaciones.isAcceptableOrUnknown(
+          data['observaciones']!,
+          _observacionesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_controller')) {
+      context.handle(
+        _isControllerMeta,
+        isController.isAcceptableOrUnknown(
+          data['is_controller']!,
+          _isControllerMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_available')) {
+      context.handle(
+        _isAvailableMeta,
+        isAvailable.isAcceptableOrUnknown(
+          data['is_available']!,
+          _isAvailableMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cdr_id')) {
+      context.handle(
+        _cdrIdMeta,
+        cdrId.isAcceptableOrUnknown(data['cdr_id']!, _cdrIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cdrIdMeta);
     }
     return context;
   }
@@ -963,18 +1280,77 @@ class $PersonasTableTable extends PersonasTable
     return PersonasEntity(
       id:
           attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
+            DriftSqlType.string,
             data['${effectivePrefix}id'],
           )!,
-      nombre:
+      fullName:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
-            data['${effectivePrefix}nombre'],
+            data['${effectivePrefix}full_name'],
           )!,
-      edad:
+      ci:
           attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}edad'],
+            DriftSqlType.string,
+            data['${effectivePrefix}ci'],
+          )!,
+      sexo:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}sexo'],
+          )!,
+      raza:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}raza'],
+          )!,
+      direccionCi: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}direccion_ci'],
+      ),
+      direccionVive: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}direccion_vive'],
+      ),
+      telefono: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}telefono'],
+      ),
+      antPP:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}ant_p_p'],
+          )!,
+      nivelEscolar: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}nivel_escolar'],
+      ),
+      profesion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}profesion'],
+      ),
+      grupoDispensarial:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}grupo_dispensarial'],
+          )!,
+      observaciones: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observaciones'],
+      ),
+      isController:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}is_controller'],
+          )!,
+      isAvailable:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}is_available'],
+          )!,
+      cdrId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}cdr_id'],
           )!,
     );
   }
@@ -986,28 +1362,110 @@ class $PersonasTableTable extends PersonasTable
 }
 
 class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
-  final int id;
-  final String nombre;
-  final int edad;
+  final String id;
+  final String fullName;
+  final String ci;
+  final String sexo;
+  final String raza;
+  final String? direccionCi;
+  final String? direccionVive;
+  final String? telefono;
+  final String antPP;
+  final String? nivelEscolar;
+  final String? profesion;
+  final String grupoDispensarial;
+  final String? observaciones;
+  final bool isController;
+  final bool isAvailable;
+  final String cdrId;
   const PersonasEntity({
     required this.id,
-    required this.nombre,
-    required this.edad,
+    required this.fullName,
+    required this.ci,
+    required this.sexo,
+    required this.raza,
+    this.direccionCi,
+    this.direccionVive,
+    this.telefono,
+    required this.antPP,
+    this.nivelEscolar,
+    this.profesion,
+    required this.grupoDispensarial,
+    this.observaciones,
+    required this.isController,
+    required this.isAvailable,
+    required this.cdrId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['nombre'] = Variable<String>(nombre);
-    map['edad'] = Variable<int>(edad);
+    map['id'] = Variable<String>(id);
+    map['full_name'] = Variable<String>(fullName);
+    map['ci'] = Variable<String>(ci);
+    map['sexo'] = Variable<String>(sexo);
+    map['raza'] = Variable<String>(raza);
+    if (!nullToAbsent || direccionCi != null) {
+      map['direccion_ci'] = Variable<String>(direccionCi);
+    }
+    if (!nullToAbsent || direccionVive != null) {
+      map['direccion_vive'] = Variable<String>(direccionVive);
+    }
+    if (!nullToAbsent || telefono != null) {
+      map['telefono'] = Variable<String>(telefono);
+    }
+    map['ant_p_p'] = Variable<String>(antPP);
+    if (!nullToAbsent || nivelEscolar != null) {
+      map['nivel_escolar'] = Variable<String>(nivelEscolar);
+    }
+    if (!nullToAbsent || profesion != null) {
+      map['profesion'] = Variable<String>(profesion);
+    }
+    map['grupo_dispensarial'] = Variable<String>(grupoDispensarial);
+    if (!nullToAbsent || observaciones != null) {
+      map['observaciones'] = Variable<String>(observaciones);
+    }
+    map['is_controller'] = Variable<bool>(isController);
+    map['is_available'] = Variable<bool>(isAvailable);
+    map['cdr_id'] = Variable<String>(cdrId);
     return map;
   }
 
   PersonasTableCompanion toCompanion(bool nullToAbsent) {
     return PersonasTableCompanion(
       id: Value(id),
-      nombre: Value(nombre),
-      edad: Value(edad),
+      fullName: Value(fullName),
+      ci: Value(ci),
+      sexo: Value(sexo),
+      raza: Value(raza),
+      direccionCi:
+          direccionCi == null && nullToAbsent
+              ? const Value.absent()
+              : Value(direccionCi),
+      direccionVive:
+          direccionVive == null && nullToAbsent
+              ? const Value.absent()
+              : Value(direccionVive),
+      telefono:
+          telefono == null && nullToAbsent
+              ? const Value.absent()
+              : Value(telefono),
+      antPP: Value(antPP),
+      nivelEscolar:
+          nivelEscolar == null && nullToAbsent
+              ? const Value.absent()
+              : Value(nivelEscolar),
+      profesion:
+          profesion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(profesion),
+      grupoDispensarial: Value(grupoDispensarial),
+      observaciones:
+          observaciones == null && nullToAbsent
+              ? const Value.absent()
+              : Value(observaciones),
+      isController: Value(isController),
+      isAvailable: Value(isAvailable),
+      cdrId: Value(cdrId),
     );
   }
 
@@ -1017,32 +1475,119 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return PersonasEntity(
-      id: serializer.fromJson<int>(json['id']),
-      nombre: serializer.fromJson<String>(json['nombre']),
-      edad: serializer.fromJson<int>(json['edad']),
+      id: serializer.fromJson<String>(json['id']),
+      fullName: serializer.fromJson<String>(json['fullName']),
+      ci: serializer.fromJson<String>(json['ci']),
+      sexo: serializer.fromJson<String>(json['sexo']),
+      raza: serializer.fromJson<String>(json['raza']),
+      direccionCi: serializer.fromJson<String?>(json['direccionCi']),
+      direccionVive: serializer.fromJson<String?>(json['direccionVive']),
+      telefono: serializer.fromJson<String?>(json['telefono']),
+      antPP: serializer.fromJson<String>(json['antPP']),
+      nivelEscolar: serializer.fromJson<String?>(json['nivelEscolar']),
+      profesion: serializer.fromJson<String?>(json['profesion']),
+      grupoDispensarial: serializer.fromJson<String>(json['grupoDispensarial']),
+      observaciones: serializer.fromJson<String?>(json['observaciones']),
+      isController: serializer.fromJson<bool>(json['isController']),
+      isAvailable: serializer.fromJson<bool>(json['isAvailable']),
+      cdrId: serializer.fromJson<String>(json['cdrId']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'nombre': serializer.toJson<String>(nombre),
-      'edad': serializer.toJson<int>(edad),
+      'id': serializer.toJson<String>(id),
+      'fullName': serializer.toJson<String>(fullName),
+      'ci': serializer.toJson<String>(ci),
+      'sexo': serializer.toJson<String>(sexo),
+      'raza': serializer.toJson<String>(raza),
+      'direccionCi': serializer.toJson<String?>(direccionCi),
+      'direccionVive': serializer.toJson<String?>(direccionVive),
+      'telefono': serializer.toJson<String?>(telefono),
+      'antPP': serializer.toJson<String>(antPP),
+      'nivelEscolar': serializer.toJson<String?>(nivelEscolar),
+      'profesion': serializer.toJson<String?>(profesion),
+      'grupoDispensarial': serializer.toJson<String>(grupoDispensarial),
+      'observaciones': serializer.toJson<String?>(observaciones),
+      'isController': serializer.toJson<bool>(isController),
+      'isAvailable': serializer.toJson<bool>(isAvailable),
+      'cdrId': serializer.toJson<String>(cdrId),
     };
   }
 
-  PersonasEntity copyWith({int? id, String? nombre, int? edad}) =>
-      PersonasEntity(
-        id: id ?? this.id,
-        nombre: nombre ?? this.nombre,
-        edad: edad ?? this.edad,
-      );
+  PersonasEntity copyWith({
+    String? id,
+    String? fullName,
+    String? ci,
+    String? sexo,
+    String? raza,
+    Value<String?> direccionCi = const Value.absent(),
+    Value<String?> direccionVive = const Value.absent(),
+    Value<String?> telefono = const Value.absent(),
+    String? antPP,
+    Value<String?> nivelEscolar = const Value.absent(),
+    Value<String?> profesion = const Value.absent(),
+    String? grupoDispensarial,
+    Value<String?> observaciones = const Value.absent(),
+    bool? isController,
+    bool? isAvailable,
+    String? cdrId,
+  }) => PersonasEntity(
+    id: id ?? this.id,
+    fullName: fullName ?? this.fullName,
+    ci: ci ?? this.ci,
+    sexo: sexo ?? this.sexo,
+    raza: raza ?? this.raza,
+    direccionCi: direccionCi.present ? direccionCi.value : this.direccionCi,
+    direccionVive:
+        direccionVive.present ? direccionVive.value : this.direccionVive,
+    telefono: telefono.present ? telefono.value : this.telefono,
+    antPP: antPP ?? this.antPP,
+    nivelEscolar: nivelEscolar.present ? nivelEscolar.value : this.nivelEscolar,
+    profesion: profesion.present ? profesion.value : this.profesion,
+    grupoDispensarial: grupoDispensarial ?? this.grupoDispensarial,
+    observaciones:
+        observaciones.present ? observaciones.value : this.observaciones,
+    isController: isController ?? this.isController,
+    isAvailable: isAvailable ?? this.isAvailable,
+    cdrId: cdrId ?? this.cdrId,
+  );
   PersonasEntity copyWithCompanion(PersonasTableCompanion data) {
     return PersonasEntity(
       id: data.id.present ? data.id.value : this.id,
-      nombre: data.nombre.present ? data.nombre.value : this.nombre,
-      edad: data.edad.present ? data.edad.value : this.edad,
+      fullName: data.fullName.present ? data.fullName.value : this.fullName,
+      ci: data.ci.present ? data.ci.value : this.ci,
+      sexo: data.sexo.present ? data.sexo.value : this.sexo,
+      raza: data.raza.present ? data.raza.value : this.raza,
+      direccionCi:
+          data.direccionCi.present ? data.direccionCi.value : this.direccionCi,
+      direccionVive:
+          data.direccionVive.present
+              ? data.direccionVive.value
+              : this.direccionVive,
+      telefono: data.telefono.present ? data.telefono.value : this.telefono,
+      antPP: data.antPP.present ? data.antPP.value : this.antPP,
+      nivelEscolar:
+          data.nivelEscolar.present
+              ? data.nivelEscolar.value
+              : this.nivelEscolar,
+      profesion: data.profesion.present ? data.profesion.value : this.profesion,
+      grupoDispensarial:
+          data.grupoDispensarial.present
+              ? data.grupoDispensarial.value
+              : this.grupoDispensarial,
+      observaciones:
+          data.observaciones.present
+              ? data.observaciones.value
+              : this.observaciones,
+      isController:
+          data.isController.present
+              ? data.isController.value
+              : this.isController,
+      isAvailable:
+          data.isAvailable.present ? data.isAvailable.value : this.isAvailable,
+      cdrId: data.cdrId.present ? data.cdrId.value : this.cdrId,
     );
   }
 
@@ -1050,59 +1595,205 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
   String toString() {
     return (StringBuffer('PersonasEntity(')
           ..write('id: $id, ')
-          ..write('nombre: $nombre, ')
-          ..write('edad: $edad')
+          ..write('fullName: $fullName, ')
+          ..write('ci: $ci, ')
+          ..write('sexo: $sexo, ')
+          ..write('raza: $raza, ')
+          ..write('direccionCi: $direccionCi, ')
+          ..write('direccionVive: $direccionVive, ')
+          ..write('telefono: $telefono, ')
+          ..write('antPP: $antPP, ')
+          ..write('nivelEscolar: $nivelEscolar, ')
+          ..write('profesion: $profesion, ')
+          ..write('grupoDispensarial: $grupoDispensarial, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('isController: $isController, ')
+          ..write('isAvailable: $isAvailable, ')
+          ..write('cdrId: $cdrId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nombre, edad);
+  int get hashCode => Object.hash(
+    id,
+    fullName,
+    ci,
+    sexo,
+    raza,
+    direccionCi,
+    direccionVive,
+    telefono,
+    antPP,
+    nivelEscolar,
+    profesion,
+    grupoDispensarial,
+    observaciones,
+    isController,
+    isAvailable,
+    cdrId,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PersonasEntity &&
           other.id == this.id &&
-          other.nombre == this.nombre &&
-          other.edad == this.edad);
+          other.fullName == this.fullName &&
+          other.ci == this.ci &&
+          other.sexo == this.sexo &&
+          other.raza == this.raza &&
+          other.direccionCi == this.direccionCi &&
+          other.direccionVive == this.direccionVive &&
+          other.telefono == this.telefono &&
+          other.antPP == this.antPP &&
+          other.nivelEscolar == this.nivelEscolar &&
+          other.profesion == this.profesion &&
+          other.grupoDispensarial == this.grupoDispensarial &&
+          other.observaciones == this.observaciones &&
+          other.isController == this.isController &&
+          other.isAvailable == this.isAvailable &&
+          other.cdrId == this.cdrId);
 }
 
 class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
-  final Value<int> id;
-  final Value<String> nombre;
-  final Value<int> edad;
+  final Value<String> id;
+  final Value<String> fullName;
+  final Value<String> ci;
+  final Value<String> sexo;
+  final Value<String> raza;
+  final Value<String?> direccionCi;
+  final Value<String?> direccionVive;
+  final Value<String?> telefono;
+  final Value<String> antPP;
+  final Value<String?> nivelEscolar;
+  final Value<String?> profesion;
+  final Value<String> grupoDispensarial;
+  final Value<String?> observaciones;
+  final Value<bool> isController;
+  final Value<bool> isAvailable;
+  final Value<String> cdrId;
+  final Value<int> rowid;
   const PersonasTableCompanion({
     this.id = const Value.absent(),
-    this.nombre = const Value.absent(),
-    this.edad = const Value.absent(),
+    this.fullName = const Value.absent(),
+    this.ci = const Value.absent(),
+    this.sexo = const Value.absent(),
+    this.raza = const Value.absent(),
+    this.direccionCi = const Value.absent(),
+    this.direccionVive = const Value.absent(),
+    this.telefono = const Value.absent(),
+    this.antPP = const Value.absent(),
+    this.nivelEscolar = const Value.absent(),
+    this.profesion = const Value.absent(),
+    this.grupoDispensarial = const Value.absent(),
+    this.observaciones = const Value.absent(),
+    this.isController = const Value.absent(),
+    this.isAvailable = const Value.absent(),
+    this.cdrId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   PersonasTableCompanion.insert({
     this.id = const Value.absent(),
-    required String nombre,
-    required int edad,
-  }) : nombre = Value(nombre),
-       edad = Value(edad);
+    required String fullName,
+    required String ci,
+    required String sexo,
+    required String raza,
+    this.direccionCi = const Value.absent(),
+    this.direccionVive = const Value.absent(),
+    this.telefono = const Value.absent(),
+    required String antPP,
+    this.nivelEscolar = const Value.absent(),
+    this.profesion = const Value.absent(),
+    required String grupoDispensarial,
+    this.observaciones = const Value.absent(),
+    this.isController = const Value.absent(),
+    this.isAvailable = const Value.absent(),
+    required String cdrId,
+    this.rowid = const Value.absent(),
+  }) : fullName = Value(fullName),
+       ci = Value(ci),
+       sexo = Value(sexo),
+       raza = Value(raza),
+       antPP = Value(antPP),
+       grupoDispensarial = Value(grupoDispensarial),
+       cdrId = Value(cdrId);
   static Insertable<PersonasEntity> custom({
-    Expression<int>? id,
-    Expression<String>? nombre,
-    Expression<int>? edad,
+    Expression<String>? id,
+    Expression<String>? fullName,
+    Expression<String>? ci,
+    Expression<String>? sexo,
+    Expression<String>? raza,
+    Expression<String>? direccionCi,
+    Expression<String>? direccionVive,
+    Expression<String>? telefono,
+    Expression<String>? antPP,
+    Expression<String>? nivelEscolar,
+    Expression<String>? profesion,
+    Expression<String>? grupoDispensarial,
+    Expression<String>? observaciones,
+    Expression<bool>? isController,
+    Expression<bool>? isAvailable,
+    Expression<String>? cdrId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (nombre != null) 'nombre': nombre,
-      if (edad != null) 'edad': edad,
+      if (fullName != null) 'full_name': fullName,
+      if (ci != null) 'ci': ci,
+      if (sexo != null) 'sexo': sexo,
+      if (raza != null) 'raza': raza,
+      if (direccionCi != null) 'direccion_ci': direccionCi,
+      if (direccionVive != null) 'direccion_vive': direccionVive,
+      if (telefono != null) 'telefono': telefono,
+      if (antPP != null) 'ant_p_p': antPP,
+      if (nivelEscolar != null) 'nivel_escolar': nivelEscolar,
+      if (profesion != null) 'profesion': profesion,
+      if (grupoDispensarial != null) 'grupo_dispensarial': grupoDispensarial,
+      if (observaciones != null) 'observaciones': observaciones,
+      if (isController != null) 'is_controller': isController,
+      if (isAvailable != null) 'is_available': isAvailable,
+      if (cdrId != null) 'cdr_id': cdrId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   PersonasTableCompanion copyWith({
-    Value<int>? id,
-    Value<String>? nombre,
-    Value<int>? edad,
+    Value<String>? id,
+    Value<String>? fullName,
+    Value<String>? ci,
+    Value<String>? sexo,
+    Value<String>? raza,
+    Value<String?>? direccionCi,
+    Value<String?>? direccionVive,
+    Value<String?>? telefono,
+    Value<String>? antPP,
+    Value<String?>? nivelEscolar,
+    Value<String?>? profesion,
+    Value<String>? grupoDispensarial,
+    Value<String?>? observaciones,
+    Value<bool>? isController,
+    Value<bool>? isAvailable,
+    Value<String>? cdrId,
+    Value<int>? rowid,
   }) {
     return PersonasTableCompanion(
       id: id ?? this.id,
-      nombre: nombre ?? this.nombre,
-      edad: edad ?? this.edad,
+      fullName: fullName ?? this.fullName,
+      ci: ci ?? this.ci,
+      sexo: sexo ?? this.sexo,
+      raza: raza ?? this.raza,
+      direccionCi: direccionCi ?? this.direccionCi,
+      direccionVive: direccionVive ?? this.direccionVive,
+      telefono: telefono ?? this.telefono,
+      antPP: antPP ?? this.antPP,
+      nivelEscolar: nivelEscolar ?? this.nivelEscolar,
+      profesion: profesion ?? this.profesion,
+      grupoDispensarial: grupoDispensarial ?? this.grupoDispensarial,
+      observaciones: observaciones ?? this.observaciones,
+      isController: isController ?? this.isController,
+      isAvailable: isAvailable ?? this.isAvailable,
+      cdrId: cdrId ?? this.cdrId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1110,13 +1801,55 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
-    if (nombre.present) {
-      map['nombre'] = Variable<String>(nombre.value);
+    if (fullName.present) {
+      map['full_name'] = Variable<String>(fullName.value);
     }
-    if (edad.present) {
-      map['edad'] = Variable<int>(edad.value);
+    if (ci.present) {
+      map['ci'] = Variable<String>(ci.value);
+    }
+    if (sexo.present) {
+      map['sexo'] = Variable<String>(sexo.value);
+    }
+    if (raza.present) {
+      map['raza'] = Variable<String>(raza.value);
+    }
+    if (direccionCi.present) {
+      map['direccion_ci'] = Variable<String>(direccionCi.value);
+    }
+    if (direccionVive.present) {
+      map['direccion_vive'] = Variable<String>(direccionVive.value);
+    }
+    if (telefono.present) {
+      map['telefono'] = Variable<String>(telefono.value);
+    }
+    if (antPP.present) {
+      map['ant_p_p'] = Variable<String>(antPP.value);
+    }
+    if (nivelEscolar.present) {
+      map['nivel_escolar'] = Variable<String>(nivelEscolar.value);
+    }
+    if (profesion.present) {
+      map['profesion'] = Variable<String>(profesion.value);
+    }
+    if (grupoDispensarial.present) {
+      map['grupo_dispensarial'] = Variable<String>(grupoDispensarial.value);
+    }
+    if (observaciones.present) {
+      map['observaciones'] = Variable<String>(observaciones.value);
+    }
+    if (isController.present) {
+      map['is_controller'] = Variable<bool>(isController.value);
+    }
+    if (isAvailable.present) {
+      map['is_available'] = Variable<bool>(isAvailable.value);
+    }
+    if (cdrId.present) {
+      map['cdr_id'] = Variable<String>(cdrId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -1125,8 +1858,22 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
   String toString() {
     return (StringBuffer('PersonasTableCompanion(')
           ..write('id: $id, ')
-          ..write('nombre: $nombre, ')
-          ..write('edad: $edad')
+          ..write('fullName: $fullName, ')
+          ..write('ci: $ci, ')
+          ..write('sexo: $sexo, ')
+          ..write('raza: $raza, ')
+          ..write('direccionCi: $direccionCi, ')
+          ..write('direccionVive: $direccionVive, ')
+          ..write('telefono: $telefono, ')
+          ..write('antPP: $antPP, ')
+          ..write('nivelEscolar: $nivelEscolar, ')
+          ..write('profesion: $profesion, ')
+          ..write('grupoDispensarial: $grupoDispensarial, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('isController: $isController, ')
+          ..write('isAvailable: $isAvailable, ')
+          ..write('cdrId: $cdrId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -1547,6 +2294,24 @@ final class $$CdrTableTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<$PersonasTableTable, List<PersonasEntity>>
+  _personasTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.personasTable,
+    aliasName: $_aliasNameGenerator(db.cdrTable.id, db.personasTable.cdrId),
+  );
+
+  $$PersonasTableTableProcessedTableManager get personasTableRefs {
+    final manager = $$PersonasTableTableTableManager(
+      $_db,
+      $_db.personasTable,
+    ).filter((f) => f.cdrId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_personasTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$CdrTableTableFilterComposer
@@ -1604,6 +2369,31 @@ class $$CdrTableTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> personasTableRefs(
+    Expression<bool> Function($$PersonasTableTableFilterComposer f) f,
+  ) {
+    final $$PersonasTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.cdrId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableFilterComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -1717,6 +2507,31 @@ class $$CdrTableTableAnnotationComposer
         );
     return composer;
   }
+
+  Expression<T> personasTableRefs<T extends Object>(
+    Expression<T> Function($$PersonasTableTableAnnotationComposer a) f,
+  ) {
+    final $$PersonasTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.cdrId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$CdrTableTableTableManager
@@ -1732,7 +2547,10 @@ class $$CdrTableTableTableManager
           $$CdrTableTableUpdateCompanionBuilder,
           (CdrEntity, $$CdrTableTableReferences),
           CdrEntity,
-          PrefetchHooks Function({bool circunscripcionId})
+          PrefetchHooks Function({
+            bool circunscripcionId,
+            bool personasTableRefs,
+          })
         > {
   $$CdrTableTableTableManager(_$AppDatabase db, $CdrTableTable table)
     : super(
@@ -1791,10 +2609,15 @@ class $$CdrTableTableTableManager
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: ({circunscripcionId = false}) {
+          prefetchHooksCallback: ({
+            circunscripcionId = false,
+            personasTableRefs = false,
+          }) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [],
+              explicitlyWatchedTables: [
+                if (personasTableRefs) db.personasTable,
+              ],
               addJoins: <
                 T extends TableManagerState<
                   dynamic,
@@ -1828,7 +2651,29 @@ class $$CdrTableTableTableManager
                 return state;
               },
               getPrefetchedDataCallback: (items) async {
-                return [];
+                return [
+                  if (personasTableRefs)
+                    await $_getPrefetchedData<
+                      CdrEntity,
+                      $CdrTableTable,
+                      PersonasEntity
+                    >(
+                      currentTable: table,
+                      referencedTable: $$CdrTableTableReferences
+                          ._personasTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$CdrTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).personasTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) =>
+                              referencedItems.where((e) => e.cdrId == item.id),
+                      typedResults: items,
+                    ),
+                ];
               },
             );
           },
@@ -1848,20 +2693,76 @@ typedef $$CdrTableTableProcessedTableManager =
       $$CdrTableTableUpdateCompanionBuilder,
       (CdrEntity, $$CdrTableTableReferences),
       CdrEntity,
-      PrefetchHooks Function({bool circunscripcionId})
+      PrefetchHooks Function({bool circunscripcionId, bool personasTableRefs})
     >;
 typedef $$PersonasTableTableCreateCompanionBuilder =
     PersonasTableCompanion Function({
-      Value<int> id,
-      required String nombre,
-      required int edad,
+      Value<String> id,
+      required String fullName,
+      required String ci,
+      required String sexo,
+      required String raza,
+      Value<String?> direccionCi,
+      Value<String?> direccionVive,
+      Value<String?> telefono,
+      required String antPP,
+      Value<String?> nivelEscolar,
+      Value<String?> profesion,
+      required String grupoDispensarial,
+      Value<String?> observaciones,
+      Value<bool> isController,
+      Value<bool> isAvailable,
+      required String cdrId,
+      Value<int> rowid,
     });
 typedef $$PersonasTableTableUpdateCompanionBuilder =
     PersonasTableCompanion Function({
-      Value<int> id,
-      Value<String> nombre,
-      Value<int> edad,
+      Value<String> id,
+      Value<String> fullName,
+      Value<String> ci,
+      Value<String> sexo,
+      Value<String> raza,
+      Value<String?> direccionCi,
+      Value<String?> direccionVive,
+      Value<String?> telefono,
+      Value<String> antPP,
+      Value<String?> nivelEscolar,
+      Value<String?> profesion,
+      Value<String> grupoDispensarial,
+      Value<String?> observaciones,
+      Value<bool> isController,
+      Value<bool> isAvailable,
+      Value<String> cdrId,
+      Value<int> rowid,
     });
+
+final class $$PersonasTableTableReferences
+    extends BaseReferences<_$AppDatabase, $PersonasTableTable, PersonasEntity> {
+  $$PersonasTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CdrTableTable _cdrIdTable(_$AppDatabase db) =>
+      db.cdrTable.createAlias(
+        $_aliasNameGenerator(db.personasTable.cdrId, db.cdrTable.id),
+      );
+
+  $$CdrTableTableProcessedTableManager get cdrId {
+    final $_column = $_itemColumn<String>('cdr_id')!;
+
+    final manager = $$CdrTableTableTableManager(
+      $_db,
+      $_db.cdrTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_cdrIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
 
 class $$PersonasTableTableFilterComposer
     extends Composer<_$AppDatabase, $PersonasTableTable> {
@@ -1872,20 +2773,103 @@ class $$PersonasTableTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get nombre => $composableBuilder(
-    column: $table.nombre,
+  ColumnFilters<String> get fullName => $composableBuilder(
+    column: $table.fullName,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get edad => $composableBuilder(
-    column: $table.edad,
+  ColumnFilters<String> get ci => $composableBuilder(
+    column: $table.ci,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<String> get sexo => $composableBuilder(
+    column: $table.sexo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get raza => $composableBuilder(
+    column: $table.raza,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get direccionCi => $composableBuilder(
+    column: $table.direccionCi,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get direccionVive => $composableBuilder(
+    column: $table.direccionVive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get telefono => $composableBuilder(
+    column: $table.telefono,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get antPP => $composableBuilder(
+    column: $table.antPP,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get nivelEscolar => $composableBuilder(
+    column: $table.nivelEscolar,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get profesion => $composableBuilder(
+    column: $table.profesion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get grupoDispensarial => $composableBuilder(
+    column: $table.grupoDispensarial,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isController => $composableBuilder(
+    column: $table.isController,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CdrTableTableFilterComposer get cdrId {
+    final $$CdrTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.cdrId,
+      referencedTable: $db.cdrTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CdrTableTableFilterComposer(
+            $db: $db,
+            $table: $db.cdrTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PersonasTableTableOrderingComposer
@@ -1897,20 +2881,103 @@ class $$PersonasTableTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get nombre => $composableBuilder(
-    column: $table.nombre,
+  ColumnOrderings<String> get fullName => $composableBuilder(
+    column: $table.fullName,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get edad => $composableBuilder(
-    column: $table.edad,
+  ColumnOrderings<String> get ci => $composableBuilder(
+    column: $table.ci,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get sexo => $composableBuilder(
+    column: $table.sexo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get raza => $composableBuilder(
+    column: $table.raza,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get direccionCi => $composableBuilder(
+    column: $table.direccionCi,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get direccionVive => $composableBuilder(
+    column: $table.direccionVive,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get telefono => $composableBuilder(
+    column: $table.telefono,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get antPP => $composableBuilder(
+    column: $table.antPP,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get nivelEscolar => $composableBuilder(
+    column: $table.nivelEscolar,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get profesion => $composableBuilder(
+    column: $table.profesion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get grupoDispensarial => $composableBuilder(
+    column: $table.grupoDispensarial,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isController => $composableBuilder(
+    column: $table.isController,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CdrTableTableOrderingComposer get cdrId {
+    final $$CdrTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.cdrId,
+      referencedTable: $db.cdrTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CdrTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.cdrTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PersonasTableTableAnnotationComposer
@@ -1922,14 +2989,87 @@ class $$PersonasTableTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get nombre =>
-      $composableBuilder(column: $table.nombre, builder: (column) => column);
+  GeneratedColumn<String> get fullName =>
+      $composableBuilder(column: $table.fullName, builder: (column) => column);
 
-  GeneratedColumn<int> get edad =>
-      $composableBuilder(column: $table.edad, builder: (column) => column);
+  GeneratedColumn<String> get ci =>
+      $composableBuilder(column: $table.ci, builder: (column) => column);
+
+  GeneratedColumn<String> get sexo =>
+      $composableBuilder(column: $table.sexo, builder: (column) => column);
+
+  GeneratedColumn<String> get raza =>
+      $composableBuilder(column: $table.raza, builder: (column) => column);
+
+  GeneratedColumn<String> get direccionCi => $composableBuilder(
+    column: $table.direccionCi,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get direccionVive => $composableBuilder(
+    column: $table.direccionVive,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get telefono =>
+      $composableBuilder(column: $table.telefono, builder: (column) => column);
+
+  GeneratedColumn<String> get antPP =>
+      $composableBuilder(column: $table.antPP, builder: (column) => column);
+
+  GeneratedColumn<String> get nivelEscolar => $composableBuilder(
+    column: $table.nivelEscolar,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get profesion =>
+      $composableBuilder(column: $table.profesion, builder: (column) => column);
+
+  GeneratedColumn<String> get grupoDispensarial => $composableBuilder(
+    column: $table.grupoDispensarial,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isController => $composableBuilder(
+    column: $table.isController,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => column,
+  );
+
+  $$CdrTableTableAnnotationComposer get cdrId {
+    final $$CdrTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.cdrId,
+      referencedTable: $db.cdrTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CdrTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.cdrTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
 }
 
 class $$PersonasTableTableTableManager
@@ -1943,12 +3083,9 @@ class $$PersonasTableTableTableManager
           $$PersonasTableTableAnnotationComposer,
           $$PersonasTableTableCreateCompanionBuilder,
           $$PersonasTableTableUpdateCompanionBuilder,
-          (
-            PersonasEntity,
-            BaseReferences<_$AppDatabase, $PersonasTableTable, PersonasEntity>,
-          ),
+          (PersonasEntity, $$PersonasTableTableReferences),
           PersonasEntity,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool cdrId})
         > {
   $$PersonasTableTableTableManager(_$AppDatabase db, $PersonasTableTable table)
     : super(
@@ -1967,19 +3104,79 @@ class $$PersonasTableTableTableManager
               ),
           updateCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
-                Value<String> nombre = const Value.absent(),
-                Value<int> edad = const Value.absent(),
-              }) => PersonasTableCompanion(id: id, nombre: nombre, edad: edad),
+                Value<String> id = const Value.absent(),
+                Value<String> fullName = const Value.absent(),
+                Value<String> ci = const Value.absent(),
+                Value<String> sexo = const Value.absent(),
+                Value<String> raza = const Value.absent(),
+                Value<String?> direccionCi = const Value.absent(),
+                Value<String?> direccionVive = const Value.absent(),
+                Value<String?> telefono = const Value.absent(),
+                Value<String> antPP = const Value.absent(),
+                Value<String?> nivelEscolar = const Value.absent(),
+                Value<String?> profesion = const Value.absent(),
+                Value<String> grupoDispensarial = const Value.absent(),
+                Value<String?> observaciones = const Value.absent(),
+                Value<bool> isController = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
+                Value<String> cdrId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PersonasTableCompanion(
+                id: id,
+                fullName: fullName,
+                ci: ci,
+                sexo: sexo,
+                raza: raza,
+                direccionCi: direccionCi,
+                direccionVive: direccionVive,
+                telefono: telefono,
+                antPP: antPP,
+                nivelEscolar: nivelEscolar,
+                profesion: profesion,
+                grupoDispensarial: grupoDispensarial,
+                observaciones: observaciones,
+                isController: isController,
+                isAvailable: isAvailable,
+                cdrId: cdrId,
+                rowid: rowid,
+              ),
           createCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
-                required String nombre,
-                required int edad,
+                Value<String> id = const Value.absent(),
+                required String fullName,
+                required String ci,
+                required String sexo,
+                required String raza,
+                Value<String?> direccionCi = const Value.absent(),
+                Value<String?> direccionVive = const Value.absent(),
+                Value<String?> telefono = const Value.absent(),
+                required String antPP,
+                Value<String?> nivelEscolar = const Value.absent(),
+                Value<String?> profesion = const Value.absent(),
+                required String grupoDispensarial,
+                Value<String?> observaciones = const Value.absent(),
+                Value<bool> isController = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
+                required String cdrId,
+                Value<int> rowid = const Value.absent(),
               }) => PersonasTableCompanion.insert(
                 id: id,
-                nombre: nombre,
-                edad: edad,
+                fullName: fullName,
+                ci: ci,
+                sexo: sexo,
+                raza: raza,
+                direccionCi: direccionCi,
+                direccionVive: direccionVive,
+                telefono: telefono,
+                antPP: antPP,
+                nivelEscolar: nivelEscolar,
+                profesion: profesion,
+                grupoDispensarial: grupoDispensarial,
+                observaciones: observaciones,
+                isController: isController,
+                isAvailable: isAvailable,
+                cdrId: cdrId,
+                rowid: rowid,
               ),
           withReferenceMapper:
               (p0) =>
@@ -1987,11 +3184,51 @@ class $$PersonasTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$PersonasTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({cdrId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (cdrId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.cdrId,
+                            referencedTable: $$PersonasTableTableReferences
+                                ._cdrIdTable(db),
+                            referencedColumn:
+                                $$PersonasTableTableReferences
+                                    ._cdrIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ),
       );
 }
@@ -2006,12 +3243,9 @@ typedef $$PersonasTableTableProcessedTableManager =
       $$PersonasTableTableAnnotationComposer,
       $$PersonasTableTableCreateCompanionBuilder,
       $$PersonasTableTableUpdateCompanionBuilder,
-      (
-        PersonasEntity,
-        BaseReferences<_$AppDatabase, $PersonasTableTable, PersonasEntity>,
-      ),
+      (PersonasEntity, $$PersonasTableTableReferences),
       PersonasEntity,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool cdrId})
     >;
 
 class $AppDatabaseManager {

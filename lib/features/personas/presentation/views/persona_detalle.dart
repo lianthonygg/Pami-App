@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/theme/theme.dart';
-import 'package:pami_app/features/common/domain/entities/persona.dart';
+import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 
 class PersonaDetalle extends ConsumerWidget {
@@ -51,43 +51,46 @@ class PersonaDetalle extends ConsumerWidget {
     );
   }
 
-  Widget _buildPersonaDetalle(BuildContext context, Persona persona) {
+  Widget _buildPersonaDetalle(
+    BuildContext context,
+    PersonaConCdrYCircunscripcion? data,
+  ) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         _buildSection(context, "Datos Generales", [
-          _item(context, "Nombre y Apellidos", persona.fullName),
-          _item(context, "CI", persona.ci),
+          _item(context, "Nombre y Apellidos", data!.persona.fullName),
+          _item(context, "CI", data.persona.ci),
           _item(
             context,
             "Sexo",
-            persona.sexo == "M" ? "Masculino" : "Femenino",
+            data.persona.sexo == "M" ? "Masculino" : "Femenino",
           ),
           _item(
             context,
             "Raza",
-            persona.raza == "B"
+            data.persona.raza == "B"
                 ? "Blanca"
-                : persona.raza == "M"
+                : data.persona.raza == "M"
                 ? "Mestiza"
                 : "Negra",
           ),
         ]),
         _buildSection(context, "Dirección", [
-          _item(context, "Dirección del CI", persona.direccionDelCI),
-          _item(context, "Dirección donde vive", persona.direccionEnQueVive),
-          _item(context, "Circunscripción", persona.circunscripcion.numero),
-          _item(context, "CDR", persona.cdr.numero),
+          _item(context, "Dirección del CI", data.persona.direccionCi),
+          _item(context, "Dirección donde vive", data.persona.direccionVive),
+          _item(context, "Circunscripción", data.circunscripcion.numero),
+          _item(context, "CDR", data.cdr.numero),
         ]),
         _buildSection(context, "Contacto", [
-          _item(context, "Teléfono", persona.telefono),
+          _item(context, "Teléfono", data.persona.telefono),
         ]),
         _buildSection(context, "Otros", [
-          _item(context, "Nivel Escolar", persona.nivelEscolar),
-          _item(context, "Profesión", persona.profesion),
-          _item(context, "Antecedentes Patológicos", persona.antPP),
-          _item(context, "Grupo Dispensarial", persona.grupoDispensarial),
-          _item(context, "Observaciones", persona.observaciones),
+          _item(context, "Nivel Escolar", data.persona.nivelEscolar),
+          _item(context, "Profesión", data.persona.profesion),
+          _item(context, "Antecedentes Patológicos", data.persona.antPP),
+          _item(context, "Grupo Dispensarial", data.persona.grupoDispensarial),
+          _item(context, "Observaciones", data.persona.observaciones),
         ]),
       ],
     );
@@ -128,7 +131,7 @@ class PersonaDetalle extends ConsumerWidget {
     );
   }
 
-  Widget _item(BuildContext context, String label, String value) {
+  Widget _item(BuildContext context, String label, String? value) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -148,7 +151,7 @@ class PersonaDetalle extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              value.isEmpty ? "-" : value,
+              value!.isEmpty ? "-" : value,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurface,
               ),

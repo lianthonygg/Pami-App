@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/core/network/connectivity_service.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
 import 'package:pami_app/routing/routes.dart';
+import 'package:workmanager/workmanager.dart';
 //import 'package:pami_app/routing/routes.dart';
 
 class DynamicDrawer extends ConsumerWidget {
@@ -68,6 +70,8 @@ class DynamicDrawer extends ConsumerWidget {
               ),
           ],
           const Divider(thickness: 1, height: 32),
+          ManualSyncTile(),
+          const Divider(thickness: 1, height: 32),
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Cerrar sesión'),
@@ -118,6 +122,94 @@ class _DrawerItem extends StatelessWidget {
         Navigator.pop(context);
         if (!isSelected) context.go(route['path']);
       },
+    );
+  }
+}
+
+class ManualSyncTile extends StatefulWidget {
+  const ManualSyncTile({super.key});
+
+  @override
+  State<ManualSyncTile> createState() => _ManualSyncTileState();
+}
+
+class _ManualSyncTileState extends State<ManualSyncTile>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _isSyncing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _startSync() async {
+    final ctx = context;
+    if (await hasInternet()) {
+      if (!mounted) return;
+      setState(() {
+        _isSyncing = true;
+        _controller.repeat();
+      });
+
+      await Workmanager().registerOneOffTask(
+        "manual_sync",
+        "syncBaseTables",
+        constraints: Constraints(networkType: NetworkType.connected),
+      );
+
+      if (mounted) {
+        setState(() {
+          _isSyncing = false;
+          _controller.stop();
+        });
+      }
+    } else {
+      if (ctx.mounted) {
+        showDialog(
+          context: ctx,
+          builder:
+              (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                title: const Text("Sin conexión"),
+                content: const Text(
+                  "Para realizar esta acción necesita estar conectado a internet.",
+                  style: TextStyle(fontSize: 16),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Aceptar"),
+                  ),
+                ],
+              ),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorSheme = Theme.of(context).colorScheme;
+    return ListTile(
+      leading: RotationTransition(
+        turns: _controller,
+        child: Icon(Icons.sync, color: _isSyncing ? colorSheme.primary : null),
+      ),
+      title: const Text('Sincronización Manual'),
+      onTap: _isSyncing ? null : _startSync,
     );
   }
 }

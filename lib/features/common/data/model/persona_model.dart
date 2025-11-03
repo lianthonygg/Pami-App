@@ -1,3 +1,4 @@
+import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 
 class PersonaModel extends Persona {
@@ -17,6 +18,7 @@ class PersonaModel extends Persona {
     required super.observaciones,
     required super.circunscripcion,
     required super.cdr,
+    required super.lastModified,
   });
 
   factory PersonaModel.fromJson(Map<String, dynamic> json) => PersonaModel(
@@ -37,7 +39,20 @@ class PersonaModel extends Persona {
       json["circunscripcion"] ?? {},
     ),
     cdr: CdrModelResponse.fromJson(json['cdr'] ?? {}),
+    lastModified: DateTime.parse(json['lastModified']),
   );
+}
+
+class PersonaConCdrYCircunscripcion {
+  final PersonasEntity persona;
+  final CdrEntity cdr;
+  final CircunscripcionEntity circunscripcion;
+
+  PersonaConCdrYCircunscripcion({
+    required this.persona,
+    required this.cdr,
+    required this.circunscripcion,
+  });
 }
 
 class CircunscripcionModelResponse extends CircunscripcionResponse {
