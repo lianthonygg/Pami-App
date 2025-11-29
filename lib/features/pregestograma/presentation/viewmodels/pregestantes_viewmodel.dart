@@ -1,13 +1,21 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/pregestograma/domain/entities/pregestante.dart';
 import 'package:pami_app/features/pregestograma/domain/usecases/pregestantes_usecase.dart';
+import 'package:pami_app/features/pregestograma/presentation/providers/usecase_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class PregestantesViewModel extends StateNotifier<PregestantesState> {
-  final PregestantesUseCase pregestantesUseCase;
+part 'pregestantes_viewmodel.g.dart';
 
-  PregestantesViewModel(this.pregestantesUseCase) : super(PregestantesState());
+@riverpod
+class PregestantesViewModel extends _$PregestantesViewModel {
+  late final PregestantesUseCase pregestantesUseCase;
+
+  @override
+  PregestantesState build() {
+    pregestantesUseCase = ref.read(pregestantesUseCaseProvider);
+    return PregestantesState();
+  }
 
   Future<void> getAll() async {
     state = state.copyWith(isLoading: true, error: null);

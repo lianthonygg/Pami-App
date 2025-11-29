@@ -1,7 +1,7 @@
 class Pregestante {
   final String nombre;
   final String ci;
-  final String telefono;
+  final String? telefono;
   final String grupoRiesgo;
   final bool isController;
 

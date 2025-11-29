@@ -3,7 +3,9 @@ import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
+import 'package:pami_app/features/common/domain/entities/gestante.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/puerpera.dart';
 import 'package:pami_app/features/common/domain/repositories/local_repository.dart';
 
 class LocalRepositoryImpl implements LocalRepository {
@@ -115,5 +117,58 @@ class LocalRepositoryImpl implements LocalRepository {
       cdr: row.readTable(db.cdrTable),
       circunscripcion: row.readTable(db.circunscripcionTable),
     );
+  }
+
+  @override
+  Future<void> insertOrUpdateGestantes(List<Gestante> gestantes) async {
+    await db.batch((batch) {
+      for (final gestante in gestantes) {
+        batch.insert(
+          db.gestanteTable,
+          GestanteTableCompanion(
+            id: Value(gestante.id),
+            antPp: Value(gestante.antPP),
+            observaciones: Value(gestante.observaciones),
+            tgCaptacion: Value(gestante.tgCaptacion),
+            tgFinal: Value(gestante.tgFinal),
+            fum: Value(gestante.fum),
+            gestaciones: Value(gestante.gestaciones),
+            partos: Value(gestante.partos),
+            abortos: Value(gestante.abortos),
+            cesareas: Value(gestante.cesareas),
+            antPPretermino: Value(gestante.antPPretermino),
+            fechaCaptacion: Value(gestante.fechaCaptacion),
+            fechaProbableParto: Value(gestante.fechaProbableParto),
+            rciu: Value(gestante.rciu),
+            imc: Value(gestante.imc),
+            clasificacionRiesgo: Value(gestante.clasificacionRiesgo),
+            personaId: Value(gestante.personaId),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> insertOrUpdatePuerperas(List<Puerpera> puerperas) async {
+    await db.batch((batch) {
+      for (final puerpera in puerperas) {
+        batch.insert(
+          db.puerperaTable,
+          PuerperaTableCompanion(
+            id: Value(puerpera.id),
+            antPp: Value(puerpera.antPP),
+            observaciones: Value(puerpera.observaciones),
+            gestaciones: Value(puerpera.gestaciones),
+            partos: Value(puerpera.partos),
+            abortos: Value(puerpera.abortos),
+            cesareas: Value(puerpera.cesareas),
+            antPPretermino: Value(puerpera.antPPretermino),
+            tipoParto: Value(puerpera.tipoParto),
+            personaId: Value(puerpera.personaId),
+          ),
+        );
+      }
+    });
   }
 }

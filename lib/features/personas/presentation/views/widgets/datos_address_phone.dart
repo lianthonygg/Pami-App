@@ -15,7 +15,7 @@ class DatosAddressPhone extends ConsumerWidget {
           icon: Icons.location_pin,
           initialValue: ref.read(direccionCIProvider),
           onChanged:
-              (v) => ref.read(direccionCIProvider.notifier).state = v.trim(),
+              (v) => ref.read(direccionCIProvider.notifier).set(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
@@ -23,7 +23,7 @@ class DatosAddressPhone extends ConsumerWidget {
           icon: Icons.home,
           initialValue: ref.read(direccionViveProvider),
           onChanged:
-              (v) => ref.read(direccionViveProvider.notifier).state = v.trim(),
+              (v) => ref.read(direccionViveProvider.notifier).set(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
@@ -39,7 +39,7 @@ class DatosAddressPhone extends ConsumerWidget {
             }
             return null;
           },
-          onChanged: (v) => ref.read(phoneProvider.notifier).state = v.trim(),
+          onChanged: (v) => ref.read(phoneProvider.notifier).set(v.trim()),
         ),
       ],
     );

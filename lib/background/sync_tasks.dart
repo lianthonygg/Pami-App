@@ -19,54 +19,65 @@ void callbackDispatcher() {
     await NotificationService.inicialized();
 
     try {
-      await NotificationService.show(
-        'Sincronizando sus datos',
-        'Por favor, espere mientras se actualizan sus datos...',
-      );
-
       if (!await hasInternet()) {
+        await NotificationService.show(
+          'Sincronizando sus datos',
+          'Por favor, espere mientras se actualizan sus datos...',
+        );
+
+        final dioClient = DioClient();
+        final dataSource = CommonRemoteDatasource(dioClient.dio);
+        final remoteRepo = CommonRepositoryImpl(dataSource);
+        final db = AppDatabase();
+        final localRepo = LocalRepositoryImpl(db);
+        final circUseCase = CircunscripcionUseCase(remoteRepo, localRepo);
+        final cdrUseCase = CdrUseCase(remoteRepo, localRepo);
+        final pacientesUseCase = PersonasSyncUseCase(remoteRepo, localRepo);
+
+        switch (task) {
+          case "syncBaseTables":
+            final isLoggedIn = await AuthService.isLoggedIn();
+            if (!isLoggedIn) {
+              await Workmanager().cancelByUniqueName(task);
+
+              return Future.value(true);
+            }
+            await syncCircunscripciones(
+              useCase: circUseCase,
+              repository: localRepo,
+            );
+            await syncCdrs(useCase: cdrUseCase, repository: localRepo);
+            await syncPacientes(
+              useCase: pacientesUseCase,
+              repository: localRepo,
+            );
+            await syncGestantes(
+              useCase: pacientesUseCase,
+              repository: localRepo,
+            );
+            await syncPuerperas(
+              useCase: pacientesUseCase,
+              repository: localRepo,
+            );
+            break;
+        }
+
+        await NotificationService.update(
+          'Sincronización completada',
+          'Sus datos han sido sincronizados correctamente.',
+        );
+      } else {
         if (kDebugMode) {
           print("No hay internet, se retrasa la sincronización");
         }
         return Future.value(false);
       }
-
-      final dioClient = DioClient();
-      final dataSource = CommonRemoteDatasource(dioClient.dio);
-      final remoteRepo = CommonRepositoryImpl(dataSource);
-      final db = AppDatabase();
-      final localRepo = LocalRepositoryImpl(db);
-      final useCase = CircunscripcionUseCase(remoteRepo, localRepo);
-      final cdrUseCase = CdrUseCase(remoteRepo, localRepo);
-      final pacientesUseCase = PersonasSyncUseCase(remoteRepo, localRepo);
-
-      switch (task) {
-        case "syncBaseTables":
-          final isLoggedIn = await AuthService.isLoggedIn();
-          if (!isLoggedIn) {
-            await Workmanager().cancelByUniqueName(task);
-
-            return Future.value(true);
-          }
-          await syncBasedData(useCase: useCase, repository: localRepo);
-          await syncCdrs(useCase: cdrUseCase, repository: localRepo);
-          await syncPacientes(useCase: pacientesUseCase, repository: localRepo);
-          break;
-      }
-
-      await NotificationService.update(
-        'Sincronización completada',
-        'Sus datos han sido sincronizados correctamente.',
-      );
     } catch (e) {
       await NotificationService.update(
         'Error de sincronización',
         'Ocurrió un problema al sincronizar sus datos.',
       );
     }
-
-    // await Future.delayed(const Duration(seconds: 3));
-    // await NotificationService.hide();
 
     return Future.value(true);
   });

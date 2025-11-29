@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/theme/theme.dart';
+import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/presentation/widgets/dropdown_field.dart';
 import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
-import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
 import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
 import 'package:pami_app/features/personas/presentation/views/widgets/datos_address_phone.dart';
 import 'package:pami_app/features/personas/presentation/views/widgets/datos_generales.dart';
@@ -48,19 +48,19 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
           next.error == null) {
         formKey.currentState?.reset();
 
-        ref.read(fullNameProvider.notifier).state = '';
-        ref.read(ciProvider.notifier).state = '';
-        ref.read(sexoProvider.notifier).state = '';
-        ref.read(razaProvider.notifier).state = '';
-        ref.read(direccionCIProvider.notifier).state = '';
-        ref.read(direccionViveProvider.notifier).state = '';
-        ref.read(phoneProvider.notifier).state = '';
-        ref.read(antPpProvider.notifier).state = '';
-        ref.read(nivelEscolarProvider.notifier).state = '';
-        ref.read(profesionProvider.notifier).state = '';
-        ref.read(grupoDispensarialProvider.notifier).state = '';
-        ref.read(observacionesProvider.notifier).state = '';
-        ref.read(controladaProvider.notifier).state = 'false';
+        ref.read(fullNameProvider.notifier).set('');
+        ref.read(ciProvider.notifier).set('');
+        ref.read(sexoProvider.notifier).set('');
+        ref.read(razaProvider.notifier).set('');
+        ref.read(direccionCIProvider.notifier).set('');
+        ref.read(direccionViveProvider.notifier).set('');
+        ref.read(phoneProvider.notifier).set('');
+        ref.read(antPpProvider.notifier).set('');
+        ref.read(nivelEscolarProvider.notifier).set('');
+        ref.read(profesionProvider.notifier).set('');
+        ref.read(grupoDispensarialProvider.notifier).set('');
+        ref.read(observacionesProvider.notifier).set('');
+        ref.read(controladaProvider.notifier).set('false');
 
         ref.read(circunscripcionProvider.notifier).reset();
         ref.read(cdrProvider.notifier).reset();
@@ -179,7 +179,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                         ),
                         initialValue: circState.selected?.id,
                         items:
-                            circState.items
+                            (circState.items as List<CircunscripcionEntity>)
                                 .map(
                                   (c) => DropdownMenuItem(
                                     value: c.id,
@@ -211,7 +211,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                         ),
                         initialValue: currentCdrValue, // <-- validado antes
                         items:
-                            cdrState.items
+                            (cdrState.items as List<CdrEntity>)
                                 .map(
                                   (c) => DropdownMenuItem(
                                     value: c.id,
@@ -243,9 +243,9 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                             DropdownMenuItem(value: "false", child: Text("No")),
                           ],
                           onChanged:
-                              (v) =>
-                                  ref.read(controladaProvider.notifier).state =
-                                      v ?? 'false',
+                              (v) => ref
+                                  .read(controladaProvider.notifier)
+                                  .set(v ?? 'false'),
                         ),
                       ],
                       const SizedBox(height: 24),

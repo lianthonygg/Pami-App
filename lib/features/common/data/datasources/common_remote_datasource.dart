@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/common/data/model/cdr_model.dart';
 import 'package:pami_app/features/common/data/model/circunscripcion_model.dart';
+import 'package:pami_app/features/common/data/model/gestantes_model.dart';
 import 'package:pami_app/features/common/data/model/persona_model.dart';
+import 'package:pami_app/features/common/data/model/puerpera_model.dart';
 
 class CommonRemoteDatasource {
   final Dio dio;
@@ -32,6 +34,44 @@ class CommonRemoteDatasource {
 
       return (response.data as List)
           .map((item) => PersonaModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
+  Future<List<GestantesModel>> getGestantes(DateTime? lastModified) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (lastModified != null) {
+        queryParams["lastModified"] = lastModified.toIso8601String();
+      }
+      final response = await dio.get(
+        "/gestantes/mobile/get-by-consultorio",
+        queryParameters: queryParams,
+      );
+
+      return (response.data as List)
+          .map((item) => GestantesModel.fromJson(item))
+          .toList();
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
+  Future<List<PuerperaModel>> getPuerperas(DateTime? lastModified) async {
+    try {
+      final queryParams = <String, dynamic>{};
+      if (lastModified != null) {
+        queryParams["lastModified"] = lastModified.toIso8601String();
+      }
+      final response = await dio.get(
+        "/puerperas/mobile/get-by-consultorio",
+        queryParameters: queryParams,
+      );
+
+      return (response.data as List)
+          .map((item) => PuerperaModel.fromJson(item))
           .toList();
     } on DioException catch (e) {
       throw e.error as ServerException;

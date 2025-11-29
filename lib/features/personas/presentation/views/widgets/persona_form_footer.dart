@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
 import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
-import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
+import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
 
 class PersonaFormFooter extends ConsumerWidget {
   final GlobalKey<FormState> formKey;

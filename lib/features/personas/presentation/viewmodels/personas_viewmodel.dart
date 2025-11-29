@@ -1,15 +1,23 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/data/model/persona_model.dart';
 import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
+import 'package:pami_app/features/personas/presentation/providers/usecase_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class PersonasViewModel extends StateNotifier<PersonasState> {
-  final PersonaUseCase personaUseCase;
+part 'personas_viewmodel.g.dart';
 
-  PersonasViewModel(this.personaUseCase) : super(PersonasState());
+@riverpod
+class PersonasViewModel extends _$PersonasViewModel {
+  late final PersonaUseCase personaUseCase;
+
+  @override
+  PersonasState build() {
+    personaUseCase = ref.read(personaUseCaseProvider);
+    return PersonasState();
+  }
 
   Future<void> getAll() async {
     state = state.copyWith(isLoading: true, error: null);

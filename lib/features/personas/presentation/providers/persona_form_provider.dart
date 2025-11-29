@@ -1,59 +1,20 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
+import 'package:pami_app/features/common/presentation/providers/usecase_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final fullNameProvider = StateProvider<String>((ref) => '');
-final ciProvider = StateProvider<String>((ref) => '');
-final sexoProvider = StateProvider<String>((ref) => '');
-final razaProvider = StateProvider<String>((ref) => '');
-final direccionCIProvider = StateProvider<String>((ref) => '');
-final direccionViveProvider = StateProvider<String>((ref) => '');
-final phoneProvider = StateProvider<String>((ref) => '');
-final antPpProvider = StateProvider<String>((ref) => '');
-final nivelEscolarProvider = StateProvider<String>((ref) => '');
-final profesionProvider = StateProvider<String>((ref) => '');
-final grupoDispensarialProvider = StateProvider<String>((ref) => '');
-final observacionesProvider = StateProvider<String>((ref) => '');
-final controladaProvider = StateProvider<String>((ref) => 'false');
+part 'persona_form_provider.g.dart';
 
-// ==== STATE ====
-class SelectState<T> {
-  final List<T> items;
-  final bool isLoading;
-  final String? error;
-  final T? selected;
+@riverpod
+class CircunscripcionNotifier extends _$CircunscripcionNotifier {
+  late final CircunscripcionUseCase circunscripcionUseCase;
 
-  const SelectState({
-    this.items = const [],
-    this.isLoading = false,
-    this.error,
-    this.selected,
-  });
-
-  SelectState<T> copyWith({
-    List<T>? items,
-    bool? isLoading,
-    String? error,
-    T? selected,
-  }) {
-    return SelectState<T>(
-      items: items ?? this.items,
-      isLoading: isLoading ?? this.isLoading,
-      error: error,
-      selected: selected ?? this.selected,
-    );
-  }
-}
-
-// ==== NOTIFIERS ====
-class CircunscripcionNotifier
-    extends StateNotifier<SelectState<CircunscripcionEntity>> {
-  final CircunscripcionUseCase circunscripcionUseCase;
-
-  CircunscripcionNotifier(this.circunscripcionUseCase)
-    : super(const SelectState()) {
+  @override
+  SelectState build() {
+    circunscripcionUseCase = ref.read(circunscripcionUseCaseProvider);
     _init();
+    return SelectState();
   }
 
   void _init() {
@@ -84,10 +45,15 @@ class CircunscripcionNotifier
   }
 }
 
-class CdrNotifier extends StateNotifier<SelectState<CdrEntity>> {
-  final CdrUseCase cdrUseCase;
+@riverpod
+class CdrNotifier extends _$CdrNotifier {
+  late final CdrUseCase cdrUseCase;
 
-  CdrNotifier(this.cdrUseCase) : super(const SelectState());
+  @override
+  SelectState build() {
+    cdrUseCase = ref.read(cdrUseCaseProvider);
+    return SelectState();
+  }
 
   void init(String circunscripcionId) {
     cdrUseCase.watchCdrs(circunscripcionId).listen((cdrs) {
@@ -112,5 +78,142 @@ class CdrNotifier extends StateNotifier<SelectState<CdrEntity>> {
 
   void reset() {
     state = const SelectState();
+  }
+}
+
+// final grupoDispensarialProvider = StateProvider<String>((ref) => '');
+// final observacionesProvider = StateProvider<String>((ref) => '');
+// final controladaProvider = StateProvider<String>((ref) => 'false');
+
+@Riverpod(keepAlive: false)
+class FullName extends _$FullName {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Ci extends _$Ci {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Sexo extends _$Sexo {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Raza extends _$Raza {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class DireccionCI extends _$DireccionCI {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class DireccionVive extends _$DireccionVive {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Phone extends _$Phone {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class AntPp extends _$AntPp {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class NivelEscolar extends _$NivelEscolar {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Profesion extends _$Profesion {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class GrupoDispensarial extends _$GrupoDispensarial {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Observaciones extends _$Observaciones {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Controlada extends _$Controlada {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+// ==== STATE ====
+class SelectState<T> {
+  final List<T> items;
+  final bool isLoading;
+  final String? error;
+  final T? selected;
+
+  const SelectState({
+    this.items = const [],
+    this.isLoading = false,
+    this.error,
+    this.selected,
+  });
+
+  SelectState<T> copyWith({
+    List<T>? items,
+    bool? isLoading,
+    String? error,
+    T? selected,
+  }) {
+    return SelectState<T>(
+      items: items ?? this.items,
+      isLoading: isLoading ?? this.isLoading,
+      error: error,
+      selected: selected ?? this.selected,
+    );
   }
 }

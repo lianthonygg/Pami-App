@@ -22,13 +22,13 @@ GoRouter router() => GoRouter(
   redirect: (BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
 
-    var authState = ref.read(authNotifierProvider);
+    var authState = ref.read(authProvider);
 
     if (authState.isLoading) {
       final completer = Completer<String?>();
 
       late final ProviderSubscription<AuthNotifierState> subscription;
-      subscription = ref.listen(authNotifierProvider, (prev, next) {
+      subscription = ref.listen(authProvider, (prev, next) {
         if (!next.isLoading) {
           final redirectPath = _getRedirectPath(state, next.isLoggedIn);
           completer.complete(redirectPath);

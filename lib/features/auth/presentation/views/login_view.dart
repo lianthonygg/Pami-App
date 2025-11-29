@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
-import 'package:pami_app/features/auth/presentation/viewmodels/auth_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_viewmodel.dart';
 import 'package:pami_app/routing/routes.dart';
@@ -23,7 +22,7 @@ class LoginView extends ConsumerWidget {
         if (next.user?.accessToken != null && next.error == null) {
           Future.delayed(const Duration(milliseconds: 500), () {
             if (context.mounted) {
-              final isLoggedIn = ref.read(authNotifierProvider).isLoggedIn;
+              final isLoggedIn = ref.read(authProvider).isLoggedIn;
               if (isLoggedIn) context.go(Routes.home);
             }
           });
@@ -205,8 +204,7 @@ class LoginView extends ConsumerWidget {
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s')),
                   ],
-                  onChanged:
-                      (v) => ref.read(_nicknameProvider.notifier).state = v,
+                  onChanged: (v) => ref.read(nicknameProvider.notifier).set(v),
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -232,8 +230,7 @@ class LoginView extends ConsumerWidget {
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s')),
                   ],
-                  onChanged:
-                      (v) => ref.read(_passwordProvider.notifier).state = v,
+                  onChanged: (v) => ref.read(passwordProvider.notifier).set(v),
                 ),
                 const SizedBox(height: 24),
                 ZoomIn(
@@ -247,8 +244,8 @@ class LoginView extends ConsumerWidget {
                           authState.isLoading
                               ? null
                               : () async {
-                                final nickname = ref.read(_nicknameProvider);
-                                final password = ref.read(_passwordProvider);
+                                final nickname = ref.read(nicknameProvider);
+                                final password = ref.read(passwordProvider);
                                 await authViewModel.login(nickname, password);
                               },
                       child:
@@ -282,6 +279,3 @@ class LoginView extends ConsumerWidget {
     );
   }
 }
-
-final _nicknameProvider = StateProvider<String>((ref) => '');
-final _passwordProvider = StateProvider<String>((ref) => '');

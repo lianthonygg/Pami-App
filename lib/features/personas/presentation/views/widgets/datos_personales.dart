@@ -19,8 +19,7 @@ class DatosPersonales extends ConsumerWidget {
           capitalization: TextCapitalization.words,
           validator:
               (v) => v == null || v.trim().isEmpty ? "Campo requerido" : null,
-          onChanged:
-              (v) => ref.read(fullNameProvider.notifier).state = v.trim(),
+          onChanged: (v) => ref.read(fullNameProvider.notifier).set(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
@@ -35,7 +34,7 @@ class DatosPersonales extends ConsumerWidget {
             if (v.length != 11) return 'Debe tener 11 dígitos';
             return null;
           },
-          onChanged: (v) => ref.read(ciProvider.notifier).state = v.trim(),
+          onChanged: (v) => ref.read(ciProvider.notifier).set(v.trim()),
         ),
         const SizedBox(height: 16),
         DropdownFormFieldCustom<String>(
@@ -47,7 +46,7 @@ class DatosPersonales extends ConsumerWidget {
             DropdownMenuItem(value: "M", child: Text("Masculino")),
             DropdownMenuItem(value: "F", child: Text("Femenino")),
           ],
-          onChanged: (v) => ref.read(sexoProvider.notifier).state = v ?? '',
+          onChanged: (v) => ref.read(sexoProvider.notifier).set(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
         const SizedBox(height: 16),
@@ -61,7 +60,7 @@ class DatosPersonales extends ConsumerWidget {
             DropdownMenuItem(value: 'M', child: Text("Mestiza")),
             DropdownMenuItem(value: 'N', child: Text("Negra")),
           ],
-          onChanged: (v) => ref.read(razaProvider.notifier).state = v ?? '',
+          onChanged: (v) => ref.read(razaProvider.notifier).set(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
       ],

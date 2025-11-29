@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/core/network/connectivity_service.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
-import 'package:pami_app/features/personas/presentation/providers/personas_provider.dart';
+import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
 import 'package:pami_app/routing/routes.dart';
 
 class PersonasView extends ConsumerWidget {
@@ -79,14 +80,19 @@ class PersonasView extends ConsumerWidget {
                               final personas = personasState.items as List;
 
                               if (index == 0) {
-                                // Encabezado con total
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 12.0),
-                                  child: Text(
-                                    "Total: ${(personas.length + 1)}",
-                                    style: textTheme.titleMedium?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: colorScheme.primary,
+                                return Container(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 12.0,
+                                    ),
+                                    child: Text(
+                                      "Total: ${(personas.length + 1)}",
+                                      style: textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: colorScheme.primary,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
                                 );
@@ -112,9 +118,37 @@ class PersonasView extends ConsumerWidget {
                 ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (context.mounted) {
-            context.push(Routes.createPersona);
+        onPressed: () async {
+          final ctx = context;
+          if (await hasInternet()) {
+            if (!context.mounted) return;
+
+            if (context.mounted) {
+              context.push(Routes.createPersona);
+            }
+          } else {
+            if (ctx.mounted) {
+              showDialog(
+                context: ctx,
+                builder:
+                    (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      title: const Text("Sin conexión"),
+                      content: const Text(
+                        "Para realizar esta acción necesita estar conectado a internet.",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Aceptar"),
+                        ),
+                      ],
+                    ),
+              );
+            }
           }
         },
         child: const Icon(Icons.person_add_alt),

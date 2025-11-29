@@ -1,6 +1,8 @@
 import 'package:pami_app/features/common/domain/entities/cdr.dart';
 import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
+import 'package:pami_app/features/common/domain/entities/gestante.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
+import 'package:pami_app/features/common/domain/entities/puerpera.dart';
 
 abstract class CommonRepository {
   Future<List<Circunscripcion>> getCircunscripciones(DateTime? lastModified);
@@ -10,4 +12,8 @@ abstract class CommonRepository {
   Future<List<Cdr>> getCdrs(DateTime? lastModified);
 
   Future<List<Persona>> getPacientes(DateTime? lastModified);
+
+  Future<List<Gestante>> getGestantes(DateTime? lastModified);
+
+  Future<List<Puerpera>> getPuerperas(DateTime? lastModified);
 }
