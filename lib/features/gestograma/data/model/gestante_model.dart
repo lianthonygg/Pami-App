@@ -1,0 +1,54 @@
+import 'package:pami_app/features/gestograma/domain/entities/gestante.dart';
+
+class GestantesResponseModel extends Gestante {
+  GestantesResponseModel({
+    required super.id,
+    required super.nombre,
+    required super.ci,
+    required super.personaId,
+    required super.direccionDelCi,
+    required super.direccionEnQueVive,
+    required super.telefono,
+    required super.antPP,
+    required super.observaciones,
+    required super.tgCaptacion,
+    required super.tgFinal,
+    required super.fum,
+    required super.gestaciones,
+    required super.partos,
+    required super.abortos,
+    required super.cesareas,
+    required super.antPPretermino,
+    required super.fechaCaptacion,
+    required super.fechaProbableParto,
+    required super.rciu,
+    required super.imc,
+    required super.clasificacionRiesgo,
+  });
+
+  factory GestantesResponseModel.fromEntity(PersonaWithGestanteData data) =>
+      GestantesResponseModel(
+        id: data.gestante.id,
+        nombre: data.persona.fullName,
+        ci: data.persona.ci,
+        personaId: data.gestante.personaId,
+        direccionDelCi: data.persona.direccionCi,
+        direccionEnQueVive: data.persona.direccionVive,
+        telefono: data.persona.telefono,
+        antPP: data.gestante.antPp,
+        observaciones: data.gestante.observaciones,
+        tgCaptacion: data.gestante.tgCaptacion,
+        tgFinal: data.gestante.tgFinal,
+        fum: data.gestante.fum,
+        gestaciones: data.gestante.gestaciones,
+        partos: data.gestante.partos,
+        abortos: data.gestante.abortos,
+        cesareas: data.gestante.cesareas,
+        antPPretermino: data.gestante.antPPretermino,
+        fechaCaptacion: data.gestante.fechaCaptacion,
+        fechaProbableParto: data.gestante.fechaProbableParto,
+        rciu: data.gestante.rciu,
+        imc: data.gestante.imc,
+        clasificacionRiesgo: data.gestante.clasificacionRiesgo,
+      );
+}

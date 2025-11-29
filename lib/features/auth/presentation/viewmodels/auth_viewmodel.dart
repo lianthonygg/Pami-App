@@ -1,14 +1,21 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/error/server_exception.dart';
 import 'package:pami_app/features/auth/domain/entities/user.dart';
 import 'package:pami_app/features/auth/domain/usecases/login_usecase.dart';
+import 'package:pami_app/features/auth/presentation/providers/usecase_provider.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthViewModel extends StateNotifier<AuthState> {
-  final LoginUseCase loginUseCase;
-  final Ref ref;
+part 'auth_viewmodel.g.dart';
 
-  AuthViewModel(this.loginUseCase, this.ref) : super(AuthState());
+@riverpod
+class AuthViewModel extends _$AuthViewModel {
+  late final LoginUseCase loginUseCase;
+
+  @override
+  AuthState build() {
+    loginUseCase = ref.read(loginUseCaseProvider);
+    return AuthState();
+  }
 
   Future<void> login(String nickname, String password) async {
     state = state.copyWith(isLoading: true, error: null);
@@ -18,7 +25,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
 
       final token = result.accessToken;
 
-      await ref.read(authNotifierProvider.notifier).login(token);
+      await ref.read(authProvider.notifier).login(token);
 
       state = state.copyWith(isLoading: false, user: result);
     } on ServerException catch (e) {
@@ -29,7 +36,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   void logout() {
-    ref.read(authNotifierProvider.notifier).logout();
+    ref.read(authProvider.notifier).logout();
     state = AuthState();
   }
 }
@@ -48,4 +55,20 @@ class AuthState {
       error: error,
     );
   }
+}
+
+@Riverpod(keepAlive: false)
+class Nickname extends _$Nickname {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
+}
+
+@Riverpod(keepAlive: false)
+class Password extends _$Password {
+  @override
+  String build() => '';
+
+  void set(String value) => state = value;
 }

@@ -1,23 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/core/services/auth_service.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthNotifierState {
-  final String? accessToken;
-  final bool isLoading;
+part 'auth_notifier.g.dart';
 
-  bool get isLoggedIn => accessToken != null;
-
-  const AuthNotifierState({this.accessToken, this.isLoading = false});
-
-  AuthNotifierState copyWith({String? accessToken, bool? isLoading}) {
-    return AuthNotifierState(
-      accessToken: accessToken ?? this.accessToken,
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
-}
-
-class AuthNotifier extends Notifier<AuthNotifierState> {
+@riverpod
+class AuthNotifier extends _$AuthNotifier {
   @override
   AuthNotifierState build() {
     _init();
@@ -61,6 +48,18 @@ class AuthNotifier extends Notifier<AuthNotifierState> {
   }
 }
 
-final authNotifierProvider = NotifierProvider<AuthNotifier, AuthNotifierState>(
-  AuthNotifier.new,
-);
+class AuthNotifierState {
+  final String? accessToken;
+  final bool isLoading;
+
+  bool get isLoggedIn => accessToken != null;
+
+  const AuthNotifierState({this.accessToken, this.isLoading = false});
+
+  AuthNotifierState copyWith({String? accessToken, bool? isLoading}) {
+    return AuthNotifierState(
+      accessToken: accessToken ?? this.accessToken,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+}

@@ -4,7 +4,7 @@ import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/personas_sync_usecase.dart';
 
-Future<void> syncBasedData({
+Future<void> syncCircunscripciones({
   required CircunscripcionUseCase useCase,
   required LocalRepositoryImpl repository,
 }) async {
@@ -55,5 +55,41 @@ Future<void> syncPacientes({
         .reduce((a, b) => a.isAfter(b) ? a : b);
 
     await saveLastUpdated("pacientes_lastUpdated", newest);
+  }
+}
+
+Future<void> syncGestantes({
+  required PersonasSyncUseCase useCase,
+  required LocalRepositoryImpl repository,
+}) async {
+  final lastGestante = await getLastUpdated("gestante_lastUpdated");
+  final gestantes = await useCase.getGestantes(lastGestante);
+
+  await repository.insertOrUpdateGestantes(gestantes);
+
+  if (gestantes.isNotEmpty) {
+    final newest = gestantes
+        .map((e) => e.lastModified)
+        .reduce((a, b) => a.isAfter(b) ? a : b);
+
+    await saveLastUpdated("gestante_lastUpdated", newest);
+  }
+}
+
+Future<void> syncPuerperas({
+  required PersonasSyncUseCase useCase,
+  required LocalRepositoryImpl repository,
+}) async {
+  final lastPuerpera = await getLastUpdated("puerpera_lastUpdated");
+  final puerperas = await useCase.getPuerperas(lastPuerpera);
+
+  await repository.insertOrUpdatePuerperas(puerperas);
+
+  if (puerperas.isNotEmpty) {
+    final newest = puerperas
+        .map((e) => e.lastModified)
+        .reduce((a, b) => a.isAfter(b) ? a : b);
+
+    await saveLastUpdated("puerpera_lastUpdated", newest);
   }
 }

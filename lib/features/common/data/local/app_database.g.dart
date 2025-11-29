@@ -1879,6 +1879,1635 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
   }
 }
 
+class $GestanteTableTable extends GestanteTable
+    with TableInfo<$GestanteTableTable, GestanteEntity> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $GestanteTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    clientDefault: () => Uuid().v4(),
+  );
+  static const VerificationMeta _antPpMeta = const VerificationMeta('antPp');
+  @override
+  late final GeneratedColumn<String> antPp = GeneratedColumn<String>(
+    'ant_pp',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _observacionesMeta = const VerificationMeta(
+    'observaciones',
+  );
+  @override
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+    'observaciones',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tgCaptacionMeta = const VerificationMeta(
+    'tgCaptacion',
+  );
+  @override
+  late final GeneratedColumn<String> tgCaptacion = GeneratedColumn<String>(
+    'tg_captacion',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tgFinalMeta = const VerificationMeta(
+    'tgFinal',
+  );
+  @override
+  late final GeneratedColumn<String> tgFinal = GeneratedColumn<String>(
+    'tg_final',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fumMeta = const VerificationMeta('fum');
+  @override
+  late final GeneratedColumn<DateTime> fum = GeneratedColumn<DateTime>(
+    'fum',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _gestacionesMeta = const VerificationMeta(
+    'gestaciones',
+  );
+  @override
+  late final GeneratedColumn<String> gestaciones = GeneratedColumn<String>(
+    'gestaciones',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _partosMeta = const VerificationMeta('partos');
+  @override
+  late final GeneratedColumn<String> partos = GeneratedColumn<String>(
+    'partos',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _abortosMeta = const VerificationMeta(
+    'abortos',
+  );
+  @override
+  late final GeneratedColumn<String> abortos = GeneratedColumn<String>(
+    'abortos',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cesareasMeta = const VerificationMeta(
+    'cesareas',
+  );
+  @override
+  late final GeneratedColumn<String> cesareas = GeneratedColumn<String>(
+    'cesareas',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _antPPreterminoMeta = const VerificationMeta(
+    'antPPretermino',
+  );
+  @override
+  late final GeneratedColumn<String> antPPretermino = GeneratedColumn<String>(
+    'ant_p_pretermino',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fechaCaptacionMeta = const VerificationMeta(
+    'fechaCaptacion',
+  );
+  @override
+  late final GeneratedColumn<DateTime> fechaCaptacion =
+      GeneratedColumn<DateTime>(
+        'fecha_captacion',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _fechaProbablePartoMeta =
+      const VerificationMeta('fechaProbableParto');
+  @override
+  late final GeneratedColumn<DateTime> fechaProbableParto =
+      GeneratedColumn<DateTime>(
+        'fecha_probable_parto',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _rciuMeta = const VerificationMeta('rciu');
+  @override
+  late final GeneratedColumn<String> rciu = GeneratedColumn<String>(
+    'rciu',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imcMeta = const VerificationMeta('imc');
+  @override
+  late final GeneratedColumn<String> imc = GeneratedColumn<String>(
+    'imc',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _clasificacionRiesgoMeta =
+      const VerificationMeta('clasificacionRiesgo');
+  @override
+  late final GeneratedColumn<int> clasificacionRiesgo = GeneratedColumn<int>(
+    'clasificacion_riesgo',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _personaIdMeta = const VerificationMeta(
+    'personaId',
+  );
+  @override
+  late final GeneratedColumn<String> personaId = GeneratedColumn<String>(
+    'persona_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES personas_table (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    antPp,
+    observaciones,
+    tgCaptacion,
+    tgFinal,
+    fum,
+    gestaciones,
+    partos,
+    abortos,
+    cesareas,
+    antPPretermino,
+    fechaCaptacion,
+    fechaProbableParto,
+    rciu,
+    imc,
+    clasificacionRiesgo,
+    personaId,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'gestante_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<GestanteEntity> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('ant_pp')) {
+      context.handle(
+        _antPpMeta,
+        antPp.isAcceptableOrUnknown(data['ant_pp']!, _antPpMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_antPpMeta);
+    }
+    if (data.containsKey('observaciones')) {
+      context.handle(
+        _observacionesMeta,
+        observaciones.isAcceptableOrUnknown(
+          data['observaciones']!,
+          _observacionesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_observacionesMeta);
+    }
+    if (data.containsKey('tg_captacion')) {
+      context.handle(
+        _tgCaptacionMeta,
+        tgCaptacion.isAcceptableOrUnknown(
+          data['tg_captacion']!,
+          _tgCaptacionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_tgCaptacionMeta);
+    }
+    if (data.containsKey('tg_final')) {
+      context.handle(
+        _tgFinalMeta,
+        tgFinal.isAcceptableOrUnknown(data['tg_final']!, _tgFinalMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tgFinalMeta);
+    }
+    if (data.containsKey('fum')) {
+      context.handle(
+        _fumMeta,
+        fum.isAcceptableOrUnknown(data['fum']!, _fumMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fumMeta);
+    }
+    if (data.containsKey('gestaciones')) {
+      context.handle(
+        _gestacionesMeta,
+        gestaciones.isAcceptableOrUnknown(
+          data['gestaciones']!,
+          _gestacionesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_gestacionesMeta);
+    }
+    if (data.containsKey('partos')) {
+      context.handle(
+        _partosMeta,
+        partos.isAcceptableOrUnknown(data['partos']!, _partosMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_partosMeta);
+    }
+    if (data.containsKey('abortos')) {
+      context.handle(
+        _abortosMeta,
+        abortos.isAcceptableOrUnknown(data['abortos']!, _abortosMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_abortosMeta);
+    }
+    if (data.containsKey('cesareas')) {
+      context.handle(
+        _cesareasMeta,
+        cesareas.isAcceptableOrUnknown(data['cesareas']!, _cesareasMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cesareasMeta);
+    }
+    if (data.containsKey('ant_p_pretermino')) {
+      context.handle(
+        _antPPreterminoMeta,
+        antPPretermino.isAcceptableOrUnknown(
+          data['ant_p_pretermino']!,
+          _antPPreterminoMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_antPPreterminoMeta);
+    }
+    if (data.containsKey('fecha_captacion')) {
+      context.handle(
+        _fechaCaptacionMeta,
+        fechaCaptacion.isAcceptableOrUnknown(
+          data['fecha_captacion']!,
+          _fechaCaptacionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_fechaCaptacionMeta);
+    }
+    if (data.containsKey('fecha_probable_parto')) {
+      context.handle(
+        _fechaProbablePartoMeta,
+        fechaProbableParto.isAcceptableOrUnknown(
+          data['fecha_probable_parto']!,
+          _fechaProbablePartoMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_fechaProbablePartoMeta);
+    }
+    if (data.containsKey('rciu')) {
+      context.handle(
+        _rciuMeta,
+        rciu.isAcceptableOrUnknown(data['rciu']!, _rciuMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_rciuMeta);
+    }
+    if (data.containsKey('imc')) {
+      context.handle(
+        _imcMeta,
+        imc.isAcceptableOrUnknown(data['imc']!, _imcMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_imcMeta);
+    }
+    if (data.containsKey('clasificacion_riesgo')) {
+      context.handle(
+        _clasificacionRiesgoMeta,
+        clasificacionRiesgo.isAcceptableOrUnknown(
+          data['clasificacion_riesgo']!,
+          _clasificacionRiesgoMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_clasificacionRiesgoMeta);
+    }
+    if (data.containsKey('persona_id')) {
+      context.handle(
+        _personaIdMeta,
+        personaId.isAcceptableOrUnknown(data['persona_id']!, _personaIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_personaIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  GestanteEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return GestanteEntity(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}id'],
+          )!,
+      antPp:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}ant_pp'],
+          )!,
+      observaciones:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}observaciones'],
+          )!,
+      tgCaptacion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}tg_captacion'],
+          )!,
+      tgFinal:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}tg_final'],
+          )!,
+      fum:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}fum'],
+          )!,
+      gestaciones:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}gestaciones'],
+          )!,
+      partos:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}partos'],
+          )!,
+      abortos:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}abortos'],
+          )!,
+      cesareas:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}cesareas'],
+          )!,
+      antPPretermino:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}ant_p_pretermino'],
+          )!,
+      fechaCaptacion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}fecha_captacion'],
+          )!,
+      fechaProbableParto:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}fecha_probable_parto'],
+          )!,
+      rciu:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}rciu'],
+          )!,
+      imc:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}imc'],
+          )!,
+      clasificacionRiesgo:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}clasificacion_riesgo'],
+          )!,
+      personaId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}persona_id'],
+          )!,
+    );
+  }
+
+  @override
+  $GestanteTableTable createAlias(String alias) {
+    return $GestanteTableTable(attachedDatabase, alias);
+  }
+}
+
+class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
+  final String id;
+  final String antPp;
+  final String observaciones;
+  final String tgCaptacion;
+  final String tgFinal;
+  final DateTime fum;
+  final String gestaciones;
+  final String partos;
+  final String abortos;
+  final String cesareas;
+  final String antPPretermino;
+  final DateTime fechaCaptacion;
+  final DateTime fechaProbableParto;
+  final String rciu;
+  final String imc;
+  final int clasificacionRiesgo;
+  final String personaId;
+  const GestanteEntity({
+    required this.id,
+    required this.antPp,
+    required this.observaciones,
+    required this.tgCaptacion,
+    required this.tgFinal,
+    required this.fum,
+    required this.gestaciones,
+    required this.partos,
+    required this.abortos,
+    required this.cesareas,
+    required this.antPPretermino,
+    required this.fechaCaptacion,
+    required this.fechaProbableParto,
+    required this.rciu,
+    required this.imc,
+    required this.clasificacionRiesgo,
+    required this.personaId,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['ant_pp'] = Variable<String>(antPp);
+    map['observaciones'] = Variable<String>(observaciones);
+    map['tg_captacion'] = Variable<String>(tgCaptacion);
+    map['tg_final'] = Variable<String>(tgFinal);
+    map['fum'] = Variable<DateTime>(fum);
+    map['gestaciones'] = Variable<String>(gestaciones);
+    map['partos'] = Variable<String>(partos);
+    map['abortos'] = Variable<String>(abortos);
+    map['cesareas'] = Variable<String>(cesareas);
+    map['ant_p_pretermino'] = Variable<String>(antPPretermino);
+    map['fecha_captacion'] = Variable<DateTime>(fechaCaptacion);
+    map['fecha_probable_parto'] = Variable<DateTime>(fechaProbableParto);
+    map['rciu'] = Variable<String>(rciu);
+    map['imc'] = Variable<String>(imc);
+    map['clasificacion_riesgo'] = Variable<int>(clasificacionRiesgo);
+    map['persona_id'] = Variable<String>(personaId);
+    return map;
+  }
+
+  GestanteTableCompanion toCompanion(bool nullToAbsent) {
+    return GestanteTableCompanion(
+      id: Value(id),
+      antPp: Value(antPp),
+      observaciones: Value(observaciones),
+      tgCaptacion: Value(tgCaptacion),
+      tgFinal: Value(tgFinal),
+      fum: Value(fum),
+      gestaciones: Value(gestaciones),
+      partos: Value(partos),
+      abortos: Value(abortos),
+      cesareas: Value(cesareas),
+      antPPretermino: Value(antPPretermino),
+      fechaCaptacion: Value(fechaCaptacion),
+      fechaProbableParto: Value(fechaProbableParto),
+      rciu: Value(rciu),
+      imc: Value(imc),
+      clasificacionRiesgo: Value(clasificacionRiesgo),
+      personaId: Value(personaId),
+    );
+  }
+
+  factory GestanteEntity.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return GestanteEntity(
+      id: serializer.fromJson<String>(json['id']),
+      antPp: serializer.fromJson<String>(json['antPp']),
+      observaciones: serializer.fromJson<String>(json['observaciones']),
+      tgCaptacion: serializer.fromJson<String>(json['tgCaptacion']),
+      tgFinal: serializer.fromJson<String>(json['tgFinal']),
+      fum: serializer.fromJson<DateTime>(json['fum']),
+      gestaciones: serializer.fromJson<String>(json['gestaciones']),
+      partos: serializer.fromJson<String>(json['partos']),
+      abortos: serializer.fromJson<String>(json['abortos']),
+      cesareas: serializer.fromJson<String>(json['cesareas']),
+      antPPretermino: serializer.fromJson<String>(json['antPPretermino']),
+      fechaCaptacion: serializer.fromJson<DateTime>(json['fechaCaptacion']),
+      fechaProbableParto: serializer.fromJson<DateTime>(
+        json['fechaProbableParto'],
+      ),
+      rciu: serializer.fromJson<String>(json['rciu']),
+      imc: serializer.fromJson<String>(json['imc']),
+      clasificacionRiesgo: serializer.fromJson<int>(
+        json['clasificacionRiesgo'],
+      ),
+      personaId: serializer.fromJson<String>(json['personaId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'antPp': serializer.toJson<String>(antPp),
+      'observaciones': serializer.toJson<String>(observaciones),
+      'tgCaptacion': serializer.toJson<String>(tgCaptacion),
+      'tgFinal': serializer.toJson<String>(tgFinal),
+      'fum': serializer.toJson<DateTime>(fum),
+      'gestaciones': serializer.toJson<String>(gestaciones),
+      'partos': serializer.toJson<String>(partos),
+      'abortos': serializer.toJson<String>(abortos),
+      'cesareas': serializer.toJson<String>(cesareas),
+      'antPPretermino': serializer.toJson<String>(antPPretermino),
+      'fechaCaptacion': serializer.toJson<DateTime>(fechaCaptacion),
+      'fechaProbableParto': serializer.toJson<DateTime>(fechaProbableParto),
+      'rciu': serializer.toJson<String>(rciu),
+      'imc': serializer.toJson<String>(imc),
+      'clasificacionRiesgo': serializer.toJson<int>(clasificacionRiesgo),
+      'personaId': serializer.toJson<String>(personaId),
+    };
+  }
+
+  GestanteEntity copyWith({
+    String? id,
+    String? antPp,
+    String? observaciones,
+    String? tgCaptacion,
+    String? tgFinal,
+    DateTime? fum,
+    String? gestaciones,
+    String? partos,
+    String? abortos,
+    String? cesareas,
+    String? antPPretermino,
+    DateTime? fechaCaptacion,
+    DateTime? fechaProbableParto,
+    String? rciu,
+    String? imc,
+    int? clasificacionRiesgo,
+    String? personaId,
+  }) => GestanteEntity(
+    id: id ?? this.id,
+    antPp: antPp ?? this.antPp,
+    observaciones: observaciones ?? this.observaciones,
+    tgCaptacion: tgCaptacion ?? this.tgCaptacion,
+    tgFinal: tgFinal ?? this.tgFinal,
+    fum: fum ?? this.fum,
+    gestaciones: gestaciones ?? this.gestaciones,
+    partos: partos ?? this.partos,
+    abortos: abortos ?? this.abortos,
+    cesareas: cesareas ?? this.cesareas,
+    antPPretermino: antPPretermino ?? this.antPPretermino,
+    fechaCaptacion: fechaCaptacion ?? this.fechaCaptacion,
+    fechaProbableParto: fechaProbableParto ?? this.fechaProbableParto,
+    rciu: rciu ?? this.rciu,
+    imc: imc ?? this.imc,
+    clasificacionRiesgo: clasificacionRiesgo ?? this.clasificacionRiesgo,
+    personaId: personaId ?? this.personaId,
+  );
+  GestanteEntity copyWithCompanion(GestanteTableCompanion data) {
+    return GestanteEntity(
+      id: data.id.present ? data.id.value : this.id,
+      antPp: data.antPp.present ? data.antPp.value : this.antPp,
+      observaciones:
+          data.observaciones.present
+              ? data.observaciones.value
+              : this.observaciones,
+      tgCaptacion:
+          data.tgCaptacion.present ? data.tgCaptacion.value : this.tgCaptacion,
+      tgFinal: data.tgFinal.present ? data.tgFinal.value : this.tgFinal,
+      fum: data.fum.present ? data.fum.value : this.fum,
+      gestaciones:
+          data.gestaciones.present ? data.gestaciones.value : this.gestaciones,
+      partos: data.partos.present ? data.partos.value : this.partos,
+      abortos: data.abortos.present ? data.abortos.value : this.abortos,
+      cesareas: data.cesareas.present ? data.cesareas.value : this.cesareas,
+      antPPretermino:
+          data.antPPretermino.present
+              ? data.antPPretermino.value
+              : this.antPPretermino,
+      fechaCaptacion:
+          data.fechaCaptacion.present
+              ? data.fechaCaptacion.value
+              : this.fechaCaptacion,
+      fechaProbableParto:
+          data.fechaProbableParto.present
+              ? data.fechaProbableParto.value
+              : this.fechaProbableParto,
+      rciu: data.rciu.present ? data.rciu.value : this.rciu,
+      imc: data.imc.present ? data.imc.value : this.imc,
+      clasificacionRiesgo:
+          data.clasificacionRiesgo.present
+              ? data.clasificacionRiesgo.value
+              : this.clasificacionRiesgo,
+      personaId: data.personaId.present ? data.personaId.value : this.personaId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GestanteEntity(')
+          ..write('id: $id, ')
+          ..write('antPp: $antPp, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('tgCaptacion: $tgCaptacion, ')
+          ..write('tgFinal: $tgFinal, ')
+          ..write('fum: $fum, ')
+          ..write('gestaciones: $gestaciones, ')
+          ..write('partos: $partos, ')
+          ..write('abortos: $abortos, ')
+          ..write('cesareas: $cesareas, ')
+          ..write('antPPretermino: $antPPretermino, ')
+          ..write('fechaCaptacion: $fechaCaptacion, ')
+          ..write('fechaProbableParto: $fechaProbableParto, ')
+          ..write('rciu: $rciu, ')
+          ..write('imc: $imc, ')
+          ..write('clasificacionRiesgo: $clasificacionRiesgo, ')
+          ..write('personaId: $personaId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    antPp,
+    observaciones,
+    tgCaptacion,
+    tgFinal,
+    fum,
+    gestaciones,
+    partos,
+    abortos,
+    cesareas,
+    antPPretermino,
+    fechaCaptacion,
+    fechaProbableParto,
+    rciu,
+    imc,
+    clasificacionRiesgo,
+    personaId,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GestanteEntity &&
+          other.id == this.id &&
+          other.antPp == this.antPp &&
+          other.observaciones == this.observaciones &&
+          other.tgCaptacion == this.tgCaptacion &&
+          other.tgFinal == this.tgFinal &&
+          other.fum == this.fum &&
+          other.gestaciones == this.gestaciones &&
+          other.partos == this.partos &&
+          other.abortos == this.abortos &&
+          other.cesareas == this.cesareas &&
+          other.antPPretermino == this.antPPretermino &&
+          other.fechaCaptacion == this.fechaCaptacion &&
+          other.fechaProbableParto == this.fechaProbableParto &&
+          other.rciu == this.rciu &&
+          other.imc == this.imc &&
+          other.clasificacionRiesgo == this.clasificacionRiesgo &&
+          other.personaId == this.personaId);
+}
+
+class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
+  final Value<String> id;
+  final Value<String> antPp;
+  final Value<String> observaciones;
+  final Value<String> tgCaptacion;
+  final Value<String> tgFinal;
+  final Value<DateTime> fum;
+  final Value<String> gestaciones;
+  final Value<String> partos;
+  final Value<String> abortos;
+  final Value<String> cesareas;
+  final Value<String> antPPretermino;
+  final Value<DateTime> fechaCaptacion;
+  final Value<DateTime> fechaProbableParto;
+  final Value<String> rciu;
+  final Value<String> imc;
+  final Value<int> clasificacionRiesgo;
+  final Value<String> personaId;
+  final Value<int> rowid;
+  const GestanteTableCompanion({
+    this.id = const Value.absent(),
+    this.antPp = const Value.absent(),
+    this.observaciones = const Value.absent(),
+    this.tgCaptacion = const Value.absent(),
+    this.tgFinal = const Value.absent(),
+    this.fum = const Value.absent(),
+    this.gestaciones = const Value.absent(),
+    this.partos = const Value.absent(),
+    this.abortos = const Value.absent(),
+    this.cesareas = const Value.absent(),
+    this.antPPretermino = const Value.absent(),
+    this.fechaCaptacion = const Value.absent(),
+    this.fechaProbableParto = const Value.absent(),
+    this.rciu = const Value.absent(),
+    this.imc = const Value.absent(),
+    this.clasificacionRiesgo = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  GestanteTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String antPp,
+    required String observaciones,
+    required String tgCaptacion,
+    required String tgFinal,
+    required DateTime fum,
+    required String gestaciones,
+    required String partos,
+    required String abortos,
+    required String cesareas,
+    required String antPPretermino,
+    required DateTime fechaCaptacion,
+    required DateTime fechaProbableParto,
+    required String rciu,
+    required String imc,
+    required int clasificacionRiesgo,
+    required String personaId,
+    this.rowid = const Value.absent(),
+  }) : antPp = Value(antPp),
+       observaciones = Value(observaciones),
+       tgCaptacion = Value(tgCaptacion),
+       tgFinal = Value(tgFinal),
+       fum = Value(fum),
+       gestaciones = Value(gestaciones),
+       partos = Value(partos),
+       abortos = Value(abortos),
+       cesareas = Value(cesareas),
+       antPPretermino = Value(antPPretermino),
+       fechaCaptacion = Value(fechaCaptacion),
+       fechaProbableParto = Value(fechaProbableParto),
+       rciu = Value(rciu),
+       imc = Value(imc),
+       clasificacionRiesgo = Value(clasificacionRiesgo),
+       personaId = Value(personaId);
+  static Insertable<GestanteEntity> custom({
+    Expression<String>? id,
+    Expression<String>? antPp,
+    Expression<String>? observaciones,
+    Expression<String>? tgCaptacion,
+    Expression<String>? tgFinal,
+    Expression<DateTime>? fum,
+    Expression<String>? gestaciones,
+    Expression<String>? partos,
+    Expression<String>? abortos,
+    Expression<String>? cesareas,
+    Expression<String>? antPPretermino,
+    Expression<DateTime>? fechaCaptacion,
+    Expression<DateTime>? fechaProbableParto,
+    Expression<String>? rciu,
+    Expression<String>? imc,
+    Expression<int>? clasificacionRiesgo,
+    Expression<String>? personaId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (antPp != null) 'ant_pp': antPp,
+      if (observaciones != null) 'observaciones': observaciones,
+      if (tgCaptacion != null) 'tg_captacion': tgCaptacion,
+      if (tgFinal != null) 'tg_final': tgFinal,
+      if (fum != null) 'fum': fum,
+      if (gestaciones != null) 'gestaciones': gestaciones,
+      if (partos != null) 'partos': partos,
+      if (abortos != null) 'abortos': abortos,
+      if (cesareas != null) 'cesareas': cesareas,
+      if (antPPretermino != null) 'ant_p_pretermino': antPPretermino,
+      if (fechaCaptacion != null) 'fecha_captacion': fechaCaptacion,
+      if (fechaProbableParto != null)
+        'fecha_probable_parto': fechaProbableParto,
+      if (rciu != null) 'rciu': rciu,
+      if (imc != null) 'imc': imc,
+      if (clasificacionRiesgo != null)
+        'clasificacion_riesgo': clasificacionRiesgo,
+      if (personaId != null) 'persona_id': personaId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  GestanteTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? antPp,
+    Value<String>? observaciones,
+    Value<String>? tgCaptacion,
+    Value<String>? tgFinal,
+    Value<DateTime>? fum,
+    Value<String>? gestaciones,
+    Value<String>? partos,
+    Value<String>? abortos,
+    Value<String>? cesareas,
+    Value<String>? antPPretermino,
+    Value<DateTime>? fechaCaptacion,
+    Value<DateTime>? fechaProbableParto,
+    Value<String>? rciu,
+    Value<String>? imc,
+    Value<int>? clasificacionRiesgo,
+    Value<String>? personaId,
+    Value<int>? rowid,
+  }) {
+    return GestanteTableCompanion(
+      id: id ?? this.id,
+      antPp: antPp ?? this.antPp,
+      observaciones: observaciones ?? this.observaciones,
+      tgCaptacion: tgCaptacion ?? this.tgCaptacion,
+      tgFinal: tgFinal ?? this.tgFinal,
+      fum: fum ?? this.fum,
+      gestaciones: gestaciones ?? this.gestaciones,
+      partos: partos ?? this.partos,
+      abortos: abortos ?? this.abortos,
+      cesareas: cesareas ?? this.cesareas,
+      antPPretermino: antPPretermino ?? this.antPPretermino,
+      fechaCaptacion: fechaCaptacion ?? this.fechaCaptacion,
+      fechaProbableParto: fechaProbableParto ?? this.fechaProbableParto,
+      rciu: rciu ?? this.rciu,
+      imc: imc ?? this.imc,
+      clasificacionRiesgo: clasificacionRiesgo ?? this.clasificacionRiesgo,
+      personaId: personaId ?? this.personaId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (antPp.present) {
+      map['ant_pp'] = Variable<String>(antPp.value);
+    }
+    if (observaciones.present) {
+      map['observaciones'] = Variable<String>(observaciones.value);
+    }
+    if (tgCaptacion.present) {
+      map['tg_captacion'] = Variable<String>(tgCaptacion.value);
+    }
+    if (tgFinal.present) {
+      map['tg_final'] = Variable<String>(tgFinal.value);
+    }
+    if (fum.present) {
+      map['fum'] = Variable<DateTime>(fum.value);
+    }
+    if (gestaciones.present) {
+      map['gestaciones'] = Variable<String>(gestaciones.value);
+    }
+    if (partos.present) {
+      map['partos'] = Variable<String>(partos.value);
+    }
+    if (abortos.present) {
+      map['abortos'] = Variable<String>(abortos.value);
+    }
+    if (cesareas.present) {
+      map['cesareas'] = Variable<String>(cesareas.value);
+    }
+    if (antPPretermino.present) {
+      map['ant_p_pretermino'] = Variable<String>(antPPretermino.value);
+    }
+    if (fechaCaptacion.present) {
+      map['fecha_captacion'] = Variable<DateTime>(fechaCaptacion.value);
+    }
+    if (fechaProbableParto.present) {
+      map['fecha_probable_parto'] = Variable<DateTime>(
+        fechaProbableParto.value,
+      );
+    }
+    if (rciu.present) {
+      map['rciu'] = Variable<String>(rciu.value);
+    }
+    if (imc.present) {
+      map['imc'] = Variable<String>(imc.value);
+    }
+    if (clasificacionRiesgo.present) {
+      map['clasificacion_riesgo'] = Variable<int>(clasificacionRiesgo.value);
+    }
+    if (personaId.present) {
+      map['persona_id'] = Variable<String>(personaId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GestanteTableCompanion(')
+          ..write('id: $id, ')
+          ..write('antPp: $antPp, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('tgCaptacion: $tgCaptacion, ')
+          ..write('tgFinal: $tgFinal, ')
+          ..write('fum: $fum, ')
+          ..write('gestaciones: $gestaciones, ')
+          ..write('partos: $partos, ')
+          ..write('abortos: $abortos, ')
+          ..write('cesareas: $cesareas, ')
+          ..write('antPPretermino: $antPPretermino, ')
+          ..write('fechaCaptacion: $fechaCaptacion, ')
+          ..write('fechaProbableParto: $fechaProbableParto, ')
+          ..write('rciu: $rciu, ')
+          ..write('imc: $imc, ')
+          ..write('clasificacionRiesgo: $clasificacionRiesgo, ')
+          ..write('personaId: $personaId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PuerperaTableTable extends PuerperaTable
+    with TableInfo<$PuerperaTableTable, PuerperaEntity> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PuerperaTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    clientDefault: () => Uuid().v4(),
+  );
+  static const VerificationMeta _antPpMeta = const VerificationMeta('antPp');
+  @override
+  late final GeneratedColumn<String> antPp = GeneratedColumn<String>(
+    'ant_pp',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _observacionesMeta = const VerificationMeta(
+    'observaciones',
+  );
+  @override
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+    'observaciones',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _gestacionesMeta = const VerificationMeta(
+    'gestaciones',
+  );
+  @override
+  late final GeneratedColumn<String> gestaciones = GeneratedColumn<String>(
+    'gestaciones',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _partosMeta = const VerificationMeta('partos');
+  @override
+  late final GeneratedColumn<String> partos = GeneratedColumn<String>(
+    'partos',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _abortosMeta = const VerificationMeta(
+    'abortos',
+  );
+  @override
+  late final GeneratedColumn<String> abortos = GeneratedColumn<String>(
+    'abortos',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cesareasMeta = const VerificationMeta(
+    'cesareas',
+  );
+  @override
+  late final GeneratedColumn<String> cesareas = GeneratedColumn<String>(
+    'cesareas',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _antPPreterminoMeta = const VerificationMeta(
+    'antPPretermino',
+  );
+  @override
+  late final GeneratedColumn<String> antPPretermino = GeneratedColumn<String>(
+    'ant_p_pretermino',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tipoPartoMeta = const VerificationMeta(
+    'tipoParto',
+  );
+  @override
+  late final GeneratedColumn<int> tipoParto = GeneratedColumn<int>(
+    'tipo_parto',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _personaIdMeta = const VerificationMeta(
+    'personaId',
+  );
+  @override
+  late final GeneratedColumn<String> personaId = GeneratedColumn<String>(
+    'persona_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES personas_table (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    antPp,
+    observaciones,
+    gestaciones,
+    partos,
+    abortos,
+    cesareas,
+    antPPretermino,
+    tipoParto,
+    personaId,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'puerpera_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PuerperaEntity> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('ant_pp')) {
+      context.handle(
+        _antPpMeta,
+        antPp.isAcceptableOrUnknown(data['ant_pp']!, _antPpMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_antPpMeta);
+    }
+    if (data.containsKey('observaciones')) {
+      context.handle(
+        _observacionesMeta,
+        observaciones.isAcceptableOrUnknown(
+          data['observaciones']!,
+          _observacionesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_observacionesMeta);
+    }
+    if (data.containsKey('gestaciones')) {
+      context.handle(
+        _gestacionesMeta,
+        gestaciones.isAcceptableOrUnknown(
+          data['gestaciones']!,
+          _gestacionesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_gestacionesMeta);
+    }
+    if (data.containsKey('partos')) {
+      context.handle(
+        _partosMeta,
+        partos.isAcceptableOrUnknown(data['partos']!, _partosMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_partosMeta);
+    }
+    if (data.containsKey('abortos')) {
+      context.handle(
+        _abortosMeta,
+        abortos.isAcceptableOrUnknown(data['abortos']!, _abortosMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_abortosMeta);
+    }
+    if (data.containsKey('cesareas')) {
+      context.handle(
+        _cesareasMeta,
+        cesareas.isAcceptableOrUnknown(data['cesareas']!, _cesareasMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cesareasMeta);
+    }
+    if (data.containsKey('ant_p_pretermino')) {
+      context.handle(
+        _antPPreterminoMeta,
+        antPPretermino.isAcceptableOrUnknown(
+          data['ant_p_pretermino']!,
+          _antPPreterminoMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_antPPreterminoMeta);
+    }
+    if (data.containsKey('tipo_parto')) {
+      context.handle(
+        _tipoPartoMeta,
+        tipoParto.isAcceptableOrUnknown(data['tipo_parto']!, _tipoPartoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipoPartoMeta);
+    }
+    if (data.containsKey('persona_id')) {
+      context.handle(
+        _personaIdMeta,
+        personaId.isAcceptableOrUnknown(data['persona_id']!, _personaIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_personaIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PuerperaEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PuerperaEntity(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}id'],
+          )!,
+      antPp:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}ant_pp'],
+          )!,
+      observaciones:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}observaciones'],
+          )!,
+      gestaciones:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}gestaciones'],
+          )!,
+      partos:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}partos'],
+          )!,
+      abortos:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}abortos'],
+          )!,
+      cesareas:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}cesareas'],
+          )!,
+      antPPretermino:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}ant_p_pretermino'],
+          )!,
+      tipoParto:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}tipo_parto'],
+          )!,
+      personaId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}persona_id'],
+          )!,
+    );
+  }
+
+  @override
+  $PuerperaTableTable createAlias(String alias) {
+    return $PuerperaTableTable(attachedDatabase, alias);
+  }
+}
+
+class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
+  final String id;
+  final String antPp;
+  final String observaciones;
+  final String gestaciones;
+  final String partos;
+  final String abortos;
+  final String cesareas;
+  final String antPPretermino;
+  final int tipoParto;
+  final String personaId;
+  const PuerperaEntity({
+    required this.id,
+    required this.antPp,
+    required this.observaciones,
+    required this.gestaciones,
+    required this.partos,
+    required this.abortos,
+    required this.cesareas,
+    required this.antPPretermino,
+    required this.tipoParto,
+    required this.personaId,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['ant_pp'] = Variable<String>(antPp);
+    map['observaciones'] = Variable<String>(observaciones);
+    map['gestaciones'] = Variable<String>(gestaciones);
+    map['partos'] = Variable<String>(partos);
+    map['abortos'] = Variable<String>(abortos);
+    map['cesareas'] = Variable<String>(cesareas);
+    map['ant_p_pretermino'] = Variable<String>(antPPretermino);
+    map['tipo_parto'] = Variable<int>(tipoParto);
+    map['persona_id'] = Variable<String>(personaId);
+    return map;
+  }
+
+  PuerperaTableCompanion toCompanion(bool nullToAbsent) {
+    return PuerperaTableCompanion(
+      id: Value(id),
+      antPp: Value(antPp),
+      observaciones: Value(observaciones),
+      gestaciones: Value(gestaciones),
+      partos: Value(partos),
+      abortos: Value(abortos),
+      cesareas: Value(cesareas),
+      antPPretermino: Value(antPPretermino),
+      tipoParto: Value(tipoParto),
+      personaId: Value(personaId),
+    );
+  }
+
+  factory PuerperaEntity.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PuerperaEntity(
+      id: serializer.fromJson<String>(json['id']),
+      antPp: serializer.fromJson<String>(json['antPp']),
+      observaciones: serializer.fromJson<String>(json['observaciones']),
+      gestaciones: serializer.fromJson<String>(json['gestaciones']),
+      partos: serializer.fromJson<String>(json['partos']),
+      abortos: serializer.fromJson<String>(json['abortos']),
+      cesareas: serializer.fromJson<String>(json['cesareas']),
+      antPPretermino: serializer.fromJson<String>(json['antPPretermino']),
+      tipoParto: serializer.fromJson<int>(json['tipoParto']),
+      personaId: serializer.fromJson<String>(json['personaId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'antPp': serializer.toJson<String>(antPp),
+      'observaciones': serializer.toJson<String>(observaciones),
+      'gestaciones': serializer.toJson<String>(gestaciones),
+      'partos': serializer.toJson<String>(partos),
+      'abortos': serializer.toJson<String>(abortos),
+      'cesareas': serializer.toJson<String>(cesareas),
+      'antPPretermino': serializer.toJson<String>(antPPretermino),
+      'tipoParto': serializer.toJson<int>(tipoParto),
+      'personaId': serializer.toJson<String>(personaId),
+    };
+  }
+
+  PuerperaEntity copyWith({
+    String? id,
+    String? antPp,
+    String? observaciones,
+    String? gestaciones,
+    String? partos,
+    String? abortos,
+    String? cesareas,
+    String? antPPretermino,
+    int? tipoParto,
+    String? personaId,
+  }) => PuerperaEntity(
+    id: id ?? this.id,
+    antPp: antPp ?? this.antPp,
+    observaciones: observaciones ?? this.observaciones,
+    gestaciones: gestaciones ?? this.gestaciones,
+    partos: partos ?? this.partos,
+    abortos: abortos ?? this.abortos,
+    cesareas: cesareas ?? this.cesareas,
+    antPPretermino: antPPretermino ?? this.antPPretermino,
+    tipoParto: tipoParto ?? this.tipoParto,
+    personaId: personaId ?? this.personaId,
+  );
+  PuerperaEntity copyWithCompanion(PuerperaTableCompanion data) {
+    return PuerperaEntity(
+      id: data.id.present ? data.id.value : this.id,
+      antPp: data.antPp.present ? data.antPp.value : this.antPp,
+      observaciones:
+          data.observaciones.present
+              ? data.observaciones.value
+              : this.observaciones,
+      gestaciones:
+          data.gestaciones.present ? data.gestaciones.value : this.gestaciones,
+      partos: data.partos.present ? data.partos.value : this.partos,
+      abortos: data.abortos.present ? data.abortos.value : this.abortos,
+      cesareas: data.cesareas.present ? data.cesareas.value : this.cesareas,
+      antPPretermino:
+          data.antPPretermino.present
+              ? data.antPPretermino.value
+              : this.antPPretermino,
+      tipoParto: data.tipoParto.present ? data.tipoParto.value : this.tipoParto,
+      personaId: data.personaId.present ? data.personaId.value : this.personaId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PuerperaEntity(')
+          ..write('id: $id, ')
+          ..write('antPp: $antPp, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('gestaciones: $gestaciones, ')
+          ..write('partos: $partos, ')
+          ..write('abortos: $abortos, ')
+          ..write('cesareas: $cesareas, ')
+          ..write('antPPretermino: $antPPretermino, ')
+          ..write('tipoParto: $tipoParto, ')
+          ..write('personaId: $personaId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    antPp,
+    observaciones,
+    gestaciones,
+    partos,
+    abortos,
+    cesareas,
+    antPPretermino,
+    tipoParto,
+    personaId,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PuerperaEntity &&
+          other.id == this.id &&
+          other.antPp == this.antPp &&
+          other.observaciones == this.observaciones &&
+          other.gestaciones == this.gestaciones &&
+          other.partos == this.partos &&
+          other.abortos == this.abortos &&
+          other.cesareas == this.cesareas &&
+          other.antPPretermino == this.antPPretermino &&
+          other.tipoParto == this.tipoParto &&
+          other.personaId == this.personaId);
+}
+
+class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
+  final Value<String> id;
+  final Value<String> antPp;
+  final Value<String> observaciones;
+  final Value<String> gestaciones;
+  final Value<String> partos;
+  final Value<String> abortos;
+  final Value<String> cesareas;
+  final Value<String> antPPretermino;
+  final Value<int> tipoParto;
+  final Value<String> personaId;
+  final Value<int> rowid;
+  const PuerperaTableCompanion({
+    this.id = const Value.absent(),
+    this.antPp = const Value.absent(),
+    this.observaciones = const Value.absent(),
+    this.gestaciones = const Value.absent(),
+    this.partos = const Value.absent(),
+    this.abortos = const Value.absent(),
+    this.cesareas = const Value.absent(),
+    this.antPPretermino = const Value.absent(),
+    this.tipoParto = const Value.absent(),
+    this.personaId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PuerperaTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String antPp,
+    required String observaciones,
+    required String gestaciones,
+    required String partos,
+    required String abortos,
+    required String cesareas,
+    required String antPPretermino,
+    required int tipoParto,
+    required String personaId,
+    this.rowid = const Value.absent(),
+  }) : antPp = Value(antPp),
+       observaciones = Value(observaciones),
+       gestaciones = Value(gestaciones),
+       partos = Value(partos),
+       abortos = Value(abortos),
+       cesareas = Value(cesareas),
+       antPPretermino = Value(antPPretermino),
+       tipoParto = Value(tipoParto),
+       personaId = Value(personaId);
+  static Insertable<PuerperaEntity> custom({
+    Expression<String>? id,
+    Expression<String>? antPp,
+    Expression<String>? observaciones,
+    Expression<String>? gestaciones,
+    Expression<String>? partos,
+    Expression<String>? abortos,
+    Expression<String>? cesareas,
+    Expression<String>? antPPretermino,
+    Expression<int>? tipoParto,
+    Expression<String>? personaId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (antPp != null) 'ant_pp': antPp,
+      if (observaciones != null) 'observaciones': observaciones,
+      if (gestaciones != null) 'gestaciones': gestaciones,
+      if (partos != null) 'partos': partos,
+      if (abortos != null) 'abortos': abortos,
+      if (cesareas != null) 'cesareas': cesareas,
+      if (antPPretermino != null) 'ant_p_pretermino': antPPretermino,
+      if (tipoParto != null) 'tipo_parto': tipoParto,
+      if (personaId != null) 'persona_id': personaId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PuerperaTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? antPp,
+    Value<String>? observaciones,
+    Value<String>? gestaciones,
+    Value<String>? partos,
+    Value<String>? abortos,
+    Value<String>? cesareas,
+    Value<String>? antPPretermino,
+    Value<int>? tipoParto,
+    Value<String>? personaId,
+    Value<int>? rowid,
+  }) {
+    return PuerperaTableCompanion(
+      id: id ?? this.id,
+      antPp: antPp ?? this.antPp,
+      observaciones: observaciones ?? this.observaciones,
+      gestaciones: gestaciones ?? this.gestaciones,
+      partos: partos ?? this.partos,
+      abortos: abortos ?? this.abortos,
+      cesareas: cesareas ?? this.cesareas,
+      antPPretermino: antPPretermino ?? this.antPPretermino,
+      tipoParto: tipoParto ?? this.tipoParto,
+      personaId: personaId ?? this.personaId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (antPp.present) {
+      map['ant_pp'] = Variable<String>(antPp.value);
+    }
+    if (observaciones.present) {
+      map['observaciones'] = Variable<String>(observaciones.value);
+    }
+    if (gestaciones.present) {
+      map['gestaciones'] = Variable<String>(gestaciones.value);
+    }
+    if (partos.present) {
+      map['partos'] = Variable<String>(partos.value);
+    }
+    if (abortos.present) {
+      map['abortos'] = Variable<String>(abortos.value);
+    }
+    if (cesareas.present) {
+      map['cesareas'] = Variable<String>(cesareas.value);
+    }
+    if (antPPretermino.present) {
+      map['ant_p_pretermino'] = Variable<String>(antPPretermino.value);
+    }
+    if (tipoParto.present) {
+      map['tipo_parto'] = Variable<int>(tipoParto.value);
+    }
+    if (personaId.present) {
+      map['persona_id'] = Variable<String>(personaId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PuerperaTableCompanion(')
+          ..write('id: $id, ')
+          ..write('antPp: $antPp, ')
+          ..write('observaciones: $observaciones, ')
+          ..write('gestaciones: $gestaciones, ')
+          ..write('partos: $partos, ')
+          ..write('abortos: $abortos, ')
+          ..write('cesareas: $cesareas, ')
+          ..write('antPPretermino: $antPPretermino, ')
+          ..write('tipoParto: $tipoParto, ')
+          ..write('personaId: $personaId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1886,6 +3515,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $CircunscripcionTableTable(this);
   late final $CdrTableTable cdrTable = $CdrTableTable(this);
   late final $PersonasTableTable personasTable = $PersonasTableTable(this);
+  late final $GestanteTableTable gestanteTable = $GestanteTableTable(this);
+  late final $PuerperaTableTable puerperaTable = $PuerperaTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1894,7 +3525,26 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     circunscripcionTable,
     cdrTable,
     personasTable,
+    gestanteTable,
+    puerperaTable,
   ];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'personas_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('gestante_table', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'personas_table',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('puerpera_table', kind: UpdateKind.delete)],
+    ),
+  ]);
 }
 
 typedef $$CircunscripcionTableTableCreateCompanionBuilder =
@@ -2762,6 +4412,48 @@ final class $$PersonasTableTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<$GestanteTableTable, List<GestanteEntity>>
+  _gestanteTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.gestanteTable,
+    aliasName: $_aliasNameGenerator(
+      db.personasTable.id,
+      db.gestanteTable.personaId,
+    ),
+  );
+
+  $$GestanteTableTableProcessedTableManager get gestanteTableRefs {
+    final manager = $$GestanteTableTableTableManager(
+      $_db,
+      $_db.gestanteTable,
+    ).filter((f) => f.personaId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_gestanteTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PuerperaTableTable, List<PuerperaEntity>>
+  _puerperaTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.puerperaTable,
+    aliasName: $_aliasNameGenerator(
+      db.personasTable.id,
+      db.puerperaTable.personaId,
+    ),
+  );
+
+  $$PuerperaTableTableProcessedTableManager get puerperaTableRefs {
+    final manager = $$PuerperaTableTableTableManager(
+      $_db,
+      $_db.puerperaTable,
+    ).filter((f) => f.personaId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_puerperaTableRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$PersonasTableTableFilterComposer
@@ -2869,6 +4561,56 @@ class $$PersonasTableTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> gestanteTableRefs(
+    Expression<bool> Function($$GestanteTableTableFilterComposer f) f,
+  ) {
+    final $$GestanteTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.gestanteTable,
+      getReferencedColumn: (t) => t.personaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GestanteTableTableFilterComposer(
+            $db: $db,
+            $table: $db.gestanteTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> puerperaTableRefs(
+    Expression<bool> Function($$PuerperaTableTableFilterComposer f) f,
+  ) {
+    final $$PuerperaTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.puerperaTable,
+      getReferencedColumn: (t) => t.personaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PuerperaTableTableFilterComposer(
+            $db: $db,
+            $table: $db.puerperaTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -3070,6 +4812,56 @@ class $$PersonasTableTableAnnotationComposer
     );
     return composer;
   }
+
+  Expression<T> gestanteTableRefs<T extends Object>(
+    Expression<T> Function($$GestanteTableTableAnnotationComposer a) f,
+  ) {
+    final $$GestanteTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.gestanteTable,
+      getReferencedColumn: (t) => t.personaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GestanteTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.gestanteTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> puerperaTableRefs<T extends Object>(
+    Expression<T> Function($$PuerperaTableTableAnnotationComposer a) f,
+  ) {
+    final $$PuerperaTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.puerperaTable,
+      getReferencedColumn: (t) => t.personaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PuerperaTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.puerperaTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$PersonasTableTableTableManager
@@ -3085,7 +4877,11 @@ class $$PersonasTableTableTableManager
           $$PersonasTableTableUpdateCompanionBuilder,
           (PersonasEntity, $$PersonasTableTableReferences),
           PersonasEntity,
-          PrefetchHooks Function({bool cdrId})
+          PrefetchHooks Function({
+            bool cdrId,
+            bool gestanteTableRefs,
+            bool puerperaTableRefs,
+          })
         > {
   $$PersonasTableTableTableManager(_$AppDatabase db, $PersonasTableTable table)
     : super(
@@ -3188,10 +4984,17 @@ class $$PersonasTableTableTableManager
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: ({cdrId = false}) {
+          prefetchHooksCallback: ({
+            cdrId = false,
+            gestanteTableRefs = false,
+            puerperaTableRefs = false,
+          }) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [],
+              explicitlyWatchedTables: [
+                if (gestanteTableRefs) db.gestanteTable,
+                if (puerperaTableRefs) db.puerperaTable,
+              ],
               addJoins: <
                 T extends TableManagerState<
                   dynamic,
@@ -3225,7 +5028,52 @@ class $$PersonasTableTableTableManager
                 return state;
               },
               getPrefetchedDataCallback: (items) async {
-                return [];
+                return [
+                  if (gestanteTableRefs)
+                    await $_getPrefetchedData<
+                      PersonasEntity,
+                      $PersonasTableTable,
+                      GestanteEntity
+                    >(
+                      currentTable: table,
+                      referencedTable: $$PersonasTableTableReferences
+                          ._gestanteTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$PersonasTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).gestanteTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) => referencedItems.where(
+                            (e) => e.personaId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                  if (puerperaTableRefs)
+                    await $_getPrefetchedData<
+                      PersonasEntity,
+                      $PersonasTableTable,
+                      PuerperaEntity
+                    >(
+                      currentTable: table,
+                      referencedTable: $$PersonasTableTableReferences
+                          ._puerperaTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$PersonasTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).puerperaTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) => referencedItems.where(
+                            (e) => e.personaId == item.id,
+                          ),
+                      typedResults: items,
+                    ),
+                ];
               },
             );
           },
@@ -3245,7 +5093,1012 @@ typedef $$PersonasTableTableProcessedTableManager =
       $$PersonasTableTableUpdateCompanionBuilder,
       (PersonasEntity, $$PersonasTableTableReferences),
       PersonasEntity,
-      PrefetchHooks Function({bool cdrId})
+      PrefetchHooks Function({
+        bool cdrId,
+        bool gestanteTableRefs,
+        bool puerperaTableRefs,
+      })
+    >;
+typedef $$GestanteTableTableCreateCompanionBuilder =
+    GestanteTableCompanion Function({
+      Value<String> id,
+      required String antPp,
+      required String observaciones,
+      required String tgCaptacion,
+      required String tgFinal,
+      required DateTime fum,
+      required String gestaciones,
+      required String partos,
+      required String abortos,
+      required String cesareas,
+      required String antPPretermino,
+      required DateTime fechaCaptacion,
+      required DateTime fechaProbableParto,
+      required String rciu,
+      required String imc,
+      required int clasificacionRiesgo,
+      required String personaId,
+      Value<int> rowid,
+    });
+typedef $$GestanteTableTableUpdateCompanionBuilder =
+    GestanteTableCompanion Function({
+      Value<String> id,
+      Value<String> antPp,
+      Value<String> observaciones,
+      Value<String> tgCaptacion,
+      Value<String> tgFinal,
+      Value<DateTime> fum,
+      Value<String> gestaciones,
+      Value<String> partos,
+      Value<String> abortos,
+      Value<String> cesareas,
+      Value<String> antPPretermino,
+      Value<DateTime> fechaCaptacion,
+      Value<DateTime> fechaProbableParto,
+      Value<String> rciu,
+      Value<String> imc,
+      Value<int> clasificacionRiesgo,
+      Value<String> personaId,
+      Value<int> rowid,
+    });
+
+final class $$GestanteTableTableReferences
+    extends BaseReferences<_$AppDatabase, $GestanteTableTable, GestanteEntity> {
+  $$GestanteTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PersonasTableTable _personaIdTable(_$AppDatabase db) =>
+      db.personasTable.createAlias(
+        $_aliasNameGenerator(db.gestanteTable.personaId, db.personasTable.id),
+      );
+
+  $$PersonasTableTableProcessedTableManager get personaId {
+    final $_column = $_itemColumn<String>('persona_id')!;
+
+    final manager = $$PersonasTableTableTableManager(
+      $_db,
+      $_db.personasTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_personaIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$GestanteTableTableFilterComposer
+    extends Composer<_$AppDatabase, $GestanteTableTable> {
+  $$GestanteTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get antPp => $composableBuilder(
+    column: $table.antPp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tgCaptacion => $composableBuilder(
+    column: $table.tgCaptacion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tgFinal => $composableBuilder(
+    column: $table.tgFinal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get fum => $composableBuilder(
+    column: $table.fum,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get partos => $composableBuilder(
+    column: $table.partos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get abortos => $composableBuilder(
+    column: $table.abortos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cesareas => $composableBuilder(
+    column: $table.cesareas,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get fechaCaptacion => $composableBuilder(
+    column: $table.fechaCaptacion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get fechaProbableParto => $composableBuilder(
+    column: $table.fechaProbableParto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get rciu => $composableBuilder(
+    column: $table.rciu,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get imc => $composableBuilder(
+    column: $table.imc,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get clasificacionRiesgo => $composableBuilder(
+    column: $table.clasificacionRiesgo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PersonasTableTableFilterComposer get personaId {
+    final $$PersonasTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableFilterComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GestanteTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $GestanteTableTable> {
+  $$GestanteTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get antPp => $composableBuilder(
+    column: $table.antPp,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tgCaptacion => $composableBuilder(
+    column: $table.tgCaptacion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tgFinal => $composableBuilder(
+    column: $table.tgFinal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get fum => $composableBuilder(
+    column: $table.fum,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get partos => $composableBuilder(
+    column: $table.partos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get abortos => $composableBuilder(
+    column: $table.abortos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cesareas => $composableBuilder(
+    column: $table.cesareas,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get fechaCaptacion => $composableBuilder(
+    column: $table.fechaCaptacion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get fechaProbableParto => $composableBuilder(
+    column: $table.fechaProbableParto,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get rciu => $composableBuilder(
+    column: $table.rciu,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get imc => $composableBuilder(
+    column: $table.imc,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get clasificacionRiesgo => $composableBuilder(
+    column: $table.clasificacionRiesgo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PersonasTableTableOrderingComposer get personaId {
+    final $$PersonasTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GestanteTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $GestanteTableTable> {
+  $$GestanteTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get antPp =>
+      $composableBuilder(column: $table.antPp, builder: (column) => column);
+
+  GeneratedColumn<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get tgCaptacion => $composableBuilder(
+    column: $table.tgCaptacion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get tgFinal =>
+      $composableBuilder(column: $table.tgFinal, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fum =>
+      $composableBuilder(column: $table.fum, builder: (column) => column);
+
+  GeneratedColumn<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get partos =>
+      $composableBuilder(column: $table.partos, builder: (column) => column);
+
+  GeneratedColumn<String> get abortos =>
+      $composableBuilder(column: $table.abortos, builder: (column) => column);
+
+  GeneratedColumn<String> get cesareas =>
+      $composableBuilder(column: $table.cesareas, builder: (column) => column);
+
+  GeneratedColumn<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get fechaCaptacion => $composableBuilder(
+    column: $table.fechaCaptacion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get fechaProbableParto => $composableBuilder(
+    column: $table.fechaProbableParto,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get rciu =>
+      $composableBuilder(column: $table.rciu, builder: (column) => column);
+
+  GeneratedColumn<String> get imc =>
+      $composableBuilder(column: $table.imc, builder: (column) => column);
+
+  GeneratedColumn<int> get clasificacionRiesgo => $composableBuilder(
+    column: $table.clasificacionRiesgo,
+    builder: (column) => column,
+  );
+
+  $$PersonasTableTableAnnotationComposer get personaId {
+    final $$PersonasTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GestanteTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $GestanteTableTable,
+          GestanteEntity,
+          $$GestanteTableTableFilterComposer,
+          $$GestanteTableTableOrderingComposer,
+          $$GestanteTableTableAnnotationComposer,
+          $$GestanteTableTableCreateCompanionBuilder,
+          $$GestanteTableTableUpdateCompanionBuilder,
+          (GestanteEntity, $$GestanteTableTableReferences),
+          GestanteEntity,
+          PrefetchHooks Function({bool personaId})
+        > {
+  $$GestanteTableTableTableManager(_$AppDatabase db, $GestanteTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$GestanteTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () =>
+                  $$GestanteTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$GestanteTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> antPp = const Value.absent(),
+                Value<String> observaciones = const Value.absent(),
+                Value<String> tgCaptacion = const Value.absent(),
+                Value<String> tgFinal = const Value.absent(),
+                Value<DateTime> fum = const Value.absent(),
+                Value<String> gestaciones = const Value.absent(),
+                Value<String> partos = const Value.absent(),
+                Value<String> abortos = const Value.absent(),
+                Value<String> cesareas = const Value.absent(),
+                Value<String> antPPretermino = const Value.absent(),
+                Value<DateTime> fechaCaptacion = const Value.absent(),
+                Value<DateTime> fechaProbableParto = const Value.absent(),
+                Value<String> rciu = const Value.absent(),
+                Value<String> imc = const Value.absent(),
+                Value<int> clasificacionRiesgo = const Value.absent(),
+                Value<String> personaId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GestanteTableCompanion(
+                id: id,
+                antPp: antPp,
+                observaciones: observaciones,
+                tgCaptacion: tgCaptacion,
+                tgFinal: tgFinal,
+                fum: fum,
+                gestaciones: gestaciones,
+                partos: partos,
+                abortos: abortos,
+                cesareas: cesareas,
+                antPPretermino: antPPretermino,
+                fechaCaptacion: fechaCaptacion,
+                fechaProbableParto: fechaProbableParto,
+                rciu: rciu,
+                imc: imc,
+                clasificacionRiesgo: clasificacionRiesgo,
+                personaId: personaId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                required String antPp,
+                required String observaciones,
+                required String tgCaptacion,
+                required String tgFinal,
+                required DateTime fum,
+                required String gestaciones,
+                required String partos,
+                required String abortos,
+                required String cesareas,
+                required String antPPretermino,
+                required DateTime fechaCaptacion,
+                required DateTime fechaProbableParto,
+                required String rciu,
+                required String imc,
+                required int clasificacionRiesgo,
+                required String personaId,
+                Value<int> rowid = const Value.absent(),
+              }) => GestanteTableCompanion.insert(
+                id: id,
+                antPp: antPp,
+                observaciones: observaciones,
+                tgCaptacion: tgCaptacion,
+                tgFinal: tgFinal,
+                fum: fum,
+                gestaciones: gestaciones,
+                partos: partos,
+                abortos: abortos,
+                cesareas: cesareas,
+                antPPretermino: antPPretermino,
+                fechaCaptacion: fechaCaptacion,
+                fechaProbableParto: fechaProbableParto,
+                rciu: rciu,
+                imc: imc,
+                clasificacionRiesgo: clasificacionRiesgo,
+                personaId: personaId,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          $$GestanteTableTableReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: ({personaId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (personaId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.personaId,
+                            referencedTable: $$GestanteTableTableReferences
+                                ._personaIdTable(db),
+                            referencedColumn:
+                                $$GestanteTableTableReferences
+                                    ._personaIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$GestanteTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $GestanteTableTable,
+      GestanteEntity,
+      $$GestanteTableTableFilterComposer,
+      $$GestanteTableTableOrderingComposer,
+      $$GestanteTableTableAnnotationComposer,
+      $$GestanteTableTableCreateCompanionBuilder,
+      $$GestanteTableTableUpdateCompanionBuilder,
+      (GestanteEntity, $$GestanteTableTableReferences),
+      GestanteEntity,
+      PrefetchHooks Function({bool personaId})
+    >;
+typedef $$PuerperaTableTableCreateCompanionBuilder =
+    PuerperaTableCompanion Function({
+      Value<String> id,
+      required String antPp,
+      required String observaciones,
+      required String gestaciones,
+      required String partos,
+      required String abortos,
+      required String cesareas,
+      required String antPPretermino,
+      required int tipoParto,
+      required String personaId,
+      Value<int> rowid,
+    });
+typedef $$PuerperaTableTableUpdateCompanionBuilder =
+    PuerperaTableCompanion Function({
+      Value<String> id,
+      Value<String> antPp,
+      Value<String> observaciones,
+      Value<String> gestaciones,
+      Value<String> partos,
+      Value<String> abortos,
+      Value<String> cesareas,
+      Value<String> antPPretermino,
+      Value<int> tipoParto,
+      Value<String> personaId,
+      Value<int> rowid,
+    });
+
+final class $$PuerperaTableTableReferences
+    extends BaseReferences<_$AppDatabase, $PuerperaTableTable, PuerperaEntity> {
+  $$PuerperaTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PersonasTableTable _personaIdTable(_$AppDatabase db) =>
+      db.personasTable.createAlias(
+        $_aliasNameGenerator(db.puerperaTable.personaId, db.personasTable.id),
+      );
+
+  $$PersonasTableTableProcessedTableManager get personaId {
+    final $_column = $_itemColumn<String>('persona_id')!;
+
+    final manager = $$PersonasTableTableTableManager(
+      $_db,
+      $_db.personasTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_personaIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PuerperaTableTableFilterComposer
+    extends Composer<_$AppDatabase, $PuerperaTableTable> {
+  $$PuerperaTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get antPp => $composableBuilder(
+    column: $table.antPp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get partos => $composableBuilder(
+    column: $table.partos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get abortos => $composableBuilder(
+    column: $table.abortos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cesareas => $composableBuilder(
+    column: $table.cesareas,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get tipoParto => $composableBuilder(
+    column: $table.tipoParto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PersonasTableTableFilterComposer get personaId {
+    final $$PersonasTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableFilterComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PuerperaTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $PuerperaTableTable> {
+  $$PuerperaTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get antPp => $composableBuilder(
+    column: $table.antPp,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get partos => $composableBuilder(
+    column: $table.partos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get abortos => $composableBuilder(
+    column: $table.abortos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cesareas => $composableBuilder(
+    column: $table.cesareas,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get tipoParto => $composableBuilder(
+    column: $table.tipoParto,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PersonasTableTableOrderingComposer get personaId {
+    final $$PersonasTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PuerperaTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PuerperaTableTable> {
+  $$PuerperaTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get antPp =>
+      $composableBuilder(column: $table.antPp, builder: (column) => column);
+
+  GeneratedColumn<String> get observaciones => $composableBuilder(
+    column: $table.observaciones,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get gestaciones => $composableBuilder(
+    column: $table.gestaciones,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get partos =>
+      $composableBuilder(column: $table.partos, builder: (column) => column);
+
+  GeneratedColumn<String> get abortos =>
+      $composableBuilder(column: $table.abortos, builder: (column) => column);
+
+  GeneratedColumn<String> get cesareas =>
+      $composableBuilder(column: $table.cesareas, builder: (column) => column);
+
+  GeneratedColumn<String> get antPPretermino => $composableBuilder(
+    column: $table.antPPretermino,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get tipoParto =>
+      $composableBuilder(column: $table.tipoParto, builder: (column) => column);
+
+  $$PersonasTableTableAnnotationComposer get personaId {
+    final $$PersonasTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.personaId,
+      referencedTable: $db.personasTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonasTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personasTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PuerperaTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PuerperaTableTable,
+          PuerperaEntity,
+          $$PuerperaTableTableFilterComposer,
+          $$PuerperaTableTableOrderingComposer,
+          $$PuerperaTableTableAnnotationComposer,
+          $$PuerperaTableTableCreateCompanionBuilder,
+          $$PuerperaTableTableUpdateCompanionBuilder,
+          (PuerperaEntity, $$PuerperaTableTableReferences),
+          PuerperaEntity,
+          PrefetchHooks Function({bool personaId})
+        > {
+  $$PuerperaTableTableTableManager(_$AppDatabase db, $PuerperaTableTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$PuerperaTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () =>
+                  $$PuerperaTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => $$PuerperaTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> antPp = const Value.absent(),
+                Value<String> observaciones = const Value.absent(),
+                Value<String> gestaciones = const Value.absent(),
+                Value<String> partos = const Value.absent(),
+                Value<String> abortos = const Value.absent(),
+                Value<String> cesareas = const Value.absent(),
+                Value<String> antPPretermino = const Value.absent(),
+                Value<int> tipoParto = const Value.absent(),
+                Value<String> personaId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PuerperaTableCompanion(
+                id: id,
+                antPp: antPp,
+                observaciones: observaciones,
+                gestaciones: gestaciones,
+                partos: partos,
+                abortos: abortos,
+                cesareas: cesareas,
+                antPPretermino: antPPretermino,
+                tipoParto: tipoParto,
+                personaId: personaId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                required String antPp,
+                required String observaciones,
+                required String gestaciones,
+                required String partos,
+                required String abortos,
+                required String cesareas,
+                required String antPPretermino,
+                required int tipoParto,
+                required String personaId,
+                Value<int> rowid = const Value.absent(),
+              }) => PuerperaTableCompanion.insert(
+                id: id,
+                antPp: antPp,
+                observaciones: observaciones,
+                gestaciones: gestaciones,
+                partos: partos,
+                abortos: abortos,
+                cesareas: cesareas,
+                antPPretermino: antPPretermino,
+                tipoParto: tipoParto,
+                personaId: personaId,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          $$PuerperaTableTableReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: ({personaId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (personaId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.personaId,
+                            referencedTable: $$PuerperaTableTableReferences
+                                ._personaIdTable(db),
+                            referencedColumn:
+                                $$PuerperaTableTableReferences
+                                    ._personaIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PuerperaTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PuerperaTableTable,
+      PuerperaEntity,
+      $$PuerperaTableTableFilterComposer,
+      $$PuerperaTableTableOrderingComposer,
+      $$PuerperaTableTableAnnotationComposer,
+      $$PuerperaTableTableCreateCompanionBuilder,
+      $$PuerperaTableTableUpdateCompanionBuilder,
+      (PuerperaEntity, $$PuerperaTableTableReferences),
+      PuerperaEntity,
+      PrefetchHooks Function({bool personaId})
     >;
 
 class $AppDatabaseManager {
@@ -3257,4 +6110,8 @@ class $AppDatabaseManager {
       $$CdrTableTableTableManager(_db, _db.cdrTable);
   $$PersonasTableTableTableManager get personasTable =>
       $$PersonasTableTableTableManager(_db, _db.personasTable);
+  $$GestanteTableTableTableManager get gestanteTable =>
+      $$GestanteTableTableTableManager(_db, _db.gestanteTable);
+  $$PuerperaTableTableTableManager get puerperaTable =>
+      $$PuerperaTableTableTableManager(_db, _db.puerperaTable);
 }
