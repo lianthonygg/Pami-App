@@ -42,7 +42,7 @@ class GestanteCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "Teléfono: ${item.nombre}",
+                "Teléfono: ${item.telefono}",
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),

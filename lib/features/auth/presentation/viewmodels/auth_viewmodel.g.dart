@@ -62,103 +62,62 @@ abstract class _$AuthViewModel extends $Notifier<AuthState> {
   }
 }
 
-@ProviderFor(Nickname)
-const nicknameProvider = NicknameProvider._();
+@ProviderFor(LoginForm)
+const loginFormProvider = LoginFormProvider._();
 
-final class NicknameProvider extends $NotifierProvider<Nickname, String> {
-  const NicknameProvider._()
+final class LoginFormProvider
+    extends $NotifierProvider<LoginForm, ({String nickname, String password})> {
+  const LoginFormProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'nicknameProvider',
-        isAutoDispose: true,
+        name: r'loginFormProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$nicknameHash();
+  String debugGetCreateSourceHash() => _$loginFormHash();
 
   @$internal
   @override
-  Nickname create() => Nickname();
+  LoginForm create() => LoginForm();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String value) {
+  Override overrideWithValue(({String nickname, String password}) value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<String>(value),
+      providerOverride:
+          $SyncValueProvider<({String nickname, String password})>(value),
     );
   }
 }
 
-String _$nicknameHash() => r'62ba630dd41ae219f2fe5df49d4c655aa2237981';
+String _$loginFormHash() => r'2bad8eb241b42f5dda06d0df599d151859e0d5ae';
 
-abstract class _$Nickname extends $Notifier<String> {
-  String build();
+abstract class _$LoginForm
+    extends $Notifier<({String nickname, String password})> {
+  ({String nickname, String password}) build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<String, String>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<String, String>,
-              String,
-              Object?,
-              Object?
+    final ref =
+        this.ref
+            as $Ref<
+              ({String nickname, String password}),
+              ({String nickname, String password})
             >;
-    element.handleValue(ref, created);
-  }
-}
-
-@ProviderFor(Password)
-const passwordProvider = PasswordProvider._();
-
-final class PasswordProvider extends $NotifierProvider<Password, String> {
-  const PasswordProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'passwordProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$passwordHash();
-
-  @$internal
-  @override
-  Password create() => Password();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<String>(value),
-    );
-  }
-}
-
-String _$passwordHash() => r'd9a0a8ca36887b1b40c7dfbdece7988b2e0395b0';
-
-abstract class _$Password extends $Notifier<String> {
-  String build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final created = build();
-    final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<String, String>,
-              String,
+              AnyNotifier<
+                ({String nickname, String password}),
+                ({String nickname, String password})
+              >,
+              ({String nickname, String password}),
               Object?,
               Object?
             >;

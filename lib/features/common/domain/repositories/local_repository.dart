@@ -21,7 +21,7 @@ abstract class LocalRepository {
 
   Stream<List<PersonasEntity>> watchPacientes();
 
-  Future<PersonaConCdrYCircunscripcion?> watchPacienteByCi(String ci);
+  Future<PersonaConCdrYCircunscripcion?> getPacienteByCi(String ci);
 
   Future<void> insertOrUpdateGestantes(List<Gestante> gestantes);
 

@@ -7,6 +7,20 @@ class PersonaWithGestanteData {
   PersonaWithGestanteData({required this.persona, required this.gestante});
 }
 
+class PersonaWithGestanteDetail {
+  final PersonasEntity persona;
+  final GestanteEntity gestante;
+  final CdrEntity cdr;
+  final CircunscripcionEntity circunscripcion;
+
+  PersonaWithGestanteDetail({
+    required this.persona,
+    required this.gestante,
+    required this.cdr,
+    required this.circunscripcion,
+  });
+}
+
 class Gestante {
   final String id;
   final String nombre;

@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,7 +11,13 @@ part 'db_provider.g.dart';
 //   return db;
 // });
 
-@riverpod
+@Riverpod(keepAlive: true)
 AppDatabase database(Ref ref) {
-  return AppDatabase();
+  final db = AppDatabase();
+
+  ref.onDispose(() {
+    db.close();
+  });
+
+  return db;
 }

@@ -88,6 +88,7 @@ class LocalRepositoryImpl implements LocalRepository {
             observaciones: Value(persona.observaciones),
             cdrId: Value(persona.cdr.id),
           ),
+          mode: InsertMode.insertOrReplace,
         );
       }
     });
@@ -99,14 +100,14 @@ class LocalRepositoryImpl implements LocalRepository {
   }
 
   @override
-  Future<PersonaConCdrYCircunscripcion?> watchPacienteByCi(String ci) async {
+  Future<PersonaConCdrYCircunscripcion?> getPacienteByCi(String ci) async {
     final query = db.select(db.personasTable).join([
       innerJoin(db.cdrTable, db.cdrTable.id.equalsExp(db.personasTable.cdrId)),
       innerJoin(
         db.circunscripcionTable,
         db.circunscripcionTable.id.equalsExp(db.cdrTable.circunscripcionId),
       ),
-    ])..where(db.personasTable.ci.equals(ci));
+    ])..where(db.personasTable.ci.equals(ci.trim()));
 
     final row = await query.getSingleOrNull();
 
@@ -144,6 +145,7 @@ class LocalRepositoryImpl implements LocalRepository {
             clasificacionRiesgo: Value(gestante.clasificacionRiesgo),
             personaId: Value(gestante.personaId),
           ),
+          mode: InsertMode.insertOrReplace,
         );
       }
     });
@@ -167,6 +169,7 @@ class LocalRepositoryImpl implements LocalRepository {
             tipoParto: Value(puerpera.tipoParto),
             personaId: Value(puerpera.personaId),
           ),
+          mode: InsertMode.insertOrReplace,
         );
       }
     });

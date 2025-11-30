@@ -46,6 +46,7 @@ class AppTheme {
 
   // ☀️ Tema claro
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.transparent,
     fontFamily: GoogleFonts.poppins().fontFamily,
@@ -73,6 +74,17 @@ class AppTheme {
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: const Color(0xFF6B7280),
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+      foregroundColor: Color(0xFF1E293B),
+      titleTextStyle: TextStyle(
+        color: Color(0xFF1E293B),
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -133,21 +145,11 @@ class AppTheme {
         side: BorderSide(color: lightBorderTranslucent),
       ),
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: lightSurfaceTranslucent,
-      elevation: 0,
-      titleTextStyle: const TextStyle(
-        color: Color(0xFF1F2937),
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
-      iconTheme: const IconThemeData(color: Color(0xFF1F2937)),
-    ),
-    useMaterial3: true,
   );
 
   // 🌙 Tema oscuro
   static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.transparent,
     fontFamily: GoogleFonts.poppins().fontFamily,
@@ -175,6 +177,17 @@ class AppTheme {
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: Colors.white70,
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+      foregroundColor: Colors.white,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -231,16 +244,5 @@ class AppTheme {
         side: BorderSide(color: darkBorderTranslucent),
       ),
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: darkSurfaceTranslucent,
-      elevation: 0,
-      titleTextStyle: const TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
-      iconTheme: const IconThemeData(color: Colors.white),
-    ),
-    useMaterial3: true,
   );
 }

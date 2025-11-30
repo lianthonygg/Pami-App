@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/network/connectivity_service.dart';
-import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
+import 'package:pami_app/core/services/auth_service.dart';
 import 'package:pami_app/routing/routes.dart';
 import 'package:workmanager/workmanager.dart';
 //import 'package:pami_app/routing/routes.dart';
@@ -71,18 +71,6 @@ class DynamicDrawer extends ConsumerWidget {
           ],
           const Divider(thickness: 1, height: 32),
           ManualSyncTile(),
-          const Divider(thickness: 1, height: 32),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Cerrar sesión'),
-            onTap: () async {
-              await ref.read(authProvider.notifier).logout();
-              if (context.mounted) {
-                Navigator.pop(context);
-                context.go(Routes.login);
-              }
-            },
-          ),
         ],
       ),
     );
@@ -154,8 +142,9 @@ class _ManualSyncTileState extends State<ManualSyncTile>
   }
 
   Future<void> _startSync() async {
+    final loggedIn = await AuthService.isLoggedIn();
     final ctx = context;
-    if (await hasInternet()) {
+    if (await hasInternet() && loggedIn) {
       if (!mounted) return;
       setState(() {
         _isSyncing = true;
@@ -173,6 +162,29 @@ class _ManualSyncTileState extends State<ManualSyncTile>
           _isSyncing = false;
           _controller.stop();
         });
+      }
+    } else if (!loggedIn) {
+      if (ctx.mounted) {
+        showDialog(
+          context: ctx,
+          builder:
+              (context) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                title: const Text("Autenticación"),
+                content: const Text(
+                  "Para realizar esta acción necesita estar autenticado.",
+                  style: TextStyle(fontSize: 16),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Aceptar"),
+                  ),
+                ],
+              ),
+        );
       }
     } else {
       if (ctx.mounted) {

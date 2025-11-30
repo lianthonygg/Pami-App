@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
+import 'package:pami_app/core/widgets/user_button.dart';
+import 'package:pami_app/features/common/presentation/widgets/sticky_header_delegate.dart';
 import 'package:pami_app/features/pregestograma/presentation/viewmodels/pregestantes_viewmodel.dart';
-import 'package:pami_app/routing/routes.dart';
+import 'package:pami_app/features/pregestograma/presentation/views/widgets/pregestante_card.dart';
 
 class PregestogramaView extends ConsumerWidget {
   const PregestogramaView({super.key});
@@ -32,6 +33,7 @@ class PregestogramaView extends ConsumerWidget {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
+        actions: [UserButton()],
       ),
       backgroundColor: colorScheme.surfaceContainerHighest,
       drawer: const DynamicDrawer(),
@@ -71,19 +73,62 @@ class PregestogramaView extends ConsumerWidget {
                               ),
                             ],
                           )
-                          : ListView.builder(
-                            padding: EdgeInsets.all(16),
-                            itemCount: (pregestantesState.items as List).length,
-                            itemBuilder: (context, index) {
-                              final pregestante =
-                                  (pregestantesState.items as List)[index];
-                              return _PregestantesCard(
-                                name: pregestante.nombre,
-                                ci: pregestante.ci,
-                                telefono: pregestante.telefono,
-                                grupo: pregestante.grupoRiesgo,
-                                controlada:
-                                    pregestante.isController ? "Si" : "No",
+                          : LayoutBuilder(
+                            builder: (context, constraints) {
+                              return CustomScrollView(
+                                physics: AlwaysScrollableScrollPhysics(),
+                                slivers: [
+                                  SliverPersistentHeader(
+                                    pinned: true,
+                                    delegate: StickyHeaderDelegate(
+                                      child: Container(
+                                        color:
+                                            Theme.of(
+                                              context,
+                                            ).scaffoldBackgroundColor,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Total: ${(pregestantesState.items as List).length}",
+                                          style: textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: colorScheme.primary,
+                                                fontSize: 18,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SliverPadding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                    sliver: SliverList(
+                                      delegate: SliverChildBuilderDelegate((
+                                        context,
+                                        index,
+                                      ) {
+                                        final pregestante =
+                                            (pregestantesState.items
+                                                as List)[index];
+                                        return PregestantesCard(
+                                          name: pregestante.nombre,
+                                          ci: pregestante.ci,
+                                          telefono: pregestante.telefono,
+                                          grupo: pregestante.grupoRiesgo,
+                                          controlada:
+                                              pregestante.isController
+                                                  ? "Si"
+                                                  : "No",
+                                        );
+                                      }),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                           ),
@@ -91,84 +136,6 @@ class PregestogramaView extends ConsumerWidget {
                     await pregestantesViewModel.getAll();
                   },
                 ),
-      ),
-    );
-  }
-}
-
-class _PregestantesCard extends StatelessWidget {
-  final String name;
-  final String ci;
-  final String telefono;
-  final String grupo;
-  final String controlada;
-
-  const _PregestantesCard({
-    required this.name,
-    required this.ci,
-    required this.telefono,
-    required this.grupo,
-    required this.controlada,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Card(
-      elevation: 3,
-      color: colorScheme.surface,
-      margin: EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: ListTile(
-          leading: CircleAvatar(
-            radius: 24,
-            backgroundColor: colorScheme.primary,
-            child: Icon(Icons.person, color: colorScheme.onPrimary),
-          ),
-          title: Text(
-            name,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "CI: $ci",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(
-                "Teléfono: $telefono",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(
-                "Grupo: $grupo",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(
-                "Controlada: $controlada",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-          onLongPress: () {
-            context.push(Routes.detallePersona.replaceFirst(':ci', ci));
-          },
-        ),
       ),
     );
   }

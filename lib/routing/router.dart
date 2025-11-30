@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
 import 'package:pami_app/features/auth/presentation/views/login_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/gestograma_view.dart';
+import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_detalle.dart';
 import 'package:pami_app/features/home/presentation/views/home_view.dart';
 import 'package:pami_app/features/personas/presentation/views/persona_detalle.dart';
 import 'package:pami_app/features/personas/presentation/views/persona_form.dart';
@@ -17,30 +14,8 @@ import 'package:pami_app/routing/routes.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 GoRouter router() => GoRouter(
-  initialLocation: Routes.login,
+  initialLocation: Routes.home,
   navigatorKey: navigatorKey,
-  redirect: (BuildContext context, GoRouterState state) async {
-    final ref = ProviderScope.containerOf(context);
-
-    var authState = ref.read(authProvider);
-
-    if (authState.isLoading) {
-      final completer = Completer<String?>();
-
-      late final ProviderSubscription<AuthNotifierState> subscription;
-      subscription = ref.listen(authProvider, (prev, next) {
-        if (!next.isLoading) {
-          final redirectPath = _getRedirectPath(state, next.isLoggedIn);
-          completer.complete(redirectPath);
-          subscription.close();
-        }
-      });
-
-      return completer.future;
-    }
-
-    return _getRedirectPath(state, authState.isLoggedIn);
-  },
   routes: [
     GoRoute(
       path: Routes.home,
@@ -86,6 +61,13 @@ GoRouter router() => GoRouter(
       },
     ),
     GoRoute(
+      path: Routes.detalleGestante,
+      builder: (context, state) {
+        final ci = state.pathParameters['ci']!;
+        return GestanteDetalle(ci: ci);
+      },
+    ),
+    GoRoute(
       path: Routes.posgestograma,
       builder: (context, state) {
         return PosgestogramaView();
@@ -93,15 +75,3 @@ GoRouter router() => GoRouter(
     ),
   ],
 );
-
-String? _getRedirectPath(GoRouterState state, bool isLoggedIn) {
-  final isGoingToLogin = state.matchedLocation == Routes.login;
-
-  if (isGoingToLogin && isLoggedIn) {
-    return Routes.home;
-  } else if (!isGoingToLogin && !isLoggedIn) {
-    return Routes.login;
-  }
-
-  return null;
-}

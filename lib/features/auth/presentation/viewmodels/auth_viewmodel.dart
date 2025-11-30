@@ -57,18 +57,17 @@ class AuthState {
   }
 }
 
-@Riverpod(keepAlive: false)
-class Nickname extends _$Nickname {
+@Riverpod(keepAlive: true)
+class LoginForm extends _$LoginForm {
   @override
-  String build() => '';
+  ({String nickname, String password}) build() => (nickname: '', password: '');
 
-  void set(String value) => state = value;
-}
+  void setNickname(String value) =>
+      state = (nickname: value, password: state.password);
 
-@Riverpod(keepAlive: false)
-class Password extends _$Password {
-  @override
-  String build() => '';
+  void setPassword(String value) =>
+      state = (nickname: state.nickname, password: value);
 
-  void set(String value) => state = value;
+  // opcional: limpiar el formulario
+  void clear() => state = (nickname: '', password: '');
 }

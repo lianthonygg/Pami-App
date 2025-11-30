@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
+import 'package:pami_app/core/widgets/user_button.dart';
+import 'package:pami_app/features/common/presentation/widgets/sticky_header_delegate.dart';
 import 'package:pami_app/features/gestograma/presentation/viewmodels/gestantes_viewmodel.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_card.dart';
+import 'package:pami_app/routing/routes.dart';
 
 class GestogramaView extends ConsumerWidget {
   const GestogramaView({super.key});
@@ -23,11 +27,12 @@ class GestogramaView extends ConsumerWidget {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: Text("MINSAP App"),
+        title: Text("Gestograma"),
         centerTitle: true,
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
+        actions: [UserButton()],
       ),
       backgroundColor: colorScheme.surfaceContainerHighest,
       drawer: const DynamicDrawer(),
@@ -50,6 +55,7 @@ class GestogramaView extends ConsumerWidget {
                   ),
                 )
                 : RefreshIndicator(
+                  onRefresh: () async => await gestantesViewModel.getAll(),
                   child:
                       gestantesState.items == null ||
                               (gestantesState.items is List &&
@@ -67,37 +73,70 @@ class GestogramaView extends ConsumerWidget {
                               ),
                             ],
                           )
-                          : ListView.builder(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: (gestantesState.items as List).length,
-                            itemBuilder: (context, index) {
-                              final personas = gestantesState.items as List;
-
-                              if (index == 0) {
-                                return Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 12.0,
-                                    ),
-                                    child: Text(
-                                      "Total: ${(personas.length + 1)}",
-                                      style: textTheme.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: colorScheme.primary,
-                                        fontSize: 18,
+                          : LayoutBuilder(
+                            builder: (context, constraints) {
+                              return CustomScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                slivers: [
+                                  SliverPersistentHeader(
+                                    pinned: true,
+                                    delegate: StickyHeaderDelegate(
+                                      child: Container(
+                                        color:
+                                            Theme.of(
+                                              context,
+                                            ).scaffoldBackgroundColor,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Total: ${(gestantesState.items as List).length}",
+                                          style: textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: colorScheme.primary,
+                                                fontSize: 18,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                );
-                              }
 
-                              final persona = personas[index];
-                              return GestanteCard(item: persona, onTap: () {});
+                                  SliverPadding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                    sliver: SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          final persona =
+                                              (gestantesState.items
+                                                  as List)[index];
+                                          return GestanteCard(
+                                            onTap: () {
+                                              context.push(
+                                                Routes.detalleGestante
+                                                    .replaceFirst(
+                                                      ':ci',
+                                                      persona.ci,
+                                                    ),
+                                              );
+                                            },
+                                            item: persona,
+                                          );
+                                        },
+                                        childCount:
+                                            (gestantesState.items as List)
+                                                .length,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
                             },
                           ),
-
-                  onRefresh: () async => await gestantesViewModel.getAll(),
                 ),
       ),
     );

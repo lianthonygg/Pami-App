@@ -5,11 +5,13 @@ import 'package:pami_app/core/services/notification_service.dart';
 import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/routing/router.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'background/sync_tasks.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   await requestNotificationPermission();
   await NotificationService.inicialized();
@@ -23,35 +25,45 @@ Future<void> main() async {
     constraints: Constraints(networkType: NetworkType.connected),
   );
 
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(ProviderScope(child: const MainApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends ConsumerWidget {
+  const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFFE53935),
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
-
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top],
-    );
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'PAMI App',
+      locale: const Locale('es', 'ES'),
+      supportedLocales: const [Locale('es', 'ES')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+
+      title: "Pami App",
       routerConfig: router(),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        final color =
+            Theme.of(context).appBarTheme.backgroundColor ??
+            Theme.of(context).primaryColor;
+
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor: color,
+            systemNavigationBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+            systemNavigationBarIconBrightness: Brightness.light,
+          ),
+        );
+
+        return child!;
+      },
     );
   }
 }

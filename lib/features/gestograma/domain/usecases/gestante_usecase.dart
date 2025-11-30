@@ -1,4 +1,5 @@
 import 'package:pami_app/features/gestograma/data/model/gestante_model.dart';
+import 'package:pami_app/features/gestograma/domain/entities/gestante.dart';
 import 'package:pami_app/features/gestograma/domain/repositories/gestante_repository.dart';
 
 class GestanteUseCase {
@@ -8,5 +9,9 @@ class GestanteUseCase {
 
   Stream<List<GestantesResponseModel>> watchGestantes() {
     return repository.watchGestantes();
+  }
+
+  Future<PersonaWithGestanteDetail?> getGestanteByCi(String ci) async {
+    return repository.getGestanteByCi(ci);
   }
 }

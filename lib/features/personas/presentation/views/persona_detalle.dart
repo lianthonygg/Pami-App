@@ -44,7 +44,12 @@ class PersonaDetalle extends ConsumerWidget {
                     style: TextStyle(color: colorScheme.error),
                   ),
                 ),
-            data: (persona) => _buildPersonaDetalle(context, persona),
+            data: (persona) {
+              if (persona == null) {
+                return const Text("No se encontró la persona");
+              }
+              return _buildPersonaDetalle(context, persona);
+            },
           ),
         ),
       ),
@@ -53,13 +58,13 @@ class PersonaDetalle extends ConsumerWidget {
 
   Widget _buildPersonaDetalle(
     BuildContext context,
-    PersonaConCdrYCircunscripcion? data,
+    PersonaConCdrYCircunscripcion data,
   ) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         _buildSection(context, "Datos Generales", [
-          _item(context, "Nombre y Apellidos", data!.persona.fullName),
+          _item(context, "Nombre y Apellidos", data.persona.fullName),
           _item(context, "CI", data.persona.ci),
           _item(
             context,

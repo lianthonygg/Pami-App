@@ -1,4 +1,5 @@
 import 'package:pami_app/core/services/auth_service.dart';
+import 'package:pami_app/features/auth/domain/entities/user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.g.dart';
@@ -6,18 +7,13 @@ part 'auth_notifier.g.dart';
 @riverpod
 class AuthNotifier extends _$AuthNotifier {
   @override
-  AuthNotifierState build() {
-    _init();
-    return const AuthNotifierState(isLoading: true);
-  }
-
-  Future<void> _init() async {
+  Future<AuthNotifierState> build() async {
     final loggedIn = await AuthService.isLoggedIn();
     if (loggedIn) {
       final token = await AuthService.getAccessToken();
-      state = state.copyWith(accessToken: token, isLoading: false);
+      return AuthNotifierState(accessToken: token, isLoading: false);
     } else {
-      state = state.copyWith(isLoading: false, accessToken: null);
+      return const AuthNotifierState(accessToken: null, isLoading: false);
     }
   }
 
@@ -26,12 +22,22 @@ class AuthNotifier extends _$AuthNotifier {
       accessToken: accessToken,
       refreshToken: refreshToken,
     );
-    state = state.copyWith(accessToken: accessToken);
+    if (!ref.mounted) return;
+    state = AsyncData(state.value!.copyWith(accessToken: accessToken));
   }
 
   Future<void> logout() async {
     await AuthService.logout();
-    state = const AuthNotifierState(accessToken: null);
+
+    if (!ref.mounted) return;
+
+    state = const AsyncData(
+      AuthNotifierState(accessToken: null, isLoading: false),
+    );
+
+    // 4. Opcional pero recomendado:
+    //    Si querés reinicializar por completo:
+    // ref.invalidateSelf();
   }
 
   Future<void> refreshAccessToken() async {
@@ -50,16 +56,43 @@ class AuthNotifier extends _$AuthNotifier {
 
 class AuthNotifierState {
   final String? accessToken;
+  final User? user;
   final bool isLoading;
 
   bool get isLoggedIn => accessToken != null;
 
-  const AuthNotifierState({this.accessToken, this.isLoading = false});
+  const AuthNotifierState({
+    this.accessToken,
+    this.isLoading = false,
+    this.user,
+  });
 
-  AuthNotifierState copyWith({String? accessToken, bool? isLoading}) {
+  AuthNotifierState copyWith({
+    String? accessToken,
+    bool? isLoading,
+    User? user,
+  }) {
     return AuthNotifierState(
       accessToken: accessToken ?? this.accessToken,
       isLoading: isLoading ?? this.isLoading,
+      user: user ?? this.user,
     );
   }
 }
+
+@riverpod
+AuthRouterState authRouterState(Ref ref) {
+  final asyncAuth = ref.watch(authProvider);
+
+  return asyncAuth.when(
+    loading: () => AuthRouterState.loading,
+    error: (_, _) => AuthRouterState.loggedOut,
+    data:
+        (auth) =>
+            auth.isLoggedIn
+                ? AuthRouterState.loggedIn
+                : AuthRouterState.loggedOut,
+  );
+}
+
+enum AuthRouterState { loading, loggedIn, loggedOut }

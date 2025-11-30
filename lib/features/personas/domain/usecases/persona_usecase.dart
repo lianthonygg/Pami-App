@@ -18,7 +18,7 @@ class PersonaUseCase {
   }
 
   Future<PersonaConCdrYCircunscripcion?> watchPacienteByCi(String ci) {
-    return localRepository.watchPacienteByCi(ci);
+    return localRepository.getPacienteByCi(ci);
   }
 
   Future<CreatePersonaResponse> create(CreatePersonaRequest request) {

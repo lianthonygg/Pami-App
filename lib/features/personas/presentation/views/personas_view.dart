@@ -3,7 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/network/connectivity_service.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
+import 'package:pami_app/core/widgets/user_button.dart';
+import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
+import 'package:pami_app/features/common/data/local/app_database.dart';
+import 'package:pami_app/features/common/presentation/widgets/sticky_header_delegate.dart';
 import 'package:pami_app/features/personas/presentation/viewmodels/personas_viewmodel.dart';
+import 'package:pami_app/features/personas/presentation/views/widgets/persona_card.dart';
 import 'package:pami_app/routing/routes.dart';
 
 class PersonasView extends ConsumerWidget {
@@ -33,6 +38,7 @@ class PersonasView extends ConsumerWidget {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 0,
+        actions: [UserButton()],
       ),
       body: SafeArea(
         child:
@@ -73,45 +79,71 @@ class PersonasView extends ConsumerWidget {
                               ),
                             ],
                           )
-                          : ListView.builder(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: (personasState.items as List).length,
-                            itemBuilder: (context, index) {
-                              final personas = personasState.items as List;
-
-                              if (index == 0) {
-                                return Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 12.0,
-                                    ),
-                                    child: Text(
-                                      "Total: ${(personas.length + 1)}",
-                                      style: textTheme.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: colorScheme.primary,
-                                        fontSize: 18,
+                          : LayoutBuilder(
+                            builder: (context, constraints) {
+                              return CustomScrollView(
+                                physics: AlwaysScrollableScrollPhysics(),
+                                slivers: [
+                                  SliverPersistentHeader(
+                                    pinned: true,
+                                    delegate: StickyHeaderDelegate(
+                                      child: Container(
+                                        color:
+                                            Theme.of(
+                                              context,
+                                            ).scaffoldBackgroundColor,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 12,
+                                        ),
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Total: ${(personasState.items as List).length}",
+                                          style: textTheme.titleMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: colorScheme.primary,
+                                                fontSize: 18,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                );
-                              }
-
-                              final persona = personas[index];
-                              return _PersonaCard(
-                                onTap: () {
-                                  context.push(
-                                    Routes.detallePersona.replaceFirst(
-                                      ':ci',
-                                      persona.ci,
+                                  SliverPadding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16,
                                     ),
-                                  );
-                                },
-                                name: persona.fullName,
-                                ci: persona.ci,
-                                telefono: persona.telefono,
-                                grupo: persona.grupoDispensarial,
+                                    sliver: SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          final personas =
+                                              personasState.items
+                                                  as List<PersonasEntity>;
+
+                                          final persona = personas[index];
+                                          return PersonaCard(
+                                            onTap: () {
+                                              context.push(
+                                                Routes.detallePersona
+                                                    .replaceFirst(
+                                                      ':ci',
+                                                      persona.ci,
+                                                    ),
+                                              );
+                                            },
+                                            name: persona.fullName,
+                                            ci: persona.ci,
+                                            telefono: persona.telefono,
+                                            grupo: persona.grupoDispensarial,
+                                          );
+                                        },
+                                        childCount:
+                                            (personasState.items as List)
+                                                .length,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                           ),
@@ -119,12 +151,38 @@ class PersonasView extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          final auth = ref.watch(authProvider);
+
+          final isLoggedIn = auth.asData?.value.accessToken != null;
           final ctx = context;
-          if (await hasInternet()) {
+          if (await hasInternet() && isLoggedIn) {
             if (!context.mounted) return;
 
             if (context.mounted) {
               context.push(Routes.createPersona);
+            }
+          } else if (!isLoggedIn) {
+            if (ctx.mounted) {
+              showDialog(
+                context: ctx,
+                builder:
+                    (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      title: const Text("Autenticación"),
+                      content: const Text(
+                        "Para realizar esta acción necesita estar autenticado.",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Aceptar"),
+                        ),
+                      ],
+                    ),
+              );
             }
           } else {
             if (ctx.mounted) {
@@ -152,81 +210,6 @@ class PersonasView extends ConsumerWidget {
           }
         },
         child: const Icon(Icons.person_add_alt),
-      ),
-    );
-  }
-}
-
-class _PersonaCard extends StatelessWidget {
-  final String name;
-  final String ci;
-  final String telefono;
-  final String grupo;
-  final VoidCallback? onTap;
-
-  const _PersonaCard({
-    required this.name,
-    required this.ci,
-    required this.telefono,
-    required this.grupo,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Card(
-      elevation: 3,
-      color: colorScheme.surface,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: ListTile(
-          leading: CircleAvatar(
-            radius: 24,
-            backgroundColor: colorScheme.primary,
-            child: Icon(Icons.person, color: colorScheme.onPrimary),
-          ),
-          title: Text(
-            name,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "CI: $ci",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(
-                "Teléfono: $telefono",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(
-                "Grupo: $grupo",
-                style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
-            size: 18,
-            color: colorScheme.primary,
-          ),
-          onTap: onTap,
-        ),
       ),
     );
   }

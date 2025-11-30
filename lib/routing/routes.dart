@@ -8,6 +8,7 @@ abstract final class Routes {
   static const createPersona = "/personas/create";
   static const pregestograma = "/pregestograma";
   static const gestograma = "/gestograma";
+  static const detalleGestante = "/gestograma/detalle/:ci";
   static const posgestograma = "/posgestograma";
   static const login = "/login";
 }

@@ -19,7 +19,7 @@ void callbackDispatcher() {
     await NotificationService.inicialized();
 
     try {
-      if (!await hasInternet()) {
+      if (await hasInternet()) {
         await NotificationService.show(
           'Sincronizando sus datos',
           'Por favor, espere mientras se actualizan sus datos...',
