@@ -13,23 +13,27 @@ class DatosAddressPhone extends ConsumerWidget {
         TextFormFieldCustom(
           label: "Dirección del Carnet de Identidad",
           icon: Icons.location_pin,
-          initialValue: ref.read(direccionCIProvider),
+          initialValue: ref.read(personaFormProvider).direccionCi,
           onChanged:
-              (v) => ref.read(direccionCIProvider.notifier).set(v.trim()),
+              (v) => ref
+                  .read(personaFormProvider.notifier)
+                  .setDireccionCi(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
           label: "Dirección en que Vive",
           icon: Icons.home,
-          initialValue: ref.read(direccionViveProvider),
+          initialValue: ref.read(personaFormProvider).direccionVive,
           onChanged:
-              (v) => ref.read(direccionViveProvider.notifier).set(v.trim()),
+              (v) => ref
+                  .read(personaFormProvider.notifier)
+                  .setDireccionVive(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
           label: "Teléfono",
           icon: Icons.phone,
-          initialValue: ref.read(phoneProvider),
+          initialValue: ref.read(personaFormProvider).phone,
           keyboardType: TextInputType.phone,
           maxLength: 8,
           validator: (v) {
@@ -39,7 +43,8 @@ class DatosAddressPhone extends ConsumerWidget {
             }
             return null;
           },
-          onChanged: (v) => ref.read(phoneProvider.notifier).set(v.trim()),
+          onChanged:
+              (v) => ref.read(personaFormProvider.notifier).setPhone(v.trim()),
         ),
       ],
     );

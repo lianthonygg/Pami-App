@@ -24,6 +24,7 @@ class PersonasTable extends Table {
 
   BoolColumn get isController => boolean().withDefault(const Constant(false))();
   BoolColumn get isAvailable => boolean().withDefault(const Constant(true))();
+  BoolColumn get isGestante => boolean().withDefault(const Constant(true))();
 
   TextColumn get cdrId => text().references(CdrTable, #id)();
 

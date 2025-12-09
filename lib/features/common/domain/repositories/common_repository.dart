@@ -9,6 +9,8 @@ abstract class CommonRepository {
 
   Future<Persona> getByCI(String ci);
 
+  Future<Persona> getTryGestanteByCI(String ci);
+
   Future<List<Cdr>> getCdrs(DateTime? lastModified);
 
   Future<List<Persona>> getPacientes(DateTime? lastModified);

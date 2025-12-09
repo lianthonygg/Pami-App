@@ -14,18 +14,19 @@ class DatosGenerales extends ConsumerWidget {
         TextFormFieldCustom(
           label: "Antecedentes Patológicos Personales",
           icon: Icons.health_and_safety,
-          initialValue: ref.read(antPpProvider),
+          initialValue: ref.read(personaFormProvider).antPp,
           multiline: true,
-          onChanged: (v) => ref.read(antPpProvider.notifier).set(v.trim()),
+          onChanged:
+              (v) => ref.read(personaFormProvider.notifier).setAntPp(v.trim()),
         ),
         const SizedBox(height: 16),
         DropdownFormFieldCustom<String>(
           label: "Nivel Escolar",
           icon: Icons.school,
           value:
-              ref.watch(nivelEscolarProvider).isEmpty
+              ref.watch(personaFormProvider).nivelEscolar.isEmpty
                   ? null
-                  : ref.watch(nivelEscolarProvider),
+                  : ref.watch(personaFormProvider).nivelEscolar,
           items: const [
             DropdownMenuItem(value: "Primario", child: Text("Primario")),
             DropdownMenuItem(value: "Secundario", child: Text("Secundario")),
@@ -39,14 +40,18 @@ class DatosGenerales extends ConsumerWidget {
             ),
           ],
           onChanged:
-              (v) => ref.read(nivelEscolarProvider.notifier).set(v ?? ''),
+              (v) => ref
+                  .read(personaFormProvider.notifier)
+                  .setNivelEscolar(v ?? ''),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
           label: "Profesión",
           icon: Icons.work,
-          initialValue: ref.read(profesionProvider),
-          onChanged: (v) => ref.read(profesionProvider.notifier).set(v.trim()),
+          initialValue: ref.read(personaFormProvider).profesion,
+          onChanged:
+              (v) =>
+                  ref.read(personaFormProvider.notifier).setProfesion(v.trim()),
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<String>(
@@ -55,9 +60,9 @@ class DatosGenerales extends ConsumerWidget {
             prefixIcon: Icon(Icons.group_work),
           ),
           initialValue:
-              ref.watch(grupoDispensarialProvider).isEmpty
+              ref.watch(personaFormProvider).grupoDispensarial.isEmpty
                   ? null
-                  : ref.watch(grupoDispensarialProvider),
+                  : ref.watch(personaFormProvider).grupoDispensarial,
           items: const [
             DropdownMenuItem(value: "Grupo 1", child: Text("Grupo 1")),
             DropdownMenuItem(value: "Grupo 2", child: Text("Grupo 2")),
@@ -65,7 +70,9 @@ class DatosGenerales extends ConsumerWidget {
             DropdownMenuItem(value: "Grupo 4", child: Text("Grupo 4")),
           ],
           onChanged:
-              (v) => ref.read(grupoDispensarialProvider.notifier).set(v ?? ''),
+              (v) => ref
+                  .read(personaFormProvider.notifier)
+                  .setGrupoDispensarial(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
         const SizedBox(height: 16),
@@ -75,13 +82,15 @@ class DatosGenerales extends ConsumerWidget {
             labelText: "Observaciones",
             prefixIcon: Icon(Icons.notes),
           ),
-          initialValue: ref.read(observacionesProvider),
+          initialValue: ref.read(personaFormProvider).observaciones,
           keyboardType: TextInputType.multiline,
           textInputAction: TextInputAction.newline,
           minLines: 3,
           maxLines: null,
           onChanged:
-              (v) => ref.read(observacionesProvider.notifier).set(v.trim()),
+              (v) => ref
+                  .read(personaFormProvider.notifier)
+                  .setObservaciones(v.trim()),
         ),
       ],
     );

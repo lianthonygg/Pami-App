@@ -24,7 +24,7 @@ final class PersonaByCiProvider
         $FutureProvider<PersonaConCdrYCircunscripcion?> {
   const PersonaByCiProvider._({
     required PersonaByCiFamily super.from,
-    required String super.argument,
+    required String? super.argument,
   }) : super(
          retry: null,
          name: r'personaByCiProvider',
@@ -51,7 +51,7 @@ final class PersonaByCiProvider
 
   @override
   FutureOr<PersonaConCdrYCircunscripcion?> create(Ref ref) {
-    final argument = this.argument as String;
+    final argument = this.argument as String?;
     return personaByCi(ref, argument);
   }
 
@@ -66,13 +66,13 @@ final class PersonaByCiProvider
   }
 }
 
-String _$personaByCiHash() => r'770565ccf95635c77642617191c8763aafee4696';
+String _$personaByCiHash() => r'90993fa18cb62526ad46ff97df2577cbd0821990';
 
 final class PersonaByCiFamily extends $Family
     with
         $FunctionalFamilyOverride<
           FutureOr<PersonaConCdrYCircunscripcion?>,
-          String
+          String?
         > {
   const PersonaByCiFamily._()
     : super(
@@ -83,7 +83,7 @@ final class PersonaByCiFamily extends $Family
         isAutoDispose: true,
       );
 
-  PersonaByCiProvider call(String ci) =>
+  PersonaByCiProvider call(String? ci) =>
       PersonaByCiProvider._(argument: ci, from: this);
 
   @override

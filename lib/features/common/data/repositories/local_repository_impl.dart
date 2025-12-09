@@ -87,6 +87,8 @@ class LocalRepositoryImpl implements LocalRepository {
             grupoDispensarial: Value(persona.grupoDispensarial),
             observaciones: Value(persona.observaciones),
             cdrId: Value(persona.cdr.id),
+            isAvailable: Value(persona.isAvailable),
+            isGestante: Value(persona.isGestante),
           ),
           mode: InsertMode.insertOrReplace,
         );
@@ -96,7 +98,7 @@ class LocalRepositoryImpl implements LocalRepository {
 
   @override
   Stream<List<PersonasEntity>> watchPacientes() {
-    return db.select(db.personasTable).watch();
+    return (db.select(db.personasTable)..where((p) => p.isAvailable)).watch();
   }
 
   @override
@@ -144,6 +146,7 @@ class LocalRepositoryImpl implements LocalRepository {
             imc: Value(gestante.imc),
             clasificacionRiesgo: Value(gestante.clasificacionRiesgo),
             personaId: Value(gestante.personaId),
+            isAvailable: Value(gestante.isAvailable),
           ),
           mode: InsertMode.insertOrReplace,
         );
@@ -168,6 +171,7 @@ class LocalRepositoryImpl implements LocalRepository {
             antPPretermino: Value(puerpera.antPPretermino),
             tipoParto: Value(puerpera.tipoParto),
             personaId: Value(puerpera.personaId),
+            isAvailable: Value(puerpera.isAvailable),
           ),
           mode: InsertMode.insertOrReplace,
         );

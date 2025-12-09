@@ -84,4 +84,16 @@ class CommonRepositoryImpl implements CommonRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<Persona> getTryGestanteByCI(String ci) async {
+    try {
+      final PersonaModel persona = await remoteDatasource.getTryGestanteByCI(
+        ci,
+      );
+      return persona;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

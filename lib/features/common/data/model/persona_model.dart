@@ -19,6 +19,8 @@ class PersonaModel extends Persona {
     required super.circunscripcion,
     required super.cdr,
     required super.lastModified,
+    required super.isAvailable,
+    required super.isGestante,
   });
 
   factory PersonaModel.fromJson(Map<String, dynamic> json) => PersonaModel(
@@ -40,6 +42,8 @@ class PersonaModel extends Persona {
     ),
     cdr: CdrModelResponse.fromJson(json['cdr'] ?? {}),
     lastModified: DateTime.parse(json['lastModified']),
+    isAvailable: json['isAvailable'],
+    isGestante: json['isGestante'],
   );
 }
 

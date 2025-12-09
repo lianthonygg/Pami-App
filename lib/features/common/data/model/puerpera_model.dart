@@ -18,6 +18,7 @@ class PuerperaModel extends Puerpera {
     required super.antPPretermino,
     required super.tipoParto,
     required super.lastModified,
+    required super.isAvailable,
   });
 
   factory PuerperaModel.fromJson(Map<String, dynamic> json) => PuerperaModel(
@@ -37,5 +38,6 @@ class PuerperaModel extends Puerpera {
     antPPretermino: json["antPPretermino"],
     tipoParto: json['tipoParto'],
     lastModified: DateTime.parse(json['lastModified']),
+    isAvailable: json['isAvailable'],
   );
 }

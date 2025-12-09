@@ -108,24 +108,26 @@ class PregestogramaView extends ConsumerWidget {
                                       horizontal: 16,
                                     ),
                                     sliver: SliverList(
-                                      delegate: SliverChildBuilderDelegate((
-                                        context,
-                                        index,
-                                      ) {
-                                        final pregestante =
-                                            (pregestantesState.items
-                                                as List)[index];
-                                        return PregestantesCard(
-                                          name: pregestante.nombre,
-                                          ci: pregestante.ci,
-                                          telefono: pregestante.telefono,
-                                          grupo: pregestante.grupoRiesgo,
-                                          controlada:
-                                              pregestante.isController
-                                                  ? "Si"
-                                                  : "No",
-                                        );
-                                      }),
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          final pregestante =
+                                              (pregestantesState.items
+                                                  as List)[index];
+                                          return PregestantesCard(
+                                            name: pregestante.nombre,
+                                            ci: pregestante.ci,
+                                            telefono: pregestante.telefono,
+                                            grupo: pregestante.grupoRiesgo,
+                                            controlada:
+                                                pregestante.isController
+                                                    ? "Si"
+                                                    : "No",
+                                          );
+                                        },
+                                        childCount:
+                                            (pregestantesState.items as List)
+                                                .length,
+                                      ),
                                     ),
                                   ),
                                 ],

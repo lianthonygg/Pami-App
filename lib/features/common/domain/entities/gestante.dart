@@ -22,6 +22,7 @@ class Gestante {
   final String imc;
   final int clasificacionRiesgo;
   final DateTime lastModified;
+  final bool isAvailable;
 
   Gestante({
     required this.id,
@@ -47,5 +48,6 @@ class Gestante {
     required this.imc,
     required this.clasificacionRiesgo,
     required this.lastModified,
+    required this.isAvailable,
   });
 }

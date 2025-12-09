@@ -27,9 +27,9 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
     final circState = ref.watch(circunscripcionProvider);
     final cdrState = ref.watch(cdrProvider);
     final personasState = ref.watch(personasViewModelProvider);
-    final sexo = ref.watch(sexoProvider);
-    final ci = ref.watch(ciProvider);
-    final grupoRiesgo = ref.watch(grupoDispensarialProvider);
+    final sexo = ref.watch(personaFormProvider).sexo;
+    final ci = ref.watch(personaFormProvider).ci;
+    final grupoRiesgo = ref.watch(personaFormProvider).grupoDispensarial;
     final edad = calcularEdadDesdeCi(ci);
     final debeMostrarControlada =
         sexo == "F" &&
@@ -48,19 +48,7 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
           next.error == null) {
         formKey.currentState?.reset();
 
-        ref.read(fullNameProvider.notifier).set('');
-        ref.read(ciProvider.notifier).set('');
-        ref.read(sexoProvider.notifier).set('');
-        ref.read(razaProvider.notifier).set('');
-        ref.read(direccionCIProvider.notifier).set('');
-        ref.read(direccionViveProvider.notifier).set('');
-        ref.read(phoneProvider.notifier).set('');
-        ref.read(antPpProvider.notifier).set('');
-        ref.read(nivelEscolarProvider.notifier).set('');
-        ref.read(profesionProvider.notifier).set('');
-        ref.read(grupoDispensarialProvider.notifier).set('');
-        ref.read(observacionesProvider.notifier).set('');
-        ref.read(controladaProvider.notifier).set('false');
+        ref.read(personaFormProvider.notifier).clear();
 
         ref.read(circunscripcionProvider.notifier).reset();
         ref.read(cdrProvider.notifier).reset();
@@ -235,17 +223,17 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
                           label: "Controlada",
                           icon: Icons.transgender,
                           value:
-                              ref.watch(controladaProvider).isEmpty
+                              ref.watch(personaFormProvider).controlada.isEmpty
                                   ? null
-                                  : ref.watch(controladaProvider),
+                                  : ref.watch(personaFormProvider).controlada,
                           items: const [
                             DropdownMenuItem(value: "true", child: Text("Sí")),
                             DropdownMenuItem(value: "false", child: Text("No")),
                           ],
                           onChanged:
                               (v) => ref
-                                  .read(controladaProvider.notifier)
-                                  .set(v ?? 'false'),
+                                  .read(personaFormProvider.notifier)
+                                  .setControlada(v ?? 'false'),
                         ),
                       ],
                       const SizedBox(height: 24),

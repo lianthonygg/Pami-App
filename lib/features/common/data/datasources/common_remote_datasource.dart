@@ -21,6 +21,16 @@ class CommonRemoteDatasource {
     }
   }
 
+  Future<PersonaModel> getTryGestanteByCI(String ci) async {
+    try {
+      final response = await dio.get('/persona/try-gestante/$ci');
+
+      return PersonaModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw e.error as ServerException;
+    }
+  }
+
   Future<List<PersonaModel>> getPacientes(DateTime? lastModified) async {
     try {
       final queryParams = <String, dynamic>{};

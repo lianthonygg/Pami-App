@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
 import 'package:pami_app/features/pregestograma/data/model/pregestante_model.dart';
 import 'package:pami_app/features/pregestograma/domain/entities/pregestante.dart';
@@ -14,7 +15,7 @@ class PregestanteRepositoryImpl implements PregestanteRepository {
 
     final mujeres =
         await (db.select(db.personasTable)
-          ..where((p) => p.sexo.equals('F'))).get();
+          ..where((p) => p.sexo.equals('F') & p.isGestante.not())).get();
 
     final pregestantes =
         mujeres

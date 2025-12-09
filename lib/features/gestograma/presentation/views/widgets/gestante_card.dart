@@ -48,7 +48,7 @@ class GestanteCard extends StatelessWidget {
                 ),
               ),
               Text(
-                "Tiempo Gestacional: ${item.tgCaptacion}",
+                "Tiempo Gestacional: ${item.tgActual}",
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),

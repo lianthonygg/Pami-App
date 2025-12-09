@@ -49,4 +49,4 @@ final class GestanteUseCaseProvider
   }
 }
 
-String _$gestanteUseCaseHash() => r'36e52c09eea1e757dca9db84268f3baca348d697';
+String _$gestanteUseCaseHash() => r'aeaf37f7948c0e7b25af7f90f4411b95c2d002f0';

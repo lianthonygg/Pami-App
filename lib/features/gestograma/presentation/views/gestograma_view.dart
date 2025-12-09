@@ -5,6 +5,7 @@ import 'package:pami_app/core/widgets/dynamic_drawer.dart';
 import 'package:pami_app/core/widgets/user_button.dart';
 import 'package:pami_app/features/common/presentation/widgets/sticky_header_delegate.dart';
 import 'package:pami_app/features/gestograma/presentation/viewmodels/gestantes_viewmodel.dart';
+import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_add_bottom_modal.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_card.dart';
 import 'package:pami_app/routing/routes.dart';
 
@@ -138,6 +139,12 @@ class GestogramaView extends ConsumerWidget {
                             },
                           ),
                 ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showBuscarGestanteBottomSheet(context, ref);
+        },
+        child: Icon(Icons.person_add_alt_1_rounded),
       ),
     );
   }

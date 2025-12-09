@@ -6,7 +6,7 @@ enum TipoParto { eutocico, distocico }
 
 enum Parto { unico, multiple }
 
-Future<void> showAddGestanteBottomSheet(
+Future<void> showAddGestantePartoBottomSheet(
   BuildContext context,
   WidgetRef ref,
   GestantesViewModel gestantesViewModel,
@@ -47,7 +47,7 @@ Future<void> showAddGestanteBottomSheet(
                     ),
                   ),
                   const Text(
-                    "Finalizar Gestacion",
+                    "Finalizar Gestación",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),

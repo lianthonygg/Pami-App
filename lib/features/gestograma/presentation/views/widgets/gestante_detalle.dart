@@ -5,6 +5,7 @@ import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/features/gestograma/domain/entities/gestante.dart';
 import 'package:pami_app/features/gestograma/presentation/providers/gestante_provider.dart';
 import 'package:pami_app/features/gestograma/presentation/viewmodels/gestantes_viewmodel.dart';
+import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_aborto_bottom_modal.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_bottom_modal.dart';
 
 class GestanteDetalle extends ConsumerWidget {
@@ -16,6 +17,7 @@ class GestanteDetalle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final personaAsync = ref.watch(gestanteByCiProvider(ci));
     final gestantesViewModel = ref.read(gestantesViewModelProvider.notifier);
+    late final PersonaWithGestanteDetail gestante;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
@@ -51,19 +53,38 @@ class GestanteDetalle extends ConsumerWidget {
               if (persona == null) {
                 return const Text("No se encontró la gestante");
               }
+              gestante = persona;
               return _buildPersonaDetalle(context, persona);
             },
           ),
         ),
 
         floatingActionButton: FloatingActionButton(
-          onPressed:
-              () =>
-                  showAddGestanteBottomSheet(context, ref, gestantesViewModel),
+          onPressed: () {
+            final a = parseSemValue(gestante.tgActual);
+            final b = parseSemValue("24.0sem");
+            if (a < b) {
+              showAddAbortoBottomSheet(context, ref, gestantesViewModel);
+            } else {
+              showAddGestantePartoBottomSheet(context, ref, gestantesViewModel);
+            }
+          },
           child: Icon(Icons.done_rounded),
         ),
       ),
     );
+  }
+
+  double parseSemValue(String input) {
+    final regex = RegExp(r'^(\d+)(?:\.(\d+))?sem$');
+    final match = regex.firstMatch(input);
+
+    if (match == null) return 0;
+
+    final entero = int.parse(match.group(1)!);
+    final decimal = match.group(2) != null ? int.parse(match.group(2)!) : 0;
+
+    return entero + decimal / 10;
   }
 
   Widget _buildPersonaDetalle(
@@ -101,7 +122,7 @@ class GestanteDetalle extends ConsumerWidget {
             "Tiempo Gestacional a la Captacion",
             data.gestante.tgCaptacion,
           ),
-          _item(context, "Tiempo Gestacional Actual", data.gestante.tgFinal),
+          _item(context, "Tiempo Gestacional Actual", data.tgActual),
           _item(
             context,
             "Fecha de Ultima Menstruacion",

@@ -15,6 +15,8 @@ class Persona {
   final CircunscripcionResponse circunscripcion;
   final CDR cdr;
   final DateTime lastModified;
+  final bool isAvailable;
+  final bool isGestante;
 
   Persona({
     required this.id,
@@ -33,6 +35,8 @@ class Persona {
     required this.circunscripcion,
     required this.cdr,
     required this.lastModified,
+    required this.isAvailable,
+    required this.isGestante,
   });
 }
 

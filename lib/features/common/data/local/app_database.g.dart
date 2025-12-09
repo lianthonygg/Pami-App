@@ -1101,6 +1101,21 @@ class $PersonasTableTable extends PersonasTable
     ),
     defaultValue: const Constant(true),
   );
+  static const VerificationMeta _isGestanteMeta = const VerificationMeta(
+    'isGestante',
+  );
+  @override
+  late final GeneratedColumn<bool> isGestante = GeneratedColumn<bool>(
+    'is_gestante',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_gestante" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
   static const VerificationMeta _cdrIdMeta = const VerificationMeta('cdrId');
   @override
   late final GeneratedColumn<String> cdrId = GeneratedColumn<String>(
@@ -1130,6 +1145,7 @@ class $PersonasTableTable extends PersonasTable
     observaciones,
     isController,
     isAvailable,
+    isGestante,
     cdrId,
   ];
   @override
@@ -1261,6 +1277,12 @@ class $PersonasTableTable extends PersonasTable
         ),
       );
     }
+    if (data.containsKey('is_gestante')) {
+      context.handle(
+        _isGestanteMeta,
+        isGestante.isAcceptableOrUnknown(data['is_gestante']!, _isGestanteMeta),
+      );
+    }
     if (data.containsKey('cdr_id')) {
       context.handle(
         _cdrIdMeta,
@@ -1347,6 +1369,11 @@ class $PersonasTableTable extends PersonasTable
             DriftSqlType.bool,
             data['${effectivePrefix}is_available'],
           )!,
+      isGestante:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}is_gestante'],
+          )!,
       cdrId:
           attachedDatabase.typeMapping.read(
             DriftSqlType.string,
@@ -1377,6 +1404,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
   final String? observaciones;
   final bool isController;
   final bool isAvailable;
+  final bool isGestante;
   final String cdrId;
   const PersonasEntity({
     required this.id,
@@ -1394,6 +1422,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
     this.observaciones,
     required this.isController,
     required this.isAvailable,
+    required this.isGestante,
     required this.cdrId,
   });
   @override
@@ -1426,6 +1455,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
     }
     map['is_controller'] = Variable<bool>(isController);
     map['is_available'] = Variable<bool>(isAvailable);
+    map['is_gestante'] = Variable<bool>(isGestante);
     map['cdr_id'] = Variable<String>(cdrId);
     return map;
   }
@@ -1465,6 +1495,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
               : Value(observaciones),
       isController: Value(isController),
       isAvailable: Value(isAvailable),
+      isGestante: Value(isGestante),
       cdrId: Value(cdrId),
     );
   }
@@ -1490,6 +1521,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
       observaciones: serializer.fromJson<String?>(json['observaciones']),
       isController: serializer.fromJson<bool>(json['isController']),
       isAvailable: serializer.fromJson<bool>(json['isAvailable']),
+      isGestante: serializer.fromJson<bool>(json['isGestante']),
       cdrId: serializer.fromJson<String>(json['cdrId']),
     );
   }
@@ -1512,6 +1544,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
       'observaciones': serializer.toJson<String?>(observaciones),
       'isController': serializer.toJson<bool>(isController),
       'isAvailable': serializer.toJson<bool>(isAvailable),
+      'isGestante': serializer.toJson<bool>(isGestante),
       'cdrId': serializer.toJson<String>(cdrId),
     };
   }
@@ -1532,6 +1565,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
     Value<String?> observaciones = const Value.absent(),
     bool? isController,
     bool? isAvailable,
+    bool? isGestante,
     String? cdrId,
   }) => PersonasEntity(
     id: id ?? this.id,
@@ -1551,6 +1585,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
         observaciones.present ? observaciones.value : this.observaciones,
     isController: isController ?? this.isController,
     isAvailable: isAvailable ?? this.isAvailable,
+    isGestante: isGestante ?? this.isGestante,
     cdrId: cdrId ?? this.cdrId,
   );
   PersonasEntity copyWithCompanion(PersonasTableCompanion data) {
@@ -1587,6 +1622,8 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
               : this.isController,
       isAvailable:
           data.isAvailable.present ? data.isAvailable.value : this.isAvailable,
+      isGestante:
+          data.isGestante.present ? data.isGestante.value : this.isGestante,
       cdrId: data.cdrId.present ? data.cdrId.value : this.cdrId,
     );
   }
@@ -1609,6 +1646,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
           ..write('observaciones: $observaciones, ')
           ..write('isController: $isController, ')
           ..write('isAvailable: $isAvailable, ')
+          ..write('isGestante: $isGestante, ')
           ..write('cdrId: $cdrId')
           ..write(')'))
         .toString();
@@ -1631,6 +1669,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
     observaciones,
     isController,
     isAvailable,
+    isGestante,
     cdrId,
   );
   @override
@@ -1652,6 +1691,7 @@ class PersonasEntity extends DataClass implements Insertable<PersonasEntity> {
           other.observaciones == this.observaciones &&
           other.isController == this.isController &&
           other.isAvailable == this.isAvailable &&
+          other.isGestante == this.isGestante &&
           other.cdrId == this.cdrId);
 }
 
@@ -1671,6 +1711,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
   final Value<String?> observaciones;
   final Value<bool> isController;
   final Value<bool> isAvailable;
+  final Value<bool> isGestante;
   final Value<String> cdrId;
   final Value<int> rowid;
   const PersonasTableCompanion({
@@ -1689,6 +1730,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
     this.observaciones = const Value.absent(),
     this.isController = const Value.absent(),
     this.isAvailable = const Value.absent(),
+    this.isGestante = const Value.absent(),
     this.cdrId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1708,6 +1750,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
     this.observaciones = const Value.absent(),
     this.isController = const Value.absent(),
     this.isAvailable = const Value.absent(),
+    this.isGestante = const Value.absent(),
     required String cdrId,
     this.rowid = const Value.absent(),
   }) : fullName = Value(fullName),
@@ -1733,6 +1776,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
     Expression<String>? observaciones,
     Expression<bool>? isController,
     Expression<bool>? isAvailable,
+    Expression<bool>? isGestante,
     Expression<String>? cdrId,
     Expression<int>? rowid,
   }) {
@@ -1752,6 +1796,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
       if (observaciones != null) 'observaciones': observaciones,
       if (isController != null) 'is_controller': isController,
       if (isAvailable != null) 'is_available': isAvailable,
+      if (isGestante != null) 'is_gestante': isGestante,
       if (cdrId != null) 'cdr_id': cdrId,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1773,6 +1818,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
     Value<String?>? observaciones,
     Value<bool>? isController,
     Value<bool>? isAvailable,
+    Value<bool>? isGestante,
     Value<String>? cdrId,
     Value<int>? rowid,
   }) {
@@ -1792,6 +1838,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
       observaciones: observaciones ?? this.observaciones,
       isController: isController ?? this.isController,
       isAvailable: isAvailable ?? this.isAvailable,
+      isGestante: isGestante ?? this.isGestante,
       cdrId: cdrId ?? this.cdrId,
       rowid: rowid ?? this.rowid,
     );
@@ -1845,6 +1892,9 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
     if (isAvailable.present) {
       map['is_available'] = Variable<bool>(isAvailable.value);
     }
+    if (isGestante.present) {
+      map['is_gestante'] = Variable<bool>(isGestante.value);
+    }
     if (cdrId.present) {
       map['cdr_id'] = Variable<String>(cdrId.value);
     }
@@ -1872,6 +1922,7 @@ class PersonasTableCompanion extends UpdateCompanion<PersonasEntity> {
           ..write('observaciones: $observaciones, ')
           ..write('isController: $isController, ')
           ..write('isAvailable: $isAvailable, ')
+          ..write('isGestante: $isGestante, ')
           ..write('cdrId: $cdrId, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -2064,6 +2115,21 @@ class $GestanteTableTable extends GestanteTable
       'REFERENCES personas_table (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _isAvailableMeta = const VerificationMeta(
+    'isAvailable',
+  );
+  @override
+  late final GeneratedColumn<bool> isAvailable = GeneratedColumn<bool>(
+    'is_available',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_available" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -2083,6 +2149,7 @@ class $GestanteTableTable extends GestanteTable
     imc,
     clasificacionRiesgo,
     personaId,
+    isAvailable,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2248,6 +2315,15 @@ class $GestanteTableTable extends GestanteTable
     } else if (isInserting) {
       context.missing(_personaIdMeta);
     }
+    if (data.containsKey('is_available')) {
+      context.handle(
+        _isAvailableMeta,
+        isAvailable.isAcceptableOrUnknown(
+          data['is_available']!,
+          _isAvailableMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -2342,6 +2418,11 @@ class $GestanteTableTable extends GestanteTable
             DriftSqlType.string,
             data['${effectivePrefix}persona_id'],
           )!,
+      isAvailable:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}is_available'],
+          )!,
     );
   }
 
@@ -2369,6 +2450,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
   final String imc;
   final int clasificacionRiesgo;
   final String personaId;
+  final bool isAvailable;
   const GestanteEntity({
     required this.id,
     required this.antPp,
@@ -2387,6 +2469,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
     required this.imc,
     required this.clasificacionRiesgo,
     required this.personaId,
+    required this.isAvailable,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2408,6 +2491,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
     map['imc'] = Variable<String>(imc);
     map['clasificacion_riesgo'] = Variable<int>(clasificacionRiesgo);
     map['persona_id'] = Variable<String>(personaId);
+    map['is_available'] = Variable<bool>(isAvailable);
     return map;
   }
 
@@ -2430,6 +2514,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
       imc: Value(imc),
       clasificacionRiesgo: Value(clasificacionRiesgo),
       personaId: Value(personaId),
+      isAvailable: Value(isAvailable),
     );
   }
 
@@ -2460,6 +2545,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
         json['clasificacionRiesgo'],
       ),
       personaId: serializer.fromJson<String>(json['personaId']),
+      isAvailable: serializer.fromJson<bool>(json['isAvailable']),
     );
   }
   @override
@@ -2483,6 +2569,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
       'imc': serializer.toJson<String>(imc),
       'clasificacionRiesgo': serializer.toJson<int>(clasificacionRiesgo),
       'personaId': serializer.toJson<String>(personaId),
+      'isAvailable': serializer.toJson<bool>(isAvailable),
     };
   }
 
@@ -2504,6 +2591,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
     String? imc,
     int? clasificacionRiesgo,
     String? personaId,
+    bool? isAvailable,
   }) => GestanteEntity(
     id: id ?? this.id,
     antPp: antPp ?? this.antPp,
@@ -2522,6 +2610,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
     imc: imc ?? this.imc,
     clasificacionRiesgo: clasificacionRiesgo ?? this.clasificacionRiesgo,
     personaId: personaId ?? this.personaId,
+    isAvailable: isAvailable ?? this.isAvailable,
   );
   GestanteEntity copyWithCompanion(GestanteTableCompanion data) {
     return GestanteEntity(
@@ -2559,6 +2648,8 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
               ? data.clasificacionRiesgo.value
               : this.clasificacionRiesgo,
       personaId: data.personaId.present ? data.personaId.value : this.personaId,
+      isAvailable:
+          data.isAvailable.present ? data.isAvailable.value : this.isAvailable,
     );
   }
 
@@ -2581,7 +2672,8 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
           ..write('rciu: $rciu, ')
           ..write('imc: $imc, ')
           ..write('clasificacionRiesgo: $clasificacionRiesgo, ')
-          ..write('personaId: $personaId')
+          ..write('personaId: $personaId, ')
+          ..write('isAvailable: $isAvailable')
           ..write(')'))
         .toString();
   }
@@ -2605,6 +2697,7 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
     imc,
     clasificacionRiesgo,
     personaId,
+    isAvailable,
   );
   @override
   bool operator ==(Object other) =>
@@ -2626,7 +2719,8 @@ class GestanteEntity extends DataClass implements Insertable<GestanteEntity> {
           other.rciu == this.rciu &&
           other.imc == this.imc &&
           other.clasificacionRiesgo == this.clasificacionRiesgo &&
-          other.personaId == this.personaId);
+          other.personaId == this.personaId &&
+          other.isAvailable == this.isAvailable);
 }
 
 class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
@@ -2647,6 +2741,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
   final Value<String> imc;
   final Value<int> clasificacionRiesgo;
   final Value<String> personaId;
+  final Value<bool> isAvailable;
   final Value<int> rowid;
   const GestanteTableCompanion({
     this.id = const Value.absent(),
@@ -2666,6 +2761,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
     this.imc = const Value.absent(),
     this.clasificacionRiesgo = const Value.absent(),
     this.personaId = const Value.absent(),
+    this.isAvailable = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   GestanteTableCompanion.insert({
@@ -2686,6 +2782,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
     required String imc,
     required int clasificacionRiesgo,
     required String personaId,
+    this.isAvailable = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : antPp = Value(antPp),
        observaciones = Value(observaciones),
@@ -2721,6 +2818,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
     Expression<String>? imc,
     Expression<int>? clasificacionRiesgo,
     Expression<String>? personaId,
+    Expression<bool>? isAvailable,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -2743,6 +2841,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
       if (clasificacionRiesgo != null)
         'clasificacion_riesgo': clasificacionRiesgo,
       if (personaId != null) 'persona_id': personaId,
+      if (isAvailable != null) 'is_available': isAvailable,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -2765,6 +2864,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
     Value<String>? imc,
     Value<int>? clasificacionRiesgo,
     Value<String>? personaId,
+    Value<bool>? isAvailable,
     Value<int>? rowid,
   }) {
     return GestanteTableCompanion(
@@ -2785,6 +2885,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
       imc: imc ?? this.imc,
       clasificacionRiesgo: clasificacionRiesgo ?? this.clasificacionRiesgo,
       personaId: personaId ?? this.personaId,
+      isAvailable: isAvailable ?? this.isAvailable,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2845,6 +2946,9 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
     if (personaId.present) {
       map['persona_id'] = Variable<String>(personaId.value);
     }
+    if (isAvailable.present) {
+      map['is_available'] = Variable<bool>(isAvailable.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2871,6 +2975,7 @@ class GestanteTableCompanion extends UpdateCompanion<GestanteEntity> {
           ..write('imc: $imc, ')
           ..write('clasificacionRiesgo: $clasificacionRiesgo, ')
           ..write('personaId: $personaId, ')
+          ..write('isAvailable: $isAvailable, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2991,6 +3096,21 @@ class $PuerperaTableTable extends PuerperaTable
       'REFERENCES personas_table (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _isAvailableMeta = const VerificationMeta(
+    'isAvailable',
+  );
+  @override
+  late final GeneratedColumn<bool> isAvailable = GeneratedColumn<bool>(
+    'is_available',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_available" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -3003,6 +3123,7 @@ class $PuerperaTableTable extends PuerperaTable
     antPPretermino,
     tipoParto,
     personaId,
+    isAvailable,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -3100,6 +3221,15 @@ class $PuerperaTableTable extends PuerperaTable
     } else if (isInserting) {
       context.missing(_personaIdMeta);
     }
+    if (data.containsKey('is_available')) {
+      context.handle(
+        _isAvailableMeta,
+        isAvailable.isAcceptableOrUnknown(
+          data['is_available']!,
+          _isAvailableMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -3159,6 +3289,11 @@ class $PuerperaTableTable extends PuerperaTable
             DriftSqlType.string,
             data['${effectivePrefix}persona_id'],
           )!,
+      isAvailable:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}is_available'],
+          )!,
     );
   }
 
@@ -3179,6 +3314,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
   final String antPPretermino;
   final int tipoParto;
   final String personaId;
+  final bool isAvailable;
   const PuerperaEntity({
     required this.id,
     required this.antPp,
@@ -3190,6 +3326,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
     required this.antPPretermino,
     required this.tipoParto,
     required this.personaId,
+    required this.isAvailable,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -3204,6 +3341,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
     map['ant_p_pretermino'] = Variable<String>(antPPretermino);
     map['tipo_parto'] = Variable<int>(tipoParto);
     map['persona_id'] = Variable<String>(personaId);
+    map['is_available'] = Variable<bool>(isAvailable);
     return map;
   }
 
@@ -3219,6 +3357,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
       antPPretermino: Value(antPPretermino),
       tipoParto: Value(tipoParto),
       personaId: Value(personaId),
+      isAvailable: Value(isAvailable),
     );
   }
 
@@ -3238,6 +3377,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
       antPPretermino: serializer.fromJson<String>(json['antPPretermino']),
       tipoParto: serializer.fromJson<int>(json['tipoParto']),
       personaId: serializer.fromJson<String>(json['personaId']),
+      isAvailable: serializer.fromJson<bool>(json['isAvailable']),
     );
   }
   @override
@@ -3254,6 +3394,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
       'antPPretermino': serializer.toJson<String>(antPPretermino),
       'tipoParto': serializer.toJson<int>(tipoParto),
       'personaId': serializer.toJson<String>(personaId),
+      'isAvailable': serializer.toJson<bool>(isAvailable),
     };
   }
 
@@ -3268,6 +3409,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
     String? antPPretermino,
     int? tipoParto,
     String? personaId,
+    bool? isAvailable,
   }) => PuerperaEntity(
     id: id ?? this.id,
     antPp: antPp ?? this.antPp,
@@ -3279,6 +3421,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
     antPPretermino: antPPretermino ?? this.antPPretermino,
     tipoParto: tipoParto ?? this.tipoParto,
     personaId: personaId ?? this.personaId,
+    isAvailable: isAvailable ?? this.isAvailable,
   );
   PuerperaEntity copyWithCompanion(PuerperaTableCompanion data) {
     return PuerperaEntity(
@@ -3299,6 +3442,8 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
               : this.antPPretermino,
       tipoParto: data.tipoParto.present ? data.tipoParto.value : this.tipoParto,
       personaId: data.personaId.present ? data.personaId.value : this.personaId,
+      isAvailable:
+          data.isAvailable.present ? data.isAvailable.value : this.isAvailable,
     );
   }
 
@@ -3314,7 +3459,8 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
           ..write('cesareas: $cesareas, ')
           ..write('antPPretermino: $antPPretermino, ')
           ..write('tipoParto: $tipoParto, ')
-          ..write('personaId: $personaId')
+          ..write('personaId: $personaId, ')
+          ..write('isAvailable: $isAvailable')
           ..write(')'))
         .toString();
   }
@@ -3331,6 +3477,7 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
     antPPretermino,
     tipoParto,
     personaId,
+    isAvailable,
   );
   @override
   bool operator ==(Object other) =>
@@ -3345,7 +3492,8 @@ class PuerperaEntity extends DataClass implements Insertable<PuerperaEntity> {
           other.cesareas == this.cesareas &&
           other.antPPretermino == this.antPPretermino &&
           other.tipoParto == this.tipoParto &&
-          other.personaId == this.personaId);
+          other.personaId == this.personaId &&
+          other.isAvailable == this.isAvailable);
 }
 
 class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
@@ -3359,6 +3507,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
   final Value<String> antPPretermino;
   final Value<int> tipoParto;
   final Value<String> personaId;
+  final Value<bool> isAvailable;
   final Value<int> rowid;
   const PuerperaTableCompanion({
     this.id = const Value.absent(),
@@ -3371,6 +3520,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
     this.antPPretermino = const Value.absent(),
     this.tipoParto = const Value.absent(),
     this.personaId = const Value.absent(),
+    this.isAvailable = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PuerperaTableCompanion.insert({
@@ -3384,6 +3534,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
     required String antPPretermino,
     required int tipoParto,
     required String personaId,
+    this.isAvailable = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : antPp = Value(antPp),
        observaciones = Value(observaciones),
@@ -3405,6 +3556,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
     Expression<String>? antPPretermino,
     Expression<int>? tipoParto,
     Expression<String>? personaId,
+    Expression<bool>? isAvailable,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -3418,6 +3570,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
       if (antPPretermino != null) 'ant_p_pretermino': antPPretermino,
       if (tipoParto != null) 'tipo_parto': tipoParto,
       if (personaId != null) 'persona_id': personaId,
+      if (isAvailable != null) 'is_available': isAvailable,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -3433,6 +3586,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
     Value<String>? antPPretermino,
     Value<int>? tipoParto,
     Value<String>? personaId,
+    Value<bool>? isAvailable,
     Value<int>? rowid,
   }) {
     return PuerperaTableCompanion(
@@ -3446,6 +3600,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
       antPPretermino: antPPretermino ?? this.antPPretermino,
       tipoParto: tipoParto ?? this.tipoParto,
       personaId: personaId ?? this.personaId,
+      isAvailable: isAvailable ?? this.isAvailable,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -3483,6 +3638,9 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
     if (personaId.present) {
       map['persona_id'] = Variable<String>(personaId.value);
     }
+    if (isAvailable.present) {
+      map['is_available'] = Variable<bool>(isAvailable.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -3502,6 +3660,7 @@ class PuerperaTableCompanion extends UpdateCompanion<PuerperaEntity> {
           ..write('antPPretermino: $antPPretermino, ')
           ..write('tipoParto: $tipoParto, ')
           ..write('personaId: $personaId, ')
+          ..write('isAvailable: $isAvailable, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -4362,6 +4521,7 @@ typedef $$PersonasTableTableCreateCompanionBuilder =
       Value<String?> observaciones,
       Value<bool> isController,
       Value<bool> isAvailable,
+      Value<bool> isGestante,
       required String cdrId,
       Value<int> rowid,
     });
@@ -4382,6 +4542,7 @@ typedef $$PersonasTableTableUpdateCompanionBuilder =
       Value<String?> observaciones,
       Value<bool> isController,
       Value<bool> isAvailable,
+      Value<bool> isGestante,
       Value<String> cdrId,
       Value<int> rowid,
     });
@@ -4537,6 +4698,11 @@ class $$PersonasTableTableFilterComposer
 
   ColumnFilters<bool> get isAvailable => $composableBuilder(
     column: $table.isAvailable,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isGestante => $composableBuilder(
+    column: $table.isGestante,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4698,6 +4864,11 @@ class $$PersonasTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get isGestante => $composableBuilder(
+    column: $table.isGestante,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$CdrTableTableOrderingComposer get cdrId {
     final $$CdrTableTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -4787,6 +4958,11 @@ class $$PersonasTableTableAnnotationComposer
 
   GeneratedColumn<bool> get isAvailable => $composableBuilder(
     column: $table.isAvailable,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isGestante => $composableBuilder(
+    column: $table.isGestante,
     builder: (column) => column,
   );
 
@@ -4915,6 +5091,7 @@ class $$PersonasTableTableTableManager
                 Value<String?> observaciones = const Value.absent(),
                 Value<bool> isController = const Value.absent(),
                 Value<bool> isAvailable = const Value.absent(),
+                Value<bool> isGestante = const Value.absent(),
                 Value<String> cdrId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PersonasTableCompanion(
@@ -4933,6 +5110,7 @@ class $$PersonasTableTableTableManager
                 observaciones: observaciones,
                 isController: isController,
                 isAvailable: isAvailable,
+                isGestante: isGestante,
                 cdrId: cdrId,
                 rowid: rowid,
               ),
@@ -4953,6 +5131,7 @@ class $$PersonasTableTableTableManager
                 Value<String?> observaciones = const Value.absent(),
                 Value<bool> isController = const Value.absent(),
                 Value<bool> isAvailable = const Value.absent(),
+                Value<bool> isGestante = const Value.absent(),
                 required String cdrId,
                 Value<int> rowid = const Value.absent(),
               }) => PersonasTableCompanion.insert(
@@ -4971,6 +5150,7 @@ class $$PersonasTableTableTableManager
                 observaciones: observaciones,
                 isController: isController,
                 isAvailable: isAvailable,
+                isGestante: isGestante,
                 cdrId: cdrId,
                 rowid: rowid,
               ),
@@ -5118,6 +5298,7 @@ typedef $$GestanteTableTableCreateCompanionBuilder =
       required String imc,
       required int clasificacionRiesgo,
       required String personaId,
+      Value<bool> isAvailable,
       Value<int> rowid,
     });
 typedef $$GestanteTableTableUpdateCompanionBuilder =
@@ -5139,6 +5320,7 @@ typedef $$GestanteTableTableUpdateCompanionBuilder =
       Value<String> imc,
       Value<int> clasificacionRiesgo,
       Value<String> personaId,
+      Value<bool> isAvailable,
       Value<int> rowid,
     });
 
@@ -5259,6 +5441,11 @@ class $$GestanteTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$PersonasTableTableFilterComposer get personaId {
     final $$PersonasTableTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -5372,6 +5559,11 @@ class $$GestanteTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$PersonasTableTableOrderingComposer get personaId {
     final $$PersonasTableTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -5467,6 +5659,11 @@ class $$GestanteTableTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => column,
+  );
+
   $$PersonasTableTableAnnotationComposer get personaId {
     final $$PersonasTableTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -5540,6 +5737,7 @@ class $$GestanteTableTableTableManager
                 Value<String> imc = const Value.absent(),
                 Value<int> clasificacionRiesgo = const Value.absent(),
                 Value<String> personaId = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GestanteTableCompanion(
                 id: id,
@@ -5559,6 +5757,7 @@ class $$GestanteTableTableTableManager
                 imc: imc,
                 clasificacionRiesgo: clasificacionRiesgo,
                 personaId: personaId,
+                isAvailable: isAvailable,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -5580,6 +5779,7 @@ class $$GestanteTableTableTableManager
                 required String imc,
                 required int clasificacionRiesgo,
                 required String personaId,
+                Value<bool> isAvailable = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => GestanteTableCompanion.insert(
                 id: id,
@@ -5599,6 +5799,7 @@ class $$GestanteTableTableTableManager
                 imc: imc,
                 clasificacionRiesgo: clasificacionRiesgo,
                 personaId: personaId,
+                isAvailable: isAvailable,
                 rowid: rowid,
               ),
           withReferenceMapper:
@@ -5682,6 +5883,7 @@ typedef $$PuerperaTableTableCreateCompanionBuilder =
       required String antPPretermino,
       required int tipoParto,
       required String personaId,
+      Value<bool> isAvailable,
       Value<int> rowid,
     });
 typedef $$PuerperaTableTableUpdateCompanionBuilder =
@@ -5696,6 +5898,7 @@ typedef $$PuerperaTableTableUpdateCompanionBuilder =
       Value<String> antPPretermino,
       Value<int> tipoParto,
       Value<String> personaId,
+      Value<bool> isAvailable,
       Value<int> rowid,
     });
 
@@ -5781,6 +5984,11 @@ class $$PuerperaTableTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$PersonasTableTableFilterComposer get personaId {
     final $$PersonasTableTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -5859,6 +6067,11 @@ class $$PuerperaTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$PersonasTableTableOrderingComposer get personaId {
     final $$PersonasTableTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -5924,6 +6137,11 @@ class $$PuerperaTableTableAnnotationComposer
 
   GeneratedColumn<int> get tipoParto =>
       $composableBuilder(column: $table.tipoParto, builder: (column) => column);
+
+  GeneratedColumn<bool> get isAvailable => $composableBuilder(
+    column: $table.isAvailable,
+    builder: (column) => column,
+  );
 
   $$PersonasTableTableAnnotationComposer get personaId {
     final $$PersonasTableTableAnnotationComposer composer = $composerBuilder(
@@ -5991,6 +6209,7 @@ class $$PuerperaTableTableTableManager
                 Value<String> antPPretermino = const Value.absent(),
                 Value<int> tipoParto = const Value.absent(),
                 Value<String> personaId = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PuerperaTableCompanion(
                 id: id,
@@ -6003,6 +6222,7 @@ class $$PuerperaTableTableTableManager
                 antPPretermino: antPPretermino,
                 tipoParto: tipoParto,
                 personaId: personaId,
+                isAvailable: isAvailable,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -6017,6 +6237,7 @@ class $$PuerperaTableTableTableManager
                 required String antPPretermino,
                 required int tipoParto,
                 required String personaId,
+                Value<bool> isAvailable = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PuerperaTableCompanion.insert(
                 id: id,
@@ -6029,6 +6250,7 @@ class $$PuerperaTableTableTableManager
                 antPPretermino: antPPretermino,
                 tipoParto: tipoParto,
                 personaId: personaId,
+                isAvailable: isAvailable,
                 rowid: rowid,
               ),
           withReferenceMapper:

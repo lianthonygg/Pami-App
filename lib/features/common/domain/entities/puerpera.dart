@@ -15,6 +15,7 @@ class Puerpera {
   final String antPPretermino;
   final int tipoParto;
   final DateTime lastModified;
+  final bool isAvailable;
 
   Puerpera({
     required this.id,
@@ -33,5 +34,6 @@ class Puerpera {
     required this.antPPretermino,
     required this.tipoParto,
     required this.lastModified,
+    required this.isAvailable,
   });
 }

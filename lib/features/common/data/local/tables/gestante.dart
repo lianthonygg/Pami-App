@@ -30,6 +30,8 @@ class GestanteTable extends Table {
   TextColumn get personaId =>
       text().references(PersonasTable, #id, onDelete: KeyAction.cascade)();
 
+  BoolColumn get isAvailable => boolean().withDefault(const Constant(true))();
+
   @override
   Set<Column> get primaryKey => {id};
 }

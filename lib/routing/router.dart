@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/features/auth/presentation/views/login_view.dart';
+import 'package:pami_app/features/gestograma/presentation/views/gestante_add_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/gestograma_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_detalle.dart';
 import 'package:pami_app/features/home/presentation/views/home_view.dart';
@@ -65,6 +66,13 @@ GoRouter router() => GoRouter(
       builder: (context, state) {
         final ci = state.pathParameters['ci']!;
         return GestanteDetalle(ci: ci);
+      },
+    ),
+    GoRoute(
+      path: Routes.createGestante,
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return GestanteAddForm(id: id);
       },
     ),
     GoRoute(

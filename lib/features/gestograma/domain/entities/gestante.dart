@@ -3,8 +3,13 @@ import 'package:pami_app/features/common/data/local/app_database.dart';
 class PersonaWithGestanteData {
   final PersonasEntity persona;
   final GestanteEntity gestante;
+  final String tgActual;
 
-  PersonaWithGestanteData({required this.persona, required this.gestante});
+  PersonaWithGestanteData({
+    required this.persona,
+    required this.gestante,
+    required this.tgActual,
+  });
 }
 
 class PersonaWithGestanteDetail {
@@ -12,12 +17,14 @@ class PersonaWithGestanteDetail {
   final GestanteEntity gestante;
   final CdrEntity cdr;
   final CircunscripcionEntity circunscripcion;
+  final String tgActual;
 
   PersonaWithGestanteDetail({
     required this.persona,
     required this.gestante,
     required this.cdr,
     required this.circunscripcion,
+    required this.tgActual,
   });
 }
 
@@ -32,6 +39,7 @@ class Gestante {
   final String antPP;
   final String observaciones;
   final String tgCaptacion;
+  final String tgActual;
   final String tgFinal;
   final DateTime fum;
   final String gestaciones;
@@ -56,6 +64,7 @@ class Gestante {
     required this.antPP,
     required this.observaciones,
     required this.tgCaptacion,
+    required this.tgActual,
     required this.tgFinal,
     required this.fum,
     required this.gestaciones,

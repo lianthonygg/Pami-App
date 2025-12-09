@@ -25,6 +25,7 @@ class GestantesModel extends Gestante {
     required super.imc,
     required super.clasificacionRiesgo,
     required super.lastModified,
+    required super.isAvailable,
   });
 
   factory GestantesModel.fromJson(Map<String, dynamic> json) => GestantesModel(
@@ -51,5 +52,6 @@ class GestantesModel extends Gestante {
     imc: json["imc"],
     clasificacionRiesgo: json['clasificacionRiesgo'],
     lastModified: DateTime.parse(json['lastModified']),
+    isAvailable: json['isAvailable'],
   );
 }

@@ -81,112 +81,277 @@ class CdrNotifier extends _$CdrNotifier {
   }
 }
 
-// final grupoDispensarialProvider = StateProvider<String>((ref) => '');
-// final observacionesProvider = StateProvider<String>((ref) => '');
-// final controladaProvider = StateProvider<String>((ref) => 'false');
-
-@Riverpod(keepAlive: false)
-class FullName extends _$FullName {
+@Riverpod(keepAlive: true)
+class PersonaForm extends _$PersonaForm {
   @override
-  String build() => '';
+  ({
+    String fullName,
+    String ci,
+    String sexo,
+    String raza,
+    String direccionCi,
+    String direccionVive,
+    String phone,
+    String antPp,
+    String nivelEscolar,
+    String profesion,
+    String grupoDispensarial,
+    String observaciones,
+    String controlada,
+  })
+  build() => (
+    fullName: '',
+    ci: '',
+    sexo: '',
+    raza: '',
+    direccionCi: '',
+    direccionVive: '',
+    phone: '',
+    antPp: '',
+    nivelEscolar: '',
+    profesion: '',
+    grupoDispensarial: '',
+    observaciones: '',
+    controlada: '',
+  );
 
-  void set(String value) => state = value;
-}
+  void setFullName(String value) =>
+      state = (
+        fullName: value,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class Ci extends _$Ci {
-  @override
-  String build() => '';
+  void setCi(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: value,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setSexo(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: value,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class Sexo extends _$Sexo {
-  @override
-  String build() => '';
+  void setRaza(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: value,
+        direccionCi: value,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setDireccionCi(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: value,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class Raza extends _$Raza {
-  @override
-  String build() => '';
+  void setDireccionVive(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: value,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setPhone(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: value,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class DireccionCI extends _$DireccionCI {
-  @override
-  String build() => '';
+  void setAntPp(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: value,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setNivelEscolar(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: value,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class DireccionVive extends _$DireccionVive {
-  @override
-  String build() => '';
+  void setProfesion(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: value,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setGrupoDispensarial(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: value,
+        observaciones: state.observaciones,
+        controlada: state.controlada,
+      );
 
-@Riverpod(keepAlive: false)
-class Phone extends _$Phone {
-  @override
-  String build() => '';
+  void setObservaciones(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: value,
+        controlada: state.controlada,
+      );
 
-  void set(String value) => state = value;
-}
+  void setControlada(String value) =>
+      state = (
+        fullName: state.fullName,
+        ci: state.ci,
+        sexo: state.sexo,
+        raza: state.raza,
+        direccionCi: state.direccionCi,
+        direccionVive: state.direccionVive,
+        phone: state.phone,
+        antPp: state.antPp,
+        nivelEscolar: state.nivelEscolar,
+        profesion: state.profesion,
+        grupoDispensarial: state.grupoDispensarial,
+        observaciones: state.observaciones,
+        controlada: value,
+      );
 
-@Riverpod(keepAlive: false)
-class AntPp extends _$AntPp {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
-}
-
-@Riverpod(keepAlive: false)
-class NivelEscolar extends _$NivelEscolar {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
-}
-
-@Riverpod(keepAlive: false)
-class Profesion extends _$Profesion {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
-}
-
-@Riverpod(keepAlive: false)
-class GrupoDispensarial extends _$GrupoDispensarial {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
-}
-
-@Riverpod(keepAlive: false)
-class Observaciones extends _$Observaciones {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
-}
-
-@Riverpod(keepAlive: false)
-class Controlada extends _$Controlada {
-  @override
-  String build() => '';
-
-  void set(String value) => state = value;
+  void clear() =>
+      state = (
+        fullName: '',
+        ci: '',
+        sexo: '',
+        raza: '',
+        direccionCi: '',
+        direccionVive: '',
+        phone: '',
+        antPp: '',
+        nivelEscolar: '',
+        profesion: '',
+        grupoDispensarial: '',
+        observaciones: '',
+        controlada: '',
+      );
 }
 
 // ==== STATE ====

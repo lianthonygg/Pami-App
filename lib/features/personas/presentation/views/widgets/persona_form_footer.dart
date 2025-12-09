@@ -40,21 +40,23 @@ class PersonaFormFooter extends ConsumerWidget {
                     return;
                   }
 
+                  final form = ref.read(personaFormProvider);
+
                   final data = CreatePersonaRequest(
-                    fullName: ref.read(fullNameProvider),
-                    ci: ref.read(ciProvider),
-                    sexo: ref.read(sexoProvider),
-                    raza: ref.read(razaProvider),
-                    direccionDelCI: ref.read(direccionCIProvider),
-                    direccionEnQueVive: ref.read(direccionViveProvider),
-                    telefono: ref.read(phoneProvider) ?? "",
-                    antPP: ref.read(antPpProvider) ?? "",
-                    nivelEscolar: ref.read(nivelEscolarProvider) ?? "",
-                    profesion: ref.read(profesionProvider) ?? "",
-                    grupoDispensarial: ref.read(grupoDispensarialProvider),
-                    observaciones: ref.read(observacionesProvider) ?? "",
+                    fullName: form.fullName,
+                    ci: form.ci,
+                    sexo: form.sexo,
+                    raza: form.raza,
+                    direccionDelCI: form.direccionCi,
+                    direccionEnQueVive: form.direccionVive,
+                    telefono: form.phone,
+                    antPP: form.antPp,
+                    nivelEscolar: form.nivelEscolar,
+                    profesion: form.profesion,
+                    grupoDispensarial: form.grupoDispensarial,
+                    observaciones: form.observaciones,
                     cdrId: cdrSeleccionado.id,
-                    isController: ref.read(controladaProvider) == "true",
+                    isController: form.controlada == "true",
                   );
 
                   personasViewModel.createPerson(data);

@@ -5,7 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'personas_provider.g.dart';
 
 @riverpod
-Future<PersonaConCdrYCircunscripcion?> personaByCi(Ref ref, String ci) async {
+Future<PersonaConCdrYCircunscripcion?> personaByCi(Ref ref, String? ci) async {
   final usecase = ref.read(personaUseCaseProvider);
+  if (ci == null) return null;
   return await usecase.watchPacienteByCi(ci);
 }

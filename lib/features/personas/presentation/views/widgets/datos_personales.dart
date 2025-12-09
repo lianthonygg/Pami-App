@@ -14,18 +14,20 @@ class DatosPersonales extends ConsumerWidget {
         TextFormFieldCustom(
           label: "Nombre Completo",
           icon: Icons.person,
-          initialValue: ref.read(fullNameProvider),
+          initialValue: ref.read(personaFormProvider).fullName,
           keyboardType: TextInputType.name,
           capitalization: TextCapitalization.words,
           validator:
               (v) => v == null || v.trim().isEmpty ? "Campo requerido" : null,
-          onChanged: (v) => ref.read(fullNameProvider.notifier).set(v.trim()),
+          onChanged:
+              (v) =>
+                  ref.read(personaFormProvider.notifier).setFullName(v.trim()),
         ),
         const SizedBox(height: 16),
         TextFormFieldCustom(
           label: "Carnet de Identidad",
           icon: Icons.badge,
-          initialValue: ref.read(ciProvider),
+          initialValue: ref.read(personaFormProvider).ci,
           keyboardType: TextInputType.number,
           maxLength: 11,
           validator: (v) {
@@ -34,19 +36,23 @@ class DatosPersonales extends ConsumerWidget {
             if (v.length != 11) return 'Debe tener 11 dígitos';
             return null;
           },
-          onChanged: (v) => ref.read(ciProvider.notifier).set(v.trim()),
+          onChanged:
+              (v) => ref.read(personaFormProvider.notifier).setCi(v.trim()),
         ),
         const SizedBox(height: 16),
         DropdownFormFieldCustom<String>(
           label: "Sexo",
           icon: Icons.transgender,
           value:
-              ref.watch(sexoProvider).isEmpty ? null : ref.watch(sexoProvider),
+              ref.watch(personaFormProvider).sexo.isEmpty
+                  ? null
+                  : ref.watch(personaFormProvider).sexo,
           items: const [
             DropdownMenuItem(value: "M", child: Text("Masculino")),
             DropdownMenuItem(value: "F", child: Text("Femenino")),
           ],
-          onChanged: (v) => ref.read(sexoProvider.notifier).set(v ?? ''),
+          onChanged:
+              (v) => ref.read(personaFormProvider.notifier).setSexo(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
         const SizedBox(height: 16),
@@ -54,13 +60,16 @@ class DatosPersonales extends ConsumerWidget {
           label: "Raza",
           icon: Icons.color_lens,
           value:
-              ref.watch(razaProvider).isEmpty ? null : ref.watch(razaProvider),
+              ref.watch(personaFormProvider).raza.isEmpty
+                  ? null
+                  : ref.watch(personaFormProvider).raza,
           items: const [
             DropdownMenuItem(value: 'B', child: Text("Blanca")),
             DropdownMenuItem(value: 'M', child: Text("Mestiza")),
             DropdownMenuItem(value: 'N', child: Text("Negra")),
           ],
-          onChanged: (v) => ref.read(razaProvider.notifier).set(v ?? ''),
+          onChanged:
+              (v) => ref.read(personaFormProvider.notifier).setRaza(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
       ],
