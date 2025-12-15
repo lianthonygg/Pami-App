@@ -66,7 +66,7 @@ Future<void> showBuscarGestanteBottomSheet(
                 personaAsync.when(
                   loading: () => const CircularProgressIndicator(),
                   error:
-                      (_, _) => const Text(
+                      (h, j) => const Text(
                         "No encontrado",
                         style: TextStyle(color: Colors.red),
                       ),

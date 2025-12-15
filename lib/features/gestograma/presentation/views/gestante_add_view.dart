@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pami_app/core/theme/theme.dart';
+import 'package:pami_app/features/gestograma/presentation/providers/gestante_provider.dart';
 import 'package:pami_app/features/gestograma/presentation/viewmodels/gestantes_viewmodel.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/fields.dart';
 import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
@@ -32,7 +33,7 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
           next.error == null) {
         formKey.currentState?.reset();
 
-        ref.read(personaFormProvider.notifier).clear();
+        ref.read(gestanteFormProvider.notifier).clear();
 
         ref.read(circunscripcionProvider.notifier).reset();
         ref.read(cdrProvider.notifier).reset();

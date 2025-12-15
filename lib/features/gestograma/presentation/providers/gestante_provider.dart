@@ -14,7 +14,7 @@ Future<PersonaWithGestanteDetail?> gestanteByCi(Ref ref, String ci) async {
 @riverpod
 Future<Persona?> tryGestanteByCi(Ref ref, String? ci) async {
   final usecase = ref.read(gestanteUseCaseProvider);
-  if (ci == null) return null;
+  if (ci == null || ci == "") return null;
   return await usecase.getTryGestanteByCi(ci);
 }
 

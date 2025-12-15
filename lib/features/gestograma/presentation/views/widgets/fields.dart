@@ -5,7 +5,6 @@ import 'package:pami_app/features/common/presentation/widgets/text_field.dart';
 import 'package:pami_app/features/gestograma/presentation/providers/gestante_provider.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/ant_obstetricos.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/semanas_dias_field.dart';
-import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
 
 enum Decision { no, si }
 
@@ -16,16 +15,25 @@ class Fields extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Decision? antPPretermino = Decision.no;
-    Decision? antRCIU = Decision.no;
-    ClasificacionRiesgo? clasificacionRiesgo = ClasificacionRiesgo.aro;
+    final form = ref.watch(gestanteFormProvider);
+
+    // Convertir provider → enum
+    final decisionPPretermino =
+        form.antPPretermino == 'si' ? Decision.si : Decision.no;
+
+    final decisionRCIU = form.rciu == 'si' ? Decision.si : Decision.no;
+
+    final riesgo =
+        form.clasificacionRiesgo == 0
+            ? ClasificacionRiesgo.aro
+            : ClasificacionRiesgo.bro;
 
     return Column(
       children: [
         TextFormFieldCustom(
           label: "Antecedentes Patológicos Personales",
           icon: Icons.health_and_safety,
-          initialValue: ref.read(personaFormProvider).antPp,
+          initialValue: form.antPp,
           multiline: true,
           onChanged:
               (v) => ref.read(gestanteFormProvider.notifier).setAntPp(v.trim()),
@@ -37,6 +45,8 @@ class Fields extends ConsumerWidget {
           },
         ),
         const SizedBox(height: 16),
+
+        // FUM
         TextField(
           readOnly: true,
           decoration: const InputDecoration(
@@ -62,6 +72,7 @@ class Fields extends ConsumerWidget {
             }
           },
         ),
+
         const SizedBox(height: 16),
         ObstetricosFields(
           onChanged: ({
@@ -81,57 +92,51 @@ class Fields extends ConsumerWidget {
           },
         ),
         const SizedBox(height: 16),
+
+        // ANTECEDENTES DE PARTO PRETÉRMINO
         const Text("Antecedentes de Partos Pretermino:"),
         const SizedBox(height: 8),
 
-        StatefulBuilder(
-          builder: (context, setState) {
-            return RadioGroup<Decision>(
-              groupValue: antPPretermino,
-              onChanged: (Decision? value) {
-                ref
-                    .read(gestanteFormProvider.notifier)
-                    .setAntPPretermino(value == Decision.no ? 'no' : 'si');
-                setState(() {
-                  antPPretermino = value;
-                });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => antPPretermino = Decision.no),
-                    child: Row(
-                      children: const [
-                        Radio<Decision>(value: Decision.no),
-                        Text("No", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => antPPretermino = Decision.si),
-                    child: Row(
-                      children: const [
-                        Radio<Decision>(value: Decision.si),
-                        Text("Si", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                RadioMenuButton<Decision>(
+                  value: Decision.no,
+                  groupValue: decisionPPretermino,
+                  onChanged: (value) {
+                    ref
+                        .read(gestanteFormProvider.notifier)
+                        .setAntPPretermino('no');
+                  },
+                  child: const Text("No", style: TextStyle(fontSize: 17)),
+                ),
+                RadioMenuButton<Decision>(
+                  value: Decision.si,
+                  groupValue: decisionPPretermino,
+                  onChanged: (value) {
+                    ref
+                        .read(gestanteFormProvider.notifier)
+                        .setAntPPretermino('si');
+                  },
+                  child: const Text("Sí", style: TextStyle(fontSize: 17)),
+                ),
+              ],
+            ),
+          ],
         ),
-        if (ref.watch(gestanteFormProvider).antPPretermino == 'si') ...[
+
+        // CAMPO MOSTRADO CON RADIO = SI
+        if (form.antPPretermino == 'si') ...[
           const SizedBox(height: 16),
           TextFormField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Causas",
               prefixIcon: Icon(Icons.notes),
             ),
-            initialValue: ref.read(gestanteFormProvider).observaciones,
+            initialValue: form.observaciones,
             keyboardType: TextInputType.multiline,
-            textInputAction: TextInputAction.newline,
             minLines: 3,
             maxLines: null,
             onChanged:
@@ -140,7 +145,10 @@ class Fields extends ConsumerWidget {
                     .setObservaciones(v.trim()),
           ),
         ],
+
         const SizedBox(height: 16),
+
+        // FECHA CAPTACIÓN
         TextField(
           readOnly: true,
           decoration: const InputDecoration(
@@ -166,56 +174,46 @@ class Fields extends ConsumerWidget {
             }
           },
         ),
+
         const SizedBox(height: 16),
+
+        // ANTECEDENTES RCIU
         const Text("Antecedentes de RCIU:"),
         const SizedBox(height: 8),
 
-        StatefulBuilder(
-          builder: (context, setState) {
-            return RadioGroup<Decision>(
-              groupValue: antRCIU,
-              onChanged: (Decision? value) {
-                ref
-                    .read(gestanteFormProvider.notifier)
-                    .setRciu(value == Decision.no ? 'no' : 'si');
-                setState(() {
-                  antRCIU = value;
-                });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => antRCIU = Decision.no),
-                    child: Row(
-                      children: const [
-                        Radio<Decision>(value: Decision.no),
-                        Text("No", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => antRCIU = Decision.si),
-                    child: Row(
-                      children: const [
-                        Radio<Decision>(value: Decision.si),
-                        Text("Si", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                RadioMenuButton<Decision>(
+                  value: Decision.no,
+                  groupValue: decisionRCIU,
+                  onChanged: (value) {
+                    ref.read(gestanteFormProvider.notifier).setRciu('no');
+                  },
+                  child: const Text("No", style: TextStyle(fontSize: 17)),
+                ),
+                RadioMenuButton<Decision>(
+                  value: Decision.si,
+                  groupValue: decisionRCIU,
+                  onChanged: (value) {
+                    ref.read(gestanteFormProvider.notifier).setRciu('si');
+                  },
+                  child: const Text("Sí", style: TextStyle(fontSize: 17)),
+                ),
+              ],
+            ),
+          ],
         ),
+
         const SizedBox(height: 16),
+
+        // IMC
         DropdownFormFieldCustom<String>(
           label: "IMC",
           icon: Icons.transgender,
-          value:
-              ref.watch(gestanteFormProvider).imc.isEmpty
-                  ? null
-                  : ref.watch(gestanteFormProvider).imc,
+          value: form.imc.isEmpty ? null : form.imc,
           items: const [
             DropdownMenuItem(value: "B", child: Text("Bajo Peso")),
             DropdownMenuItem(value: "N", child: Text("Normopeso")),
@@ -225,61 +223,46 @@ class Fields extends ConsumerWidget {
               (v) => ref.read(gestanteFormProvider.notifier).setImc(v ?? ''),
           validator: (v) => v == null || v.isEmpty ? "Campo requerido" : null,
         ),
+
         const SizedBox(height: 16),
+
+        // CLASIFICACION DE RIESGO
         const Text("Clasificación de Riesgo:"),
         const SizedBox(height: 8),
 
-        StatefulBuilder(
-          builder: (context, setState) {
-            return RadioGroup<ClasificacionRiesgo>(
-              groupValue: clasificacionRiesgo,
-              onChanged: (ClasificacionRiesgo? value) {
-                ref
-                    .read(gestanteFormProvider.notifier)
-                    .setClasificacionRiesgo(
-                      value == ClasificacionRiesgo.aro ? 0 : 1,
-                    );
-                setState(() {
-                  clasificacionRiesgo = value;
-                });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap:
-                        () => setState(
-                          () => clasificacionRiesgo = ClasificacionRiesgo.aro,
-                        ),
-                    child: Row(
-                      children: const [
-                        Radio<ClasificacionRiesgo>(
-                          value: ClasificacionRiesgo.aro,
-                        ),
-                        Text("ARO", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap:
-                        () => setState(
-                          () => clasificacionRiesgo = ClasificacionRiesgo.bro,
-                        ),
-                    child: Row(
-                      children: const [
-                        Radio<ClasificacionRiesgo>(
-                          value: ClasificacionRiesgo.bro,
-                        ),
-                        Text("BRO", style: TextStyle(fontSize: 17)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                RadioMenuButton<ClasificacionRiesgo>(
+                  value: ClasificacionRiesgo.aro,
+                  groupValue: riesgo,
+                  onChanged: (value) {
+                    ref
+                        .read(gestanteFormProvider.notifier)
+                        .setClasificacionRiesgo(0);
+                  },
+                  child: const Text("ARO", style: TextStyle(fontSize: 17)),
+                ),
+                RadioMenuButton<ClasificacionRiesgo>(
+                  value: ClasificacionRiesgo.bro,
+                  groupValue: riesgo,
+                  onChanged: (value) {
+                    ref
+                        .read(gestanteFormProvider.notifier)
+                        .setClasificacionRiesgo(1);
+                  },
+                  child: const Text("BRO", style: TextStyle(fontSize: 17)),
+                ),
+              ],
+            ),
+          ],
         ),
+
         const SizedBox(height: 16),
+
+        // FECHA DE PROBABLE PARTO
         TextField(
           readOnly: true,
           decoration: const InputDecoration(
