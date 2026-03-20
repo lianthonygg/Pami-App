@@ -144,72 +144,72 @@ class _ManualSyncTileState extends State<ManualSyncTile>
   Future<void> _startSync() async {
     final loggedIn = await AuthService.isLoggedIn();
     final ctx = context;
-    if (await hasInternet() && loggedIn) {
-      if (!mounted) return;
+    //if (loggedIn) {
+    if (!mounted) return;
+    setState(() {
+      _isSyncing = true;
+      _controller.repeat();
+    });
+
+    await Workmanager().registerOneOffTask(
+      "manual_sync",
+      "syncBaseTables",
+      //constraints: Constraints(networkType: NetworkType.connected),
+    );
+
+    if (mounted) {
       setState(() {
-        _isSyncing = true;
-        _controller.repeat();
+        _isSyncing = false;
+        _controller.stop();
       });
-
-      await Workmanager().registerOneOffTask(
-        "manual_sync",
-        "syncBaseTables",
-        constraints: Constraints(networkType: NetworkType.connected),
-      );
-
-      if (mounted) {
-        setState(() {
-          _isSyncing = false;
-          _controller.stop();
-        });
-      }
-    } else if (!loggedIn) {
-      if (ctx.mounted) {
-        showDialog(
-          context: ctx,
-          builder:
-              (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                title: const Text("Autenticación"),
-                content: const Text(
-                  "Para realizar esta acción necesita estar autenticado.",
-                  style: TextStyle(fontSize: 16),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Aceptar"),
-                  ),
-                ],
-              ),
-        );
-      }
-    } else {
-      if (ctx.mounted) {
-        showDialog(
-          context: ctx,
-          builder:
-              (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                title: const Text("Sin conexión"),
-                content: const Text(
-                  "Para realizar esta acción necesita estar conectado a internet.",
-                  style: TextStyle(fontSize: 16),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Aceptar"),
-                  ),
-                ],
-              ),
-        );
-      }
     }
+    // } else if (!loggedIn) {
+    //   if (ctx.mounted) {
+    //     showDialog(
+    //       context: ctx,
+    //       builder:
+    //           (context) => AlertDialog(
+    //             shape: RoundedRectangleBorder(
+    //               borderRadius: BorderRadius.circular(16),
+    //             ),
+    //             title: const Text("Autenticación"),
+    //             content: const Text(
+    //               "Para realizar esta acción necesita estar autenticado.",
+    //               style: TextStyle(fontSize: 16),
+    //             ),
+    //             actions: [
+    //               TextButton(
+    //                 onPressed: () => Navigator.pop(context),
+    //                 child: const Text("Aceptar"),
+    //               ),
+    //             ],
+    //           ),
+    //     );
+    //   }
+    // } else {
+    //   if (ctx.mounted) {
+    //     showDialog(
+    //       context: ctx,
+    //       builder:
+    //           (context) => AlertDialog(
+    //             shape: RoundedRectangleBorder(
+    //               borderRadius: BorderRadius.circular(16),
+    //             ),
+    //             title: const Text("Sin conexión"),
+    //             content: const Text(
+    //               "Para realizar esta acción necesita estar conectado a internet.",
+    //               style: TextStyle(fontSize: 16),
+    //             ),
+    //             actions: [
+    //               TextButton(
+    //                 onPressed: () => Navigator.pop(context),
+    //                 child: const Text("Aceptar"),
+    //               ),
+    //             ],
+    //           ),
+    //     );
+    //   }
+    // }
   }
 
   @override
