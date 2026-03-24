@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pami_app/features/adolescentes/presentation/views/adolescentes_view.dart';
 import 'package:pami_app/features/auth/presentation/views/login_view.dart';
+import 'package:pami_app/features/escolar/presentation/views/escolar_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/gestante_add_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/gestograma_view.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/gestante_detalle.dart';
 import 'package:pami_app/features/home/presentation/views/home_view.dart';
+import 'package:pami_app/features/lactantes/presentation/views/lactantes_view.dart';
 import 'package:pami_app/features/personas/presentation/views/persona_detalle.dart';
 import 'package:pami_app/features/personas/presentation/views/persona_form.dart';
 import 'package:pami_app/features/personas/presentation/views/personas_view.dart';
 import 'package:pami_app/features/posgestograma/presentation/views/posgestograma_view.dart';
+import 'package:pami_app/features/preescolar/presentation/views/preescolar_view.dart';
 import 'package:pami_app/features/pregestograma/presentation/views/pregestograma_view.dart';
+import 'package:pami_app/features/transicional/presentation/views/transicional_view.dart';
 import 'package:pami_app/routing/routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -79,6 +84,36 @@ GoRouter router() => GoRouter(
       path: Routes.posgestograma,
       builder: (context, state) {
         return PosgestogramaView();
+      },
+    ),
+    GoRoute(
+      path: Routes.lactantes,
+      builder: (context, state) {
+        return LactantesView();
+      },
+    ),
+    GoRoute(
+      path: Routes.transicional,
+      builder: (context, state) {
+        return TransicionalView();
+      },
+    ),
+    GoRoute(
+      path: Routes.preescolar,
+      builder: (context, state) {
+        return PreescolarView();
+      },
+    ),
+    GoRoute(
+      path: Routes.escolar,
+      builder: (context, state) {
+        return EscolarView();
+      },
+    ),
+    GoRoute(
+      path: Routes.adolescentes,
+      builder: (context, state) {
+        return AdolescentesView();
       },
     ),
   ],
