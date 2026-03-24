@@ -42,7 +42,7 @@ final class GestantesViewModelProvider
 }
 
 String _$gestantesViewModelHash() =>
-    r'8a21622cc54d829f5df8619ae3dfe2de4adfd72b';
+    r'fa410957600790b272ca4f2628069e545b171a87';
 
 abstract class _$GestantesViewModel extends $Notifier<GestantesState> {
   GestantesState build();
