@@ -5,6 +5,7 @@ import 'package:pami_app/features/common/data/local/tables/circunscripcion.dart'
 import 'package:pami_app/features/common/data/local/tables/gestante.dart';
 import 'package:pami_app/features/common/data/local/tables/persona.dart';
 import 'package:pami_app/features/common/data/local/tables/puerpera.dart';
+import 'package:pami_app/features/common/data/local/tables/sync_queue.dart';
 import 'package:uuid/uuid.dart';
 
 part "app_database.g.dart";
@@ -16,6 +17,7 @@ part "app_database.g.dart";
     PersonasTable,
     GestanteTable,
     PuerperaTable,
+    SyncQueueTable,
   ],
 )
 class AppDatabase extends _$AppDatabase {

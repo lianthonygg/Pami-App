@@ -1,8 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:pami_app/core/services/auth_service.dart';
 import 'package:pami_app/core/services/notification_service.dart';
+import 'package:pami_app/features/common/data/repositories/sync_queue_repository_impl.dart';
+import 'package:pami_app/features/common/data/sync/sync_queue_processor.dart';
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/personas_sync_usecase.dart';
+import 'package:pami_app/features/personas/data/datasources/persona_remote_datasource.dart';
+import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
+import 'package:pami_app/features/personas/data/repositories/persona_repository_impl.dart';
+import 'package:pami_app/features/personas/domain/usecases/persona_usecase.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:pami_app/core/network/dio_client.dart';
 import 'package:pami_app/features/common/data/datasources/common_remote_datasource.dart';
@@ -17,7 +25,6 @@ import '../core/network/connectivity_service.dart';
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     await NotificationService.inicialized();
-
     try {
       if (await hasInternet()) {
         await NotificationService.show(
@@ -30,9 +37,28 @@ void callbackDispatcher() {
         final remoteRepo = CommonRepositoryImpl(dataSource);
         final db = AppDatabase();
         final localRepo = LocalRepositoryImpl(db);
+        final personasDataSource = PersonaRemoteDatasource(dioClient.dio);
+        final personasRepo = PersonaRepositoryImpl(personasDataSource);
         final circUseCase = CircunscripcionUseCase(remoteRepo, localRepo);
         final cdrUseCase = CdrUseCase(remoteRepo, localRepo);
+        final personaUseCase = PersonaUseCase(
+          personasRepo,
+          remoteRepo,
+          localRepo,
+        );
         final pacientesUseCase = PersonasSyncUseCase(remoteRepo, localRepo);
+        final syncQueueRepo = SyncQueueRepositoryImpl(db);
+
+        final processor = SyncQueueProcessor(
+          queueRepo: syncQueueRepo,
+          handlers: {
+            'persona':
+                (payload) => personaUseCase.create(
+                  CreatePersonaRequest.fromJson(payload),
+                ),
+            // 'gestante': (payload) => gestanteUseCase.create(...),  // futuro
+          },
+        );
 
         switch (task) {
           case "syncBaseTables":
@@ -60,7 +86,15 @@ void callbackDispatcher() {
               repository: localRepo,
             );
             break;
+          case "processSyncQueue":
+            if (await hasInternet()) {
+              await processor.process();
+            }
+            break;
         }
+
+        final sendPort = IsolateNameServer.lookupPortByName('db_sync_port');
+        sendPort?.send('sync_done');
 
         await NotificationService.update(
           'Sincronización completada',
