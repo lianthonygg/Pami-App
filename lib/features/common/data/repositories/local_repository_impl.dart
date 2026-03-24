@@ -7,6 +7,7 @@ import 'package:pami_app/features/common/domain/entities/gestante.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/common/domain/entities/puerpera.dart';
 import 'package:pami_app/features/common/domain/repositories/local_repository.dart';
+import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
 
 class LocalRepositoryImpl implements LocalRepository {
   final AppDatabase db;
@@ -177,5 +178,31 @@ class LocalRepositoryImpl implements LocalRepository {
         );
       }
     });
+  }
+
+  @override
+  Future<void> createPerson(CreatePersonaRequest request) async {
+    await db
+        .into(db.personasTable)
+        .insert(
+          PersonasTableCompanion(
+            id: Value(request.id),
+            fullName: Value(request.fullName),
+            ci: Value(request.ci),
+            sexo: Value(request.sexo),
+            raza: Value(request.raza),
+            direccionCi: Value(request.direccionDelCI),
+            direccionVive: Value(request.direccionEnQueVive),
+            telefono: Value(request.telefono),
+            antPP: Value(request.antPP),
+            nivelEscolar: Value(request.nivelEscolar),
+            profesion: Value(request.profesion),
+            grupoDispensarial: Value(request.grupoDispensarial),
+            observaciones: Value(request.observaciones),
+            cdrId: Value(request.cdrId),
+            isAvailable: Value(true),
+            isGestante: Value(request.isController),
+          ),
+        );
   }
 }

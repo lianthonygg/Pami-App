@@ -145,3 +145,49 @@ final class PersonasSyncUseCaseProvider
 
 String _$personasSyncUseCaseHash() =>
     r'492245b3e9263534dadf0fd524028e8974ca6df1';
+
+@ProviderFor(syncQueueUseCase)
+const syncQueueUseCaseProvider = SyncQueueUseCaseProvider._();
+
+final class SyncQueueUseCaseProvider
+    extends
+        $FunctionalProvider<
+          SyncQueueUseCase,
+          SyncQueueUseCase,
+          SyncQueueUseCase
+        >
+    with $Provider<SyncQueueUseCase> {
+  const SyncQueueUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncQueueUseCaseProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncQueueUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SyncQueueUseCase> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SyncQueueUseCase create(Ref ref) {
+    return syncQueueUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncQueueUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncQueueUseCase>(value),
+    );
+  }
+}
+
+String _$syncQueueUseCaseHash() => r'e3ba3c899c16ed495e44dc6f1f65274c7dcc20d7';

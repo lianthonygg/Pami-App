@@ -1,6 +1,7 @@
 import 'package:pami_app/features/common/domain/usecase/cdr_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/circunscripcion_usecase.dart';
 import 'package:pami_app/features/common/domain/usecase/personas_sync_usecase.dart';
+import 'package:pami_app/features/common/domain/usecase/sync_queue_usecase.dart';
 import 'package:pami_app/features/common/presentation/providers/repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,4 +26,10 @@ PersonasSyncUseCase personasSyncUseCase(Ref ref) {
   final repository = ref.watch(commonRepositoryImplProvider);
   final localRepository = ref.watch(localRepositoryImplProvider);
   return PersonasSyncUseCase(repository, localRepository);
+}
+
+@riverpod
+SyncQueueUseCase syncQueueUseCase(Ref ref) {
+  final syncQueueRepository = ref.watch(syncQueueRepositoryImplProvider);
+  return SyncQueueUseCase(syncQueueRepository: syncQueueRepository);
 }

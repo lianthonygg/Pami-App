@@ -1,6 +1,7 @@
 import 'package:pami_app/features/common/data/local/db_provider.dart';
 import 'package:pami_app/features/common/data/repositories/common_repository_impl.dart';
 import 'package:pami_app/features/common/data/repositories/local_repository_impl.dart';
+import 'package:pami_app/features/common/data/repositories/sync_queue_repository_impl.dart';
 import 'package:pami_app/features/common/presentation/providers/datasource_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,4 +17,10 @@ CommonRepositoryImpl commonRepositoryImpl(Ref ref) {
 LocalRepositoryImpl localRepositoryImpl(Ref ref) {
   final db = ref.watch(databaseProvider);
   return LocalRepositoryImpl(db);
+}
+
+@riverpod
+SyncQueueRepositoryImpl syncQueueRepositoryImpl(Ref ref) {
+  final db = ref.watch(databaseProvider);
+  return SyncQueueRepositoryImpl(db);
 }

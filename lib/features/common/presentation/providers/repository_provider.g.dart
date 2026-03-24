@@ -104,3 +104,51 @@ final class LocalRepositoryImplProvider
 
 String _$localRepositoryImplHash() =>
     r'f5ec3f4dbe8f784368804dcef99e46496de3822e';
+
+@ProviderFor(syncQueueRepositoryImpl)
+const syncQueueRepositoryImplProvider = SyncQueueRepositoryImplProvider._();
+
+final class SyncQueueRepositoryImplProvider
+    extends
+        $FunctionalProvider<
+          SyncQueueRepositoryImpl,
+          SyncQueueRepositoryImpl,
+          SyncQueueRepositoryImpl
+        >
+    with $Provider<SyncQueueRepositoryImpl> {
+  const SyncQueueRepositoryImplProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncQueueRepositoryImplProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncQueueRepositoryImplHash();
+
+  @$internal
+  @override
+  $ProviderElement<SyncQueueRepositoryImpl> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SyncQueueRepositoryImpl create(Ref ref) {
+    return syncQueueRepositoryImpl(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncQueueRepositoryImpl value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncQueueRepositoryImpl>(value),
+    );
+  }
+}
+
+String _$syncQueueRepositoryImplHash() =>
+    r'99f225d9dfe682a63d9ab9aa288d0c4ac1dd6840';

@@ -5,6 +5,7 @@ import 'package:pami_app/features/common/domain/entities/circunscripcion.dart';
 import 'package:pami_app/features/common/domain/entities/gestante.dart';
 import 'package:pami_app/features/common/domain/entities/persona.dart';
 import 'package:pami_app/features/common/domain/entities/puerpera.dart';
+import 'package:pami_app/features/personas/data/model/create_persona_model.dart';
 
 abstract class LocalRepository {
   Future<void> insertOrUpdateCircunscripcion(
@@ -26,4 +27,6 @@ abstract class LocalRepository {
   Future<void> insertOrUpdateGestantes(List<Gestante> gestantes);
 
   Future<void> insertOrUpdatePuerperas(List<Puerpera> puerperas);
+
+  Future<void> createPerson(CreatePersonaRequest request);
 }
