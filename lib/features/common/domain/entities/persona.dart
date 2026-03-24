@@ -41,6 +41,7 @@ class Persona {
 }
 
 class CreatePersonaPost {
+  final String id;
   final String fullName;
   final String ci;
   final String sexo;
@@ -57,6 +58,7 @@ class CreatePersonaPost {
   final bool isController;
 
   CreatePersonaPost({
+    required this.id,
     required this.fullName,
     required this.ci,
     required this.sexo,

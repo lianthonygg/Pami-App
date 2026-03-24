@@ -41,7 +41,7 @@ final class PersonasViewModelProvider
   }
 }
 
-String _$personasViewModelHash() => r'10855c23c5d28dfd7ef5bccf9d37f792c67806d0';
+String _$personasViewModelHash() => r'b904334040e8aed27406ccccea1ecbe0032254ff';
 
 abstract class _$PersonasViewModel extends $Notifier<PersonasState> {
   PersonasState build();

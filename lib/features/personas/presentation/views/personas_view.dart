@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pami_app/core/network/connectivity_service.dart';
 import 'package:pami_app/core/widgets/dynamic_drawer.dart';
 import 'package:pami_app/core/widgets/user_button.dart';
 import 'package:pami_app/features/auth/presentation/viewmodels/auth_notifier.dart';
@@ -155,7 +154,7 @@ class PersonasView extends ConsumerWidget {
 
           final isLoggedIn = auth.asData?.value.accessToken != null;
           final ctx = context;
-          if (await hasInternet() && isLoggedIn) {
+          if (isLoggedIn) {
             if (!context.mounted) return;
 
             if (context.mounted) {

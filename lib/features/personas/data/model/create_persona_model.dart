@@ -17,6 +17,7 @@ class ResponseCreatePersonaModel extends CreatePersonaResponse {
 
 class CreatePersonaRequest extends CreatePersonaPost {
   CreatePersonaRequest({
+    required super.id,
     required super.fullName,
     required super.ci,
     required super.sexo,
@@ -35,6 +36,7 @@ class CreatePersonaRequest extends CreatePersonaPost {
 
   Map<String, dynamic> toJson() {
     return {
+      "id": id.trim(),
       "fullName": fullName.trim(),
       "ci": ci.trim(),
       "sexo": sexo,
@@ -51,4 +53,23 @@ class CreatePersonaRequest extends CreatePersonaPost {
       "isController": isController,
     };
   }
+
+  factory CreatePersonaRequest.fromJson(Map<String, dynamic> json) =>
+      CreatePersonaRequest(
+        id: json['id'],
+        fullName: json['fullName'],
+        ci: json['ci'],
+        sexo: json['sexo'],
+        raza: json['raza'],
+        direccionDelCI: json['direccionDelCi'],
+        direccionEnQueVive: json['direccionEnQVive'],
+        telefono: json['telefono'],
+        antPP: json['antPp'],
+        nivelEscolar: json['nivelEscolar'],
+        profesion: json['profesion'],
+        grupoDispensarial: json['grupoDispensarial'],
+        observaciones: json['observaciones'],
+        cdrId: json['cdrId'],
+        isController: json['isController'],
+      );
 }

@@ -11,6 +11,7 @@ import 'package:pami_app/features/personas/presentation/views/widgets/datos_addr
 import 'package:pami_app/features/personas/presentation/views/widgets/datos_generales.dart';
 import 'package:pami_app/features/personas/presentation/views/widgets/datos_personales.dart';
 import 'package:pami_app/features/personas/presentation/views/widgets/persona_form_footer.dart';
+import 'package:pami_app/routing/routes.dart';
 
 class PersonaForm extends ConsumerStatefulWidget {
   const PersonaForm({super.key});
@@ -55,8 +56,10 @@ class _PersonaFormState extends ConsumerState<PersonaForm> {
 
         //await ref.read(circunscripcionProvider.notifier).load();
 
-        if (context.mounted) {
+        if (context.mounted && context.canPop()) {
           context.pop();
+        } else {
+          context.go(Routes.personas); // ruta raíz del módulo
         }
       }
     });

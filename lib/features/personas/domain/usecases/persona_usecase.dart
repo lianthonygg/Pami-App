@@ -24,4 +24,8 @@ class PersonaUseCase {
   Future<CreatePersonaResponse> create(CreatePersonaRequest request) {
     return repository.createPerson(request);
   }
+
+  Future<void> saveLocal(CreatePersonaRequest request) {
+    return localRepository.createPerson(request);
+  }
 }
