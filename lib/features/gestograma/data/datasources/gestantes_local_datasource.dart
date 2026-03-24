@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:pami_app/features/common/data/local/app_database.dart';
+import 'package:pami_app/features/gestograma/data/model/create_gestante_model.dart';
 import 'package:pami_app/features/gestograma/data/model/gestante_model.dart';
 import 'package:pami_app/features/gestograma/domain/entities/gestante.dart';
 
@@ -101,5 +102,41 @@ class GestantesLocalDataSource {
     final decimal = match.group(2) != null ? int.parse(match.group(2)!) : 0;
 
     return {"weeks": entero, "days": decimal};
+  }
+
+  Future<void> createGestante(CreateGestanteRequest request) async {
+    await db
+        .into(db.gestanteTable)
+        .insert(
+          GestanteTableCompanion(
+            id: Value(request.id),
+            antPp: Value(request.antPP),
+            observaciones: Value(request.observaciones),
+            tgCaptacion: Value(request.tgCaptacion),
+            tgFinal: Value(request.tgFinal),
+            fum: Value(_parseDate(request.fum)),
+            gestaciones: Value(request.gestaciones),
+            partos: Value(request.partos),
+            abortos: Value(request.abortos),
+            cesareas: Value(request.cesareas),
+            antPPretermino: Value(request.antPPretermino),
+            fechaCaptacion: Value(_parseDate(request.fechaCaptacion)),
+            fechaProbableParto: Value(_parseDate(request.fechaProbableParto)),
+            rciu: Value(request.rciu),
+            imc: Value(request.imc),
+            clasificacionRiesgo: Value(request.clasificacionRiesgo),
+            personaId: Value(request.personaId),
+            isAvailable: Value(true),
+          ),
+        );
+  }
+
+  DateTime _parseDate(String date) {
+    final parts = date.split('/');
+    return DateTime(
+      int.parse(parts[2]), // año
+      int.parse(parts[1]), // mes
+      int.parse(parts[0]), // día
+    );
   }
 }
