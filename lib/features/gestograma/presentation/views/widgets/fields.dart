@@ -16,6 +16,15 @@ class Fields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final form = ref.watch(gestanteFormProvider);
+    final fumController = TextEditingController(
+      text: ref.read(gestanteFormProvider).fum,
+    );
+    final fechaCaptacionController = TextEditingController(
+      text: ref.read(gestanteFormProvider).fechaCaptacion,
+    );
+    final fechaPartoController = TextEditingController(
+      text: ref.read(gestanteFormProvider).fechaProbableParto,
+    );
 
     // Convertir provider → enum
     final decisionPPretermino =
@@ -48,6 +57,7 @@ class Fields extends ConsumerWidget {
 
         // FUM
         TextField(
+          controller: fumController,
           readOnly: true,
           decoration: const InputDecoration(
             labelText: "Fecha de Ultima Menstruación",
@@ -150,6 +160,7 @@ class Fields extends ConsumerWidget {
 
         // FECHA CAPTACIÓN
         TextField(
+          controller: fechaCaptacionController,
           readOnly: true,
           decoration: const InputDecoration(
             labelText: "Fecha de Captación",
@@ -264,7 +275,9 @@ class Fields extends ConsumerWidget {
 
         // FECHA DE PROBABLE PARTO
         TextField(
+          controller: fechaPartoController,
           readOnly: true,
+          enabled: ref.watch(gestanteFormProvider).fechaCaptacion != '',
           decoration: const InputDecoration(
             labelText: "Fecha de Probable Parto",
             prefixIcon: Icon(Icons.calendar_today_outlined),
@@ -275,8 +288,10 @@ class Fields extends ConsumerWidget {
               context: context,
               locale: const Locale('es', 'ES'),
               initialDate: DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
+              firstDate: DateTime.parse(
+                convertirFecha(ref.watch(gestanteFormProvider).fechaCaptacion),
+              ),
+              lastDate: DateTime(3000),
             );
 
             if (pickedDate != null) {
@@ -290,5 +305,13 @@ class Fields extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  String convertirFecha(String fecha) {
+    final partes = fecha.split('/');
+    final dia = partes[0].padLeft(2, '0');
+    final mes = partes[1].padLeft(2, '0');
+    final anio = partes[2];
+    return '$anio$mes$dia';
   }
 }
