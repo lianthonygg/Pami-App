@@ -7,5 +7,6 @@ part 'repository_provider.g.dart';
 @riverpod
 GestanteRepositoryImpl gestanteRepositoryImpl(Ref ref) {
   final localDataSource = ref.watch(gestantesLocalDataSourceProvider);
-  return GestanteRepositoryImpl(localDataSource);
+  final remoteDataSource = ref.watch(gestantesRemoteDataSourceProvider);
+  return GestanteRepositoryImpl(localDataSource, remoteDataSource);
 }

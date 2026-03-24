@@ -6,7 +6,7 @@ import 'package:pami_app/core/theme/theme.dart';
 import 'package:pami_app/features/gestograma/presentation/providers/gestante_provider.dart';
 import 'package:pami_app/features/gestograma/presentation/viewmodels/gestantes_viewmodel.dart';
 import 'package:pami_app/features/gestograma/presentation/views/widgets/fields.dart';
-import 'package:pami_app/features/personas/presentation/providers/persona_form_provider.dart';
+import 'package:pami_app/features/gestograma/presentation/views/widgets/gestantes_form_footer.dart';
 
 class GestanteAddForm extends ConsumerStatefulWidget {
   final String id;
@@ -22,7 +22,7 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
 
   @override
   Widget build(BuildContext context) {
-    final personasState = ref.watch(gestantesViewModelProvider);
+    final gestantesState = ref.watch(gestantesViewModelProvider);
 
     ref.listen<GestantesState>(gestantesViewModelProvider, (
       previous,
@@ -34,11 +34,6 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
         formKey.currentState?.reset();
 
         ref.read(gestanteFormProvider.notifier).clear();
-
-        ref.read(circunscripcionProvider.notifier).reset();
-        ref.read(cdrProvider.notifier).reset();
-
-        //await ref.read(circunscripcionProvider.notifier).load();
 
         if (context.mounted) {
           context.pop();
@@ -58,7 +53,12 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => context.pop(),
+            onPressed:
+                () => {
+                  formKey.currentState?.reset(),
+                  ref.read(gestanteFormProvider.notifier).clear(),
+                  context.pop(),
+                },
           ),
           title: const Text('Agregar Gestante'),
           backgroundColor: Colors.transparent,
@@ -77,7 +77,7 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
                       FadeIn(
                         duration: const Duration(milliseconds: 300),
                         child:
-                            personasState.error == null
+                            gestantesState.error == null
                                 ? const SizedBox.shrink()
                                 : ShakeX(
                                   duration: const Duration(milliseconds: 600),
@@ -102,7 +102,7 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
                                         const SizedBox(width: 8),
                                         Expanded(
                                           child: Text(
-                                            personasState.error ??
+                                            gestantesState.error ??
                                                 "Error Inesperado",
                                             style: Theme.of(
                                               context,
@@ -123,7 +123,7 @@ class _GestanteAddFormState extends ConsumerState<GestanteAddForm> {
                       const SizedBox(height: 16),
                       Fields(),
                       const SizedBox(height: 24),
-                      // PersonaFormFooter(formKey: formKey),
+                      GestanteFormFooter(formKey: formKey, id: widget.id),
                     ],
                   ),
                 ),
