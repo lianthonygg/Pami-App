@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pami_app/core/network/connectivity_service.dart';
-import 'package:pami_app/core/services/auth_service.dart';
+//import 'package:pami_app/core/services/auth_service.dart';
 import 'package:pami_app/routing/routes.dart';
 import 'package:workmanager/workmanager.dart';
 //import 'package:pami_app/routing/routes.dart';
@@ -142,8 +141,8 @@ class _ManualSyncTileState extends State<ManualSyncTile>
   }
 
   Future<void> _startSync() async {
-    final loggedIn = await AuthService.isLoggedIn();
-    final ctx = context;
+    // final loggedIn = await AuthService.isLoggedIn();
+    // final ctx = context;
     //if (loggedIn) {
     if (!mounted) return;
     setState(() {
